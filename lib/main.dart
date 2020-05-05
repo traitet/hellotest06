@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import './screens/LayoutPage.dart';
 import './screens/MenuPage.dart';
 import './screens/SetDBFoodMenuPage.dart';
@@ -42,7 +43,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MyHomePage(title: 'Hello Test 06'),
+      home: MyHomePage(title: 'Hello Test 06 - UPDATED'),
     );
   }
 }
@@ -125,6 +126,11 @@ class _MyHomePageState extends State<MyHomePage> {
             RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => STLWidgetPage()),);}, child: Text('Stateless Page'),),   
             RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => STFWidgetPage()),);}, child: Text('Statefull Widget Page'),), 
 
+RaisedButton(    
+                    child: Text('Choose File'),    
+                    onPressed: chooseFile,    
+                    color: Colors.cyan,    
+                  )    ,
 
           ],
         ),
@@ -132,3 +138,13 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
+
+
+
+Future chooseFile() async {    
+   await ImagePicker.pickImage(source: ImageSource.gallery).then((image) {    
+    //  setState(() {    
+    //    _image = image;    
+    //  });    
+   });    
+ }  

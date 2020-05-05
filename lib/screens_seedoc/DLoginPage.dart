@@ -8,8 +8,8 @@ import '../services/LoggerService.dart';
 import '../services/ShowNotification.dart';
 import '../services_seedoc/DFirebaseAuth.dart'
     as MyFirebaseAuthen;
-import '../services_seedoc/DFirebaseAuthFB.dart'
-    as MyFirebaseAuthenFB;
+// import '../services_seedoc/DFirebaseAuthFB.dart'
+//     as MyFirebaseAuthenFB;
 
 //============================================================================
 // DECLARE VARIABLE
@@ -89,7 +89,7 @@ class BuildWidgets extends StatelessWidget {
           buildButtonSignUp(context),
           buildOtherLine("Others sign-in"),
           buildButtonGoogle(context),
-          buildButtonFacebook(context),
+          // buildButtonFacebook(context),
           buildButtonLoginWithSms(context),
           buildOtherLine("Forget password"),
           buildButtonForgetPassword(context),
@@ -213,19 +213,19 @@ Widget buildButtonGoogle(BuildContext context) {
 //============================================================================
 // WIDGET#7: BUTTON LOGIN FACEBOOK
 //============================================================================
-Widget buildButtonFacebook(BuildContext context) {
-  return InkWell(
-      child: Container(
-          constraints: BoxConstraints.expand(height: 50),
-          child: Text("Login by Facebook ",
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 18, color: Colors.white)),
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(16), color: Colors.blue),
-          margin: EdgeInsets.only(top: 12),
-          padding: EdgeInsets.all(12)),
-      onTap: () => loginWithFacebook(context));
-}
+// Widget buildButtonFacebook(BuildContext context) {
+//   return InkWell(
+//       child: Container(
+//           constraints: BoxConstraints.expand(height: 50),
+//           child: Text("Login by Facebook ",
+//               textAlign: TextAlign.center,
+//               style: TextStyle(fontSize: 18, color: Colors.white)),
+//           decoration: BoxDecoration(
+//               borderRadius: BorderRadius.circular(16), color: Colors.blue),
+//           margin: EdgeInsets.only(top: 12),
+//           padding: EdgeInsets.all(12)),
+//       onTap: () => loginWithFacebook(context));
+// }
 
 //============================================================================
 // WIDGET#8: BUTTON LOGIN WITH SMS
@@ -303,17 +303,17 @@ Future checkAuth(BuildContext context) async {
 //============================================================================
 // FUNCTION#3: LOGIN BY FACEBOOK
 //============================================================================
-loginWithFacebook(BuildContext context) {
-  MyFirebaseAuthenFB.signInWithFacebook().whenComplete(() {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) {
-          return DMenuPage(username: 'Auth by FB');
-        },
-      ),
-    );
-  });
-}
+// loginWithFacebook(BuildContext context) {
+//   MyFirebaseAuthenFB.signInWithFacebook().whenComplete(() {
+//     Navigator.of(context).push(
+//       MaterialPageRoute(
+//         builder: (context) {
+//           return DMenuPage(username: 'Auth by FB');
+//         },
+//       ),
+//     );
+//   });
+// }
 
 //============================================================================
 // FUNCTION#4: LOGIN BY SMS
