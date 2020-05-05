@@ -17,6 +17,7 @@ import './screens/StackPage.dart';
 import './screens/UploadImagePage.dart';
 import './screens/MyResetPasswordPage.dart';
 import './screens/MyLoginPage.dart';
+
 // import './screens/ReadQRPage.dart';
 
 //============================================================================
@@ -103,7 +104,8 @@ class _MyHomePageState extends State<MyHomePage> {
             // RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => DLoginPage()),);}, child: Text('See Doc Login'),),               
             // RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => DSignUpPage()),);}, child: Text('See Sign Up'),),  
             // RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => DMenuPage(username: 'traitet@',)),);}, child: Text('See Menu Page'),),  
-            // RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => ReadQRPage()),);}, child: Text('Read QR'),),                          
+            // RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => ReadQRPage()),);}, child: Text('Read QR'),),  
+            // RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => DDocNewPage()),);}, child: Text('Call Api User'),),                                       
             RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => CallApiUserPage()),);}, child: Text('Call Api User'),),   
             RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => CallApiDogPage()),);}, child: Text('Call Api Dog'),),  
             RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => MenuPage(username: 'traitet@gmail.com',)),);}, child: Text('Menu Page'),),
