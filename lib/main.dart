@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import './screens/LayoutPage.dart';
+import './screens/MenuPage.dart';
 import './screens/SetDBFoodMenuPage.dart';
 import './screens/CallApiDogPage.dart';
 import './screens/CallApiUserPage.dart';
@@ -91,6 +93,10 @@ class _MyHomePageState extends State<MyHomePage> {
           // mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             //====================================================================
+            // TEXT
+            //====================================================================           
+            Text('CHECK HOT RELOAD'),            
+            //====================================================================
             // BUTTON
             //====================================================================  
             //RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => DLogininSmsPage()),);}, child: Text('See Doc Login (SMS)'),),   
@@ -99,7 +105,9 @@ class _MyHomePageState extends State<MyHomePage> {
             // RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => DMenuPage(username: 'traitet@',)),);}, child: Text('See Menu Page'),),  
             // RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => ReadQRPage()),);}, child: Text('Read QR'),),                          
             RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => CallApiUserPage()),);}, child: Text('Call Api User'),),   
-            RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => CallApiDogPage()),);}, child: Text('Call Api Dog'),),             
+            RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => CallApiDogPage()),);}, child: Text('Call Api Dog'),),  
+            RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => MenuPage(username: 'traitet@gmail.com',)),);}, child: Text('Menu Page'),),
+            RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => LayoutPage()),);}, child: Text('Layout Page'),),                         
             RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => StackPage()),);}, child: Text('Stack Page'),),    
             RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => SearchPage(username: 'traitet@gmail.com',)),);}, child: Text('Search Page'),),    
             RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => SignupPage()),);}, child: Text('Signup Page'),),   
@@ -115,10 +123,7 @@ class _MyHomePageState extends State<MyHomePage> {
             RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => STLWidgetPage()),);}, child: Text('Stateless Page'),),   
             RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => STFWidgetPage()),);}, child: Text('Statefull Widget Page'),), 
 
-            //====================================================================
-            // TEXT
-            //====================================================================           
-            Text('You have pushed the button this many times:',),
+
           ],
         ),
       ),
