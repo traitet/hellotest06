@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hellotest06/screens_seedoc/DDocViewPage.dart';
 import 'package:image_picker/image_picker.dart';
 import './screens/LayoutPage.dart';
 import './screens/MenuPage.dart';
@@ -107,6 +108,7 @@ class _MyHomePageState extends State<MyHomePage> {
             // RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => DMenuPage(username: 'traitet@',)),);}, child: Text('See Menu Page'),),  
             // RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => ReadQRPage()),);}, child: Text('Read QR'),),  
             // RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => DDocNewPage()),);}, child: Text('Call Api User'),),                                       
+            RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => DDocViewPage(docid: 'D20000004',)),);}, child: Text('D-View Document'),),            
             RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => CallApiUserPage()),);}, child: Text('Call Api User'),),   
             RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => CallApiDogPage()),);}, child: Text('Call Api Dog'),),  
             RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => MenuPage(username: 'traitet@gmail.com',)),);}, child: Text('Menu Page'),),

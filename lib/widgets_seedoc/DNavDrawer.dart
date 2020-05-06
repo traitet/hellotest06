@@ -6,7 +6,7 @@ import '../screens_seedoc/DLoginPage.dart';
 import '../screens_seedoc/DDocWfSettingPage.dart';
 import '../screens_seedoc/DEditProfilePage.dart';
 
-// import '../services_seedoc/DFirebaseAuth.dart' as MyFirebaseAuthen;
+import '../services_seedoc/DFirebaseAuth.dart' as MyFirebaseAuthen;
 // import '../services_seedoc/DFirebaseAuthFB.dart' as MyFirebaseAuthenFB;
 
 //============================================================================
@@ -144,11 +144,11 @@ class BuildListTileLogout extends StatelessWidget {
       title: Text(_title),
       onTap: () => {
 
-        // MyFirebaseAuthen.signOutGoogle(),
-        // Navigator.push(
-        //   context,
-        //   _materialPageRoute,
-        // )
+        MyFirebaseAuthen.signOutGoogle(),
+        Navigator.push(
+          context,
+          _materialPageRoute,
+        )
       },
     );
   }

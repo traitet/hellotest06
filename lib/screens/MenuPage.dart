@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../widgets/CardMenu.dart';
+import '../widgets_seedoc/DCardMenu.dart';
 import '../widgets/NavDrawer.dart';
 
 class MenuPage extends StatefulWidget {
@@ -21,7 +21,7 @@ class _MenuPageState extends State<MenuPage> {
     return Scaffold(
       drawer: NavDrawer(),      
       appBar: AppBar(title: Text('Menu Page: ' + widget.username),),
-      body: CardMenu(),
+      body: DCardMenu(),
       
     );
   }

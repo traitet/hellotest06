@@ -26,9 +26,9 @@ class _DDocViewPageState extends State<DDocViewPage> {
   //========================================================================================
   // 2) DECLARE VARIABLE (DATA FROM DB)
   //========================================================================================
-  String _docid;
-  String _title;
-  String _username;
+  String _docid = '';
+  String _title = '';
+  String _username = '';
 
   @override
   //========================================================================================
