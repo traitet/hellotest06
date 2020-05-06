@@ -111,11 +111,11 @@ class BuildCardButtons extends StatelessWidget {
         child: new InkWell(
           onTap: () {
             if (myNavigateText=="DDocNewPage"){Navigator.push(context, MaterialPageRoute(builder: (context) => DDocNewPage()));}
-            if (myNavigateText=="DDocWfSettingPage"){Navigator.push(context, MaterialPageRoute(builder: (context) => DDocWfSettingPage(docid: "",)));}            
+            if (myNavigateText=="DDocWfSettingPage"){Navigator.push(context, MaterialPageRoute(builder: (context) => DDocWfSettingPage(docid: "D2000017|1588776824675",)));}            
             // if (myNavigateText=="FlutterImagePickerPage"){Navigator.push(context, MaterialPageRoute(builder: (context) => FlutterImagePickerPage(context);}  
             if (myNavigateText=="UploadImagePage"){Navigator.push(context, MaterialPageRoute(builder: (context) => UploadImagePage()));}  
             if (myNavigateText=="SetDBFoodMenuPage"){Navigator.push(context, MaterialPageRoute(builder: (context) => SetDBFoodMenuPage()));}  
-            if (myNavigateText=="DDocViewPage"){Navigator.push(context, MaterialPageRoute(builder: (context) => DDocViewPage(docid: "")));}  
+            if (myNavigateText=="DDocViewPage"){Navigator.push(context, MaterialPageRoute(builder: (context) => DDocViewPage(docid: "D2000017|1588776824675")));}  
             if (myNavigateText=="DDocSearchPage"){Navigator.push(context, MaterialPageRoute(builder: (context) => DDocSearchPage(email: myEmail ,)));}  
             if (myNavigateText=="DUserEditPage"){Navigator.push(context, MaterialPageRoute(builder: (context) => DUserEditPage(email: myEmail)));}  
             if (myNavigateText=="DUserLoginPage"){Navigator.push(context, MaterialPageRoute(builder: (context) => DUserLoginPage()));}                                                              

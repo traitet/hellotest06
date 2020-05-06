@@ -37,7 +37,9 @@ class _DUserEditPageState extends State<DUserEditPage> {
   final _mobilenoController = TextEditingController();  
   final _companyTaxIdController = TextEditingController();  
   final _companyNameController = TextEditingController();   
+  final _departmentController = TextEditingController();     
   DUserModel _dUserModel;
+  Map<String, dynamic> _deptModel;
 
   //======================================================================================
   // 3) INIT: GET DATA FROM DB
@@ -50,6 +52,7 @@ class _DUserEditPageState extends State<DUserEditPage> {
       // 3.1) AFTER GET DATA
       //===================================================================================
       setState(() {
+
         _dUserModel = DUserModel.fromFilestore(myDocument);
         _emailController.text = _dUserModel.email;        
         _empIdController.text = _dUserModel.empid;        
@@ -59,6 +62,11 @@ class _DUserEditPageState extends State<DUserEditPage> {
         _mobilenoController.text = _dUserModel.mobileno;
         _companyTaxIdController.text = _dUserModel.companyTaxid;
         _companyNameController.text = _dUserModel.companyName;
+        _deptModel = _dUserModel.department ;
+    
+        var d = _deptModel['deptid'] + ' | ' + _deptModel['deptname'];
+  
+      _departmentController.text =  d;
       if (myDocument.data.length == 0 ) {
         //=================================================================================
         // GET DEFAULT DATA FROM E-MAIL
@@ -74,24 +82,25 @@ class _DUserEditPageState extends State<DUserEditPage> {
       });
     });
   }
-  //======================================================================================
+  //=========================================================================================
   // BUILD WIDGET
-  //======================================================================================
+  //=========================================================================================
   @override
   Widget build(BuildContext context) {
 
-    //===================================================================================
+    //=======================================================================================
     // RETURN SCAFFOLD
-    //===================================================================================      
+    //=======================================================================================      
     return Scaffold(
       appBar: AppBar(title: Text('Edit Profile: ' + widget.email),),
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: SafeArea(child: ListView(    
           children: <Widget>[
-            //==========================================================================
+            //==============================================================================
             // 1) TEXTBOX 
-            //==========================================================================              
+            //==============================================================================  
+            TextFormField(decoration: InputDecoration(labelText: 'Department', prefixIcon: Icon(Icons.home)),controller: _departmentController,),                            
             TextFormField(decoration: InputDecoration(labelText: '*E-mail', prefixIcon: Icon(Icons.email)),controller: _emailController),
             TextFormField(decoration: InputDecoration(labelText: '*Emp ID', prefixIcon: Icon(Icons.people)),controller: _empIdController),          
             TextFormField(decoration: InputDecoration(labelText: '*First Name', prefixIcon: Icon(Icons.first_page)),controller: _firstnameController,),  
@@ -101,9 +110,9 @@ class _DUserEditPageState extends State<DUserEditPage> {
             TextFormField(decoration: InputDecoration(hintText: 'Use Company TAX ID 13 digits',labelText: 'Company Tax ID', prefixIcon: Icon(Icons.code)),controller: _companyTaxIdController,
               validator: (String value) {return value.contains('@') ? 'Do not use the @ char.' : null;},),  
             TextFormField(decoration: InputDecoration(labelText: 'Company Name', prefixIcon: Icon(Icons.home)),controller: _companyNameController,),                  
-            //==========================================================================
+            //==============================================================================
             // 2) BUTTON
-            //==========================================================================                
+            //==============================================================================                
             Container(
               // margin: EdgeInset.all(50.0),
               child: Padding(
@@ -136,6 +145,10 @@ class _DUserEditPageState extends State<DUserEditPage> {
                     _dUserModel.lineid = _lineidController.text;
                     _dUserModel.companyName = _companyNameController.text;
                     _dUserModel.companyTaxid = _companyTaxIdController.text;
+                    //_dUserModel.department = Department(deptId: 'A33',deptName: 'QA Dept') as Map<String, dynamic>;
+                    //_dUserModel.address = Address(city: "bangkok",street: "Suksawat") as Map<String, dynamic >;                    
+     
+
                     //======================================================================
                     // UPDATE DATA TO DB
                     //======================================================================    

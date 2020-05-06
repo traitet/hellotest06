@@ -51,10 +51,10 @@ class _DNavDrawerState extends State<DNavDrawer> {
           // 4) LIST TILE
           //===================================================
           BuildListTile("Create Document",MaterialPageRoute(builder: (context) => DDocNewPage()),Icon(Icons.book)),
-          BuildListTile("Doc Flow Setup",MaterialPageRoute(builder: (context) => DDocWfSettingPage(docid: "",)),Icon(Icons.settings)),              
-          BuildListTile("View Document",MaterialPageRoute(builder: (context) => DDocViewPage(docid: "",)),Icon(Icons.view_list)),
-          BuildListTile("Search Document",MaterialPageRoute(builder: (context) => DDocSearchPage(email: "",)),Icon(Icons.search)),
-          BuildListTile("Profile",MaterialPageRoute(builder: (context) => DUserEditPage(email: "",)),Icon(Icons.verified_user)),
+          BuildListTile("Doc Flow Setup",MaterialPageRoute(builder: (context) => DDocWfSettingPage(docid: "D2000017|1588776824675",)),Icon(Icons.settings)),              
+          BuildListTile("View Document",MaterialPageRoute(builder: (context) => DDocViewPage(docid: "D2000017|1588776824675",)),Icon(Icons.view_list)),
+          BuildListTile("Search Document",MaterialPageRoute(builder: (context) => DDocSearchPage(email: "traitet@gmail.com",)),Icon(Icons.search)),
+          BuildListTile("Profile",MaterialPageRoute(builder: (context) => DUserEditPage(email: "satit_po@gmail.com",)),Icon(Icons.verified_user)),
           BuildListTileLogout("Logout",MaterialPageRoute(builder: (context) => DUserLoginPage()),Icon(Icons.exit_to_app)),
         ],
       ),
