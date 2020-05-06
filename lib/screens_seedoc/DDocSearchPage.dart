@@ -9,12 +9,14 @@ import 'DDocViewPage.dart';
 // 2) MAIN CLASS
 //========================================================================================
 class DDocSearchPage extends StatefulWidget {
-      //==================================================================================
-    // 1) ARAMETER AND CONSTUCTURE METHOD
-    //====================================================================================
-    final String email;
-      DDocSearchPage({Key key, @required this.email,})
-      : super(key: key);
+  //======================================================================================
+  // PARAMETER
+  //======================================================================================
+  final String email;
+  DDocSearchPage({Key key, @required this.email,}): super(key: key);
+  //======================================================================================
+  // OVERRIDE
+  //======================================================================================
   @override
   _DDocSearchPageState createState() => _DDocSearchPageState();
   }

@@ -117,7 +117,7 @@ class BuildCardButtons extends StatelessWidget {
             if (myNavigateText=="SetDBFoodMenuPage"){Navigator.push(context, MaterialPageRoute(builder: (context) => SetDBFoodMenuPage()));}  
             if (myNavigateText=="DDocViewPage"){Navigator.push(context, MaterialPageRoute(builder: (context) => DDocViewPage(docid: "")));}  
             if (myNavigateText=="DDocSearchPage"){Navigator.push(context, MaterialPageRoute(builder: (context) => DDocSearchPage(email: myEmail ,)));}  
-            if (myNavigateText=="DUserEditPage"){Navigator.push(context, MaterialPageRoute(builder: (context) => DUserEditPage()));}  
+            if (myNavigateText=="DUserEditPage"){Navigator.push(context, MaterialPageRoute(builder: (context) => DUserEditPage(email: myEmail)));}  
             if (myNavigateText=="DUserLoginPage"){Navigator.push(context, MaterialPageRoute(builder: (context) => DUserLoginPage()));}                                                              
           },
           child: Column(

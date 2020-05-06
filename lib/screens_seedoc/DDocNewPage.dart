@@ -11,14 +11,26 @@ import '../services_seedoc/DDocNew.dart';
 import '../services_seedoc/DDocUpdate.dart';
 import '../services/ShowNotification.dart';
 
+//======================================================================================
+// MAIN CLASS
+//======================================================================================
 class DDocNewPage extends StatefulWidget {
+  //====================================================================================
+  // PARAMETER
+  //====================================================================================
   DDocNewPage({Key key}) : super(key: key);
+  //====================================================================================
+  // OVERRIDE
+  //====================================================================================  
   @override
   _DDocNewPageState createState() => _DDocNewPageState();
 }
 
   String _timestampstr = DateTime.now().millisecondsSinceEpoch.toString();
 
+//======================================================================================
+// STATE CLASS
+//======================================================================================
 class _DDocNewPageState extends State<DDocNewPage> {
   //====================================================================================
   // 1) DECLARE VARIABLE FOR CONTROLLER
