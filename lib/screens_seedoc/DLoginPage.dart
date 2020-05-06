@@ -1,16 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-// import 'package:google_sign_in/google_sign_in.dart';
 import '../screens_seedoc/DMenuPage.dart';
 import '../screens_seedoc/DSignUpPage.dart';
 import '../screens_seedoc/DResetPasswordPage.dart';
 import '../services/LoggerService.dart';
 import '../services/ShowNotification.dart';
-import '../services_seedoc/DFirebaseAuth.dart'
-    as MyFirebaseAuthen;
-// import '../services_seedoc/DFirebaseAuthFB.dart'
-//     as MyFirebaseAuthenFB;
+import '../services_seedoc/DFirebaseAuth.dart' as MyFirebaseAuthen;
+// import '../services_seedoc/DFirebaseAuthFB.dart' as MyFirebaseAuthenFB;
+// import 'package:google_sign_in/google_sign_in.dart';
+// import 'package:google_sign_in/google_sign_in.dart';
 
 //============================================================================
 // DECLARE VARIABLE

@@ -21,7 +21,7 @@ class _MenuPageState extends State<MenuPage> {
     return Scaffold(
       drawer: NavDrawer(),      
       appBar: AppBar(title: Text('Menu Page: ' + widget.username),),
-      body: DCardMenu(),
+      body: DCardMenu(email: '',),
       
     );
   }
