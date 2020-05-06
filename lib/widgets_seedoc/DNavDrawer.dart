@@ -4,7 +4,7 @@ import '../screens_seedoc/DDocViewPage.dart';
 import '../screens_seedoc/DDocNewPage.dart';
 import '../screens_seedoc/DLoginPage.dart';
 import '../screens_seedoc/DDocWfSettingPage.dart';
-import '../screens_seedoc/DEditProfilePage.dart';
+import '../screens_seedoc/DUserEditPage.dart';
 
 import '../services_seedoc/DFirebaseAuth.dart' as MyFirebaseAuthen;
 // import '../services_seedoc/DFirebaseAuthFB.dart' as MyFirebaseAuthenFB;
@@ -68,7 +68,7 @@ class _DNavDrawerState extends State<DNavDrawer> {
               Icon(Icons.search)),
           BuildListTile(
               "Profile",
-              MaterialPageRoute(builder: (context) => DEditProfilePage()),
+              MaterialPageRoute(builder: (context) => DUserEditPage()),
               Icon(Icons.verified_user)),
           BuildListTileLogout(
               "Logout",

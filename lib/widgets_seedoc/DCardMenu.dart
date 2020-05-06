@@ -7,7 +7,7 @@ import '../screens_seedoc/DDocSearchPage.dart';
 import '../screens_seedoc/DDocNewPage.dart';
 import '../screens_seedoc/DDocWfSettingPage.dart';
 import '../screens_seedoc/DLoginPage.dart';
-import '../screens_seedoc/DEditProfilePage.dart';
+import '../screens_seedoc/DUserEditPage.dart';
 
 class DCardMenu extends StatefulWidget {
   //========================================================================================
@@ -36,7 +36,7 @@ class _DCardMenuState extends State<DCardMenu> {
             BuildCardButtons(myIcon: Icons.book,myText: "Create Document",myNavigateText: "DDocNewPage",myEmail: widget.email,),
             BuildCardButtons(myIcon: Icons.view_list,myText: "Search Document",myNavigateText: "DDocSearchPage",myEmail: widget.email),   
             BuildCardButtons(myIcon: Icons.view_list,myText: "View Document",myNavigateText: "DDocViewPage",myEmail: widget.email),
-            BuildCardButtons(myIcon: Icons.verified_user,myText: "Profile",myNavigateText: "DEditProfilePage",myEmail: widget.email),                                        
+            BuildCardButtons(myIcon: Icons.verified_user,myText: "Profile",myNavigateText: "DUserEditPage",myEmail: widget.email),                                        
             BuildCardButtons(myIcon: Icons.settings,myText: "Setting Doc Workflow ",myNavigateText: "DDocWfSettingPage",myEmail: widget.email),  
             BuildCardButtons(myIcon: Icons.cloud_upload,myText: "Upload Image",myNavigateText: "UploadImagePage",myEmail: widget.email),   
             BuildCardButtons(myIcon: Icons.file_upload,myText: "Upload Image and Menu",myNavigateText: "SetDBFoodMenuPage",myEmail: widget.email),   
@@ -117,7 +117,7 @@ class BuildCardButtons extends StatelessWidget {
             if (myNavigateText=="SetDBFoodMenuPage"){Navigator.push(context, MaterialPageRoute(builder: (context) => SetDBFoodMenuPage()));}  
             if (myNavigateText=="DDocViewPage"){Navigator.push(context, MaterialPageRoute(builder: (context) => DDocViewPage(docid: "")));}  
             if (myNavigateText=="DDocSearchPage"){Navigator.push(context, MaterialPageRoute(builder: (context) => DDocSearchPage(email: myEmail ,)));}  
-            if (myNavigateText=="DEditProfilePage"){Navigator.push(context, MaterialPageRoute(builder: (context) => DEditProfilePage()));}  
+            if (myNavigateText=="DUserEditPage"){Navigator.push(context, MaterialPageRoute(builder: (context) => DUserEditPage()));}  
             if (myNavigateText=="DLoginPage"){Navigator.push(context, MaterialPageRoute(builder: (context) => DLoginPage()));}                                                              
           },
           child: Column(

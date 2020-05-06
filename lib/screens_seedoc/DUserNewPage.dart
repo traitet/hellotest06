@@ -5,22 +5,29 @@ import '../screens_seedoc/DMenuPage.dart';
 import '../services/LoggerService.dart';
 import '../services/ShowNotification.dart';
 
-class DSignUpPage extends StatefulWidget {
-  DSignUpPage({Key key}) : super(key: key);
-
+//==============================================================================
+// MAIN CLASS
+//==============================================================================
+class DUserNewPage extends StatefulWidget {
+  //============================================================================
+  // PARAMETER
+  //============================================================================
+  DUserNewPage({Key key}) : super(key: key);
+  //============================================================================
+  // OVERRIDE STATE
+  //============================================================================
   @override
-  _DSignUpPageState createState() => _DSignUpPageState();
+  _DUserNewPageState createState() => _DUserNewPageState();
 }
-
-class _DSignUpPageState extends State<DSignUpPage> {
+//==============================================================================
+// STATE CLASS
+//==============================================================================
+class _DUserNewPageState extends State<DUserNewPage> {
 // DECLARE VARIABLE
   FirebaseAuth _auth = FirebaseAuth.instance;
-  TextEditingController _emailController = TextEditingController()
-    ..text = 'traitet@gmail.com';
-  TextEditingController _passwordController = TextEditingController()
-    ..text = 'computer';
-  TextEditingController _confirmController = TextEditingController()
-    ..text = 'computer';
+  TextEditingController _emailController = TextEditingController()..text = 'traitet@gmail.com';
+  TextEditingController _passwordController = TextEditingController()..text = 'computer';
+  TextEditingController _confirmController = TextEditingController()..text = 'computer';
 
   @override
   //============================================================================

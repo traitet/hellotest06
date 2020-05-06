@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../screens_seedoc/DMenuPage.dart';
-import '../screens_seedoc/DSignUpPage.dart';
+import '../screens_seedoc/DUserNewPage.dart';
 import '../screens_seedoc/DResetPasswordPage.dart';
 import '../services/LoggerService.dart';
 import '../services/ShowNotification.dart';
@@ -190,7 +190,7 @@ Widget buildButtonSignUp(BuildContext context) {
         //====================================================================
         // REDIRECT TO SIGNUP PAGE
         //==================================================================== 
-        Navigator.push(context, MaterialPageRoute(builder: (context) => DSignUpPage()));
+        Navigator.push(context, MaterialPageRoute(builder: (context) => DUserNewPage()));
       });
 }
 

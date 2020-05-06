@@ -3,12 +3,12 @@ import '../services/LoggerService.dart';
 import '../services/ShowNotification.dart';
 import '../services/SignupUser.dart';
 
-class DEditProfilePage extends StatefulWidget {
+class DUserEditPage extends StatefulWidget {
   @override
-  _DEditProfilePageState createState() => _DEditProfilePageState();
+  _DUserEditPageState createState() => _DUserEditPageState();
 }
 
-class _DEditProfilePageState extends State<DEditProfilePage> {
+class _DUserEditPageState extends State<DUserEditPage> {
   //===================================================================================
   // 1) DECLARE VARIABLE
   //===================================================================================
