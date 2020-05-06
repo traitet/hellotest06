@@ -12,8 +12,8 @@ class DDocSearchPage extends StatefulWidget {
       //==================================================================================
     // 1) ARAMETER AND CONSTUCTURE METHOD
     //====================================================================================
-    final String username;
-      DDocSearchPage({Key key, @required this.username,})
+    final String email;
+      DDocSearchPage({Key key, @required this.email,})
       : super(key: key);
   @override
   _DDocSearchPageState createState() => _DDocSearchPageState();
@@ -37,7 +37,7 @@ class _DDocSearchPageState extends State<DDocSearchPage> {
       // APP BAR
       //==================================================================================
         appBar: AppBar(
-          title: Text("Search Doc Page"),
+          title: Text("Search Doc: " + widget.email),
         ),
       //==================================================================================
       // BODY
@@ -46,7 +46,7 @@ class _DDocSearchPageState extends State<DDocSearchPage> {
       //==================================================================================
       // GET DATA FROM API
       //==================================================================================          
-          stream: Firestore.instance.collection("TT_DOCUMENT").snapshots(),
+          stream: Firestore.instance.collection("TT_DOCUMENT").where("email", isEqualTo: widget.email).snapshots(),
           builder: (context, snapshot) {
             //============================================================================
             // IF NO DATA
@@ -98,7 +98,7 @@ class _DDocSearchPageState extends State<DDocSearchPage> {
                               children: <Widget>[                                 
                                 ListTile(
                                 title: Text(snapshot.data.documents[index].documentID),
-                                subtitle: Text(snapshot.data.documents[index].data["title"]),
+                                subtitle: Text(snapshot.data.documents[index].data["docno"]),
                                 ),
                               ],
                             ),

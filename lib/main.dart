@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:hellotest06/screens_seedoc/DDocNewPage.dart';
-import 'package:hellotest06/screens_seedoc/DDocSearchPage.dart';
-import 'package:hellotest06/screens_seedoc/DDocViewPage.dart';
+import './screens_seedoc/DDocNewPage.dart';
+import './screens_seedoc/DDocSearchPage.dart';
+import './screens_seedoc/DDocViewPage.dart';
+import './screens_seedoc/DLoginPage.dart';
+import './screens_seedoc/DSignUpPage.dart';
 import 'package:image_picker/image_picker.dart';
 import './screens/LayoutPage.dart';
 import './screens/MenuPage.dart';
@@ -104,7 +106,10 @@ class _MyHomePageState extends State<MyHomePage> {
             //====================================================================
             // BUTTON
             //====================================================================  
-            RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => DDocSearchPage()),);}, child: Text('D-Search Document'),),                                       
+            RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => DLoginPage()),);}, child: Text('See Doc Login'),),              
+            RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => DSignUpPage()),);}, child: Text('D-Sign up'),),              
+            RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => DDocSearchPage(email: "traitet@gmail.com",)),);}, child: Text('D-Search -traitet'),),      
+            RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => DDocSearchPage(email: "satit_po@gmail.com",)),);}, child: Text('D-Search -satit'),),                                                   
             RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => DDocNewPage()),);}, child: Text('D-Create Document'),),                
             RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => DDocViewPage(docid: 'D2000004|1588756759854',)),);}, child: Text('D-View Document'),),            
             RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => CallApiUserPage()),);}, child: Text('Call Api User'),),   
@@ -126,7 +131,7 @@ class _MyHomePageState extends State<MyHomePage> {
             RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => STLWidgetPage()),);}, child: Text('Stateless Page'),),   
             RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => STFWidgetPage()),);}, child: Text('Statefull Widget Page'),), 
             //RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => DLogininSmsPage()),);}, child: Text('See Doc Login (SMS)'),),   
-            // RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => DLoginPage()),);}, child: Text('See Doc Login'),),               
+             
             // RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => DSignUpPage()),);}, child: Text('See Sign Up'),),  
             // RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => DMenuPage(username: 'traitet@',)),);}, child: Text('See Menu Page'),),  
             // RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => ReadQRPage()),);}, child: Text('Read QR'),),  

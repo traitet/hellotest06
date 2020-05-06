@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 // import 'package:google_sign_in/google_sign_in.dart';
 import '../screens_seedoc/DMenuPage.dart';
 import '../screens_seedoc/DSignUpPage.dart';
@@ -153,7 +154,7 @@ Widget buildButtonSignIn(BuildContext context) {
         padding: EdgeInsets.all(12),
       ),
       onTap: () {
-        signIn(context);
+        fnSignIn(context);
       });
 }
 
@@ -188,8 +189,10 @@ Widget buildButtonSignUp(BuildContext context) {
         padding: EdgeInsets.all(12),
       ),
       onTap: () {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => DSignUpPage()));
+        //====================================================================
+        // REDIRECT TO SIGNUP PAGE
+        //==================================================================== 
+        Navigator.push(context, MaterialPageRoute(builder: (context) => DSignUpPage()));
       });
 }
 
@@ -267,38 +270,77 @@ Widget buildButtonForgetPassword(BuildContext context) {
 //*************************************************************************************************
 // FUNCTION
 //*************************************************************************************************
-//============================================================================
+//===================================================================================
 // FUNCTION#1: LOGIN BY GOOGLE
-//============================================================================
+//===================================================================================
 Future loginWithGoogle(BuildContext context) async {
-  MyFirebaseAuthen.signInWithGoogle().whenComplete(() {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) {
-          return DMenuPage(username: 'Auth by Google');
-        },
-      ),
+
+
+  MyFirebaseAuthen.signInWithGoogle().whenComplete(() async {
+    //GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['https://www.googleapis.com/auth/contacts.readonly',],);
+    //GoogleSignInAccount _user = await _googleSignIn.signIn();
+    
+    Navigator.of(context).push(MaterialPageRoute(builder: (context) {return DMenuPage(email: 'traitet@gmail.com');},),
     );
   });
-}
 
 
+    // GoogleSignIn _googleSignIn = GoogleSignIn(
+    //   scopes: [
+    //     'https://www.googleapis.com/auth/contacts.readonly',
+    //   ],
+    // );
+    // GoogleSignInAccount user = await _googleSignIn.signIn();
+    // GoogleSignInAuthentication userAuth = await user.authentication;
+ 
+    // await _auth.signInWithCredential(GoogleAuthProvider.getCredential(
+    //     idToken: userAuth.idToken, accessToken: userAuth.accessToken));
+    // checkAuth(context); // after success route to home.
+  }
 
-//==============================================================================
-// FUNCTION#2: CHECK AUTHEN (USE FOR FIRST PAGE)
-//==============================================================================
-Future checkAuth(BuildContext context) async {
-  // FirebaseUser user = await _auth.currentUser();
-  // if (user != null) {
-  //   logger.i("Already singed-in");
-  //   Navigator.pushReplacement(
-  //       context,
-  //       MaterialPageRoute(
-  //           builder: (context) => DMenuPage(
-  //                 username: 'traitet@gmail.com',
-  //               )));
-  // }
-}
+  //================================================================================
+  // FUNCTION#2: CHECK AUTHEN (USE FOR FIRST PAGE)
+  //================================================================================ 
+  Future checkAuth(BuildContext context) async {
+      //============================================================================
+      // 1) GET USER
+      //============================================================================    
+      FirebaseUser user = await _auth.currentUser();
+      if (user != null) {
+        //==========================================================================
+        // SHOW LOG
+        //==========================================================================          
+        logger.i("Already singed-in");
+        //==========================================================================
+        // ROUTE TO MENU PAGE (REPLACE LOGIN PAGE)
+        //==========================================================================        
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => DMenuPage(email: user.email,)));
+      }
+      else {
+        logger.i("Redirect to login");
+        // Navigator.pushReplacement(
+        // context, MaterialPageRoute(builder: (context) => LoginPage()));               
+      }
+    }
+
+
+// //===============================================================================
+// // FUNCTION#2: CHECK AUTHEN (USE FOR FIRST PAGE)
+// //===============================================================================
+// Future checkAuth(BuildContext context) async {
+//   // FirebaseUser user = await _auth.currentUser();
+//   // if (user != null) {
+//   //   logger.i("Already singed-in");
+//   //   Navigator.pushReplacement(
+//   //       context,
+//   //       MaterialPageRoute(
+//   //           builder: (context) => DMenuPage(
+//   //                 username: 'traitet@gmail.com',
+//   //               )));
+//   // }
+// }
+
+
 
 //============================================================================
 // FUNCTION#3: LOGIN BY FACEBOOK
@@ -315,31 +357,25 @@ Future checkAuth(BuildContext context) async {
 //   });
 // }
 
-//============================================================================
+//================================================================================
 // FUNCTION#4: LOGIN BY SMS
-//============================================================================
+//================================================================================
 loginWithSms(BuildContext context) {}
 
-//==============================================================================
+//================================================================================
 // FUNCTION#1: SIGN-IN
-//==============================================================================
-signIn(BuildContext _context) {
-  _auth
-      .signInWithEmailAndPassword(
-          email: _emailController.text.trim(),
-          password: _passwordController.text.trim())
+//================================================================================
+fnSignIn(BuildContext _context) {
+  //==============================================================================
+  // LOGIN BY GOOGLE FIREBASE
+  //==============================================================================
+  _auth.signInWithEmailAndPassword(email: _emailController.text.trim(),password: _passwordController.text.trim())
       .then((user) {
     logger.i("signed in successed for ${user.user.email}");
-    // showMessageBox(_context, "Complete", "Login success via Firebase",
-    //     actions: [dismissButton(_context)]);
-    Navigator.push(
-      _context,
-      MaterialPageRoute(
-          builder: (context) => DMenuPage(
-                username: _emailController.text.trim(),
-              )),
-    );
-    //checkAuth(context);
+    Navigator.pushReplacement(_context,MaterialPageRoute(builder: (context) => DMenuPage(email: _emailController.text.trim(),)),);
+  //==============================================================================
+  // NOT SUCCESS LOGIN
+  //==============================================================================    
   }).catchError((error) {
     logger.e(error);
     showMessageBox(_context, "Error", "Invalidate username or password",

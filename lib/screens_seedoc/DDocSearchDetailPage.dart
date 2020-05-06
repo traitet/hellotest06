@@ -48,15 +48,15 @@ class _DDocSearchDetailPageState extends State<DDocSearchDetailPage> {
       });
     });
   }
-  //========================================================================================
+  //=========================================================================================
   // 4) GEN UI
-  //========================================================================================
+  //=========================================================================================
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //========================================================================================
+      //=====================================================================================
       // 5) APP BAR
-      //========================================================================================      
+      //=====================================================================================      
       appBar: AppBar(
         title: Text('View Doc: ' + widget.docid,),
         backgroundColor: Colors.blue,
@@ -68,9 +68,9 @@ class _DDocSearchDetailPageState extends State<DDocSearchDetailPage> {
               })
         ],
       ),
-      //===============================================================================
+      //=====================================================================================
       // BUTTOM NAVIGATE BAR
-      //===============================================================================
+      //=====================================================================================
       bottomNavigationBar: BottomAppBar(
         shape: CircularNotchedRectangle(),
         child: Container(
@@ -79,51 +79,12 @@ class _DDocSearchDetailPageState extends State<DDocSearchDetailPage> {
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
-              //========================================================================
+              //=============================================================================
               // WIDGET:IMAGE BODY WIDGET
-              //========================================================================
-              Column(
-                children: <Widget>[
-                  IconButton(
-                    iconSize: 30.0,
-                    icon: Icon(Icons.backspace),
-                    onPressed: () {
-                      fnRecall(context, _docid);
-                    },
-                  ),
-                  Text(
-                    "Recall",
-                  )
-                ],
-              ),
-              Column(
-                children: <Widget>[
-                  IconButton(
-                    iconSize: 30.0,
-                    icon: Icon(Icons.home),
-                    onPressed: () {
-                      fnReject(context, _docid);
-                    },
-                  ),
-                  Text(
-                    "Reject",
-                  )
-                ],
-              ),
-              Column(
-                children: <Widget>[
-                  IconButton(
-                    iconSize: 30.0,
-                    icon: Icon(Icons.send),
-                    onPressed: () {
-                      fnApprove(context, _docid);
-                    },
-                  ),
-                  Text(
-                    "Approve",
-                  )
-                ],
-              ),
+              //=============================================================================
+              Column(children: <Widget>[IconButton(iconSize: 30.0,icon: Icon(Icons.backspace),onPressed: () {fnRecall(context, _docid);},),Text("Recall",)],),
+              Column(children: <Widget>[IconButton(iconSize: 30.0,icon: Icon(Icons.home),onPressed: () {fnReject(context, _docid);},),Text("Reject",)],),   
+              Column(children: <Widget>[IconButton(iconSize: 30.0,icon: Icon(Icons.send),onPressed: () {fnApprove(context, _docid);},),Text("Approve",)],),                         
             ],
           ),
         ),
@@ -135,20 +96,15 @@ class _DDocSearchDetailPageState extends State<DDocSearchDetailPage> {
         padding: const EdgeInsets.all(16.0),
         child: ListView(
           children: <Widget>[
-            //===========================================================================
+            //==================================================================================
             // BUILD WIDGET IMAGE AND TEXT
-            //===========================================================================
+            //==================================================================================
             widgetBodyImage(),
             widgetBodyText(_title??''),
-            Text(
-              _docid ?? 'Loading...',
-            ),
-            Text(
-              _title ?? '',
-            ),
-            Text(
-              _username ?? '',
-            ),
+            CircularProgressIndicator(),            
+            Text(_docid ?? 'Loading...',),
+            Text(_title ?? '',),
+            Text(_username ?? '',),
           ],
         ),
       ),
@@ -156,9 +112,9 @@ class _DDocSearchDetailPageState extends State<DDocSearchDetailPage> {
   }
 }
 
-//**************************************************************************************************************************/
+//**************************************************************************************************************************
 // FUNCTION
-//**************************************************************************************************************************/
+//**************************************************************************************************************************
 //======================================================
 // FUNCTION RECALL
 //======================================================
@@ -189,9 +145,9 @@ void fnApprove(BuildContext context, String myDocId) {
   logger.i("Approve Success");
 }
 
-//**************************************************************************************************************************/
+//**************************************************************************************************************************
 // BUILD WIDGET
-//**************************************************************************************************************************/
+//**************************************************************************************************************************
 //======================================================
 // WIDGET:IMAGE BODY WIDGET
 //======================================================

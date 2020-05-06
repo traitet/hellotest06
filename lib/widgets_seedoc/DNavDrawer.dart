@@ -15,6 +15,11 @@ import '../services_seedoc/DFirebaseAuth.dart' as MyFirebaseAuthen;
 // final FirebaseAuth _auth = FirebaseAuth.instance;
 
 class DNavDrawer extends StatefulWidget {
+  //========================================================================================
+  // DECLARE PARAMETER
+  //========================================================================================
+  final String email;
+  DNavDrawer({Key key, @required this.email}) : super(key: key);    
   @override
   _DNavDrawerState createState() => _DNavDrawerState();
 }
@@ -59,7 +64,7 @@ class _DNavDrawerState extends State<DNavDrawer> {
               Icon(Icons.view_list)),
           BuildListTile(
               "Search Document",
-              MaterialPageRoute(builder: (context) => DDocSearchPage(username: "",)),
+              MaterialPageRoute(builder: (context) => DDocSearchPage(email: "",)),
               Icon(Icons.search)),
           BuildListTile(
               "Profile",
@@ -74,6 +79,9 @@ class _DNavDrawerState extends State<DNavDrawer> {
     );
   } // WIDGET
 }
+
+
+
 
 //==============================================================
 // BUILD STATELESS WIDGET

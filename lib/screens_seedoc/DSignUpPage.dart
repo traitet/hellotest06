@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../screens_seedoc/DMenuPage.dart';
@@ -138,31 +139,40 @@ class _DSignUpPageState extends State<DSignUpPage> {
   // FUNCTION
   //*************************************************************************************************
 
-  //======================================================================
+  //========================================================================
   // FUNCTION SIGN UP
-  //======================================================================
+  //========================================================================
   signUp() {
     String email = _emailController.text.trim();
     String password = _passwordController.text.trim();
     String confirmPassword = _confirmController.text.trim();
+    //======================================================================
+    // FUNCTION SIGN UP
+    //======================================================================    
     if (password == confirmPassword && password.length >= 6) {
       _auth
           .createUserWithEmailAndPassword(email: email, password: password)
           .then((user) {
-        logger.i("Sign up user successful.");
-        showMessageBox(context, "Complete", "Register success",
-            actions: [dismissButton(context)]);
-        Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(
-                builder: (context) => DMenuPage(
-                      username: email,
-                    )),
-            ModalRoute.withName('/'));
+        //======================================================================
+        // SHOW LOG AND MESSAGE
+        //======================================================================             
+        logger.i("Sign up user successful.  on Google Authen");
+        showMessageBox(context, "Complete", "Register success",actions: [dismissButton(context)]);
+        //======================================================================
+        // SIGNUP TO FIREBASE DB
+        //======================================================================        
+        Firestore.instance.collection("TM_USER").document(email).setData({"email": email, "firstname:": email.split("@")[0]});
+        //======================================================================
+        // SHOW LOG AND MESSAGE
+        //======================================================================             
+        logger.i("Sign up user successful. On Firebase DB");
+        //======================================================================
+        // NAVIGATE TO MENU PAGE
+        //======================================================================   
+        Navigator.pushAndRemoveUntil(context,MaterialPageRoute(builder: (context) => DMenuPage(email: email,)),ModalRoute.withName('/'));
       }).catchError((error) {
         logger.e(error.message);
-        showMessageBox(context, "Error", error.message,
-            actions: [dismissButton(context)]);
+        showMessageBox(context, "Error", error.message,actions: [dismissButton(context)]);
       });
     } else {
       showMessageBox(context, "Error", "Password and Confirm-password is not match.",

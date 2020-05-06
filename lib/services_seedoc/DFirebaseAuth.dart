@@ -5,11 +5,6 @@ import '../services/LoggerService.dart';
 final FirebaseAuth _auth = FirebaseAuth.instance;
 final GoogleSignIn googleSignIn = GoogleSignIn();
 
-
-
-
-
-
 Future<String> signInWithGoogle() async {
 
 
