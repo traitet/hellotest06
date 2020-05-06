@@ -7,7 +7,7 @@ class DUserModel {
   //=============================================================
   // 1) PROPERTY
   //=============================================================
-    String email;
+   String email;
     String empid;
     String firstname;
     String lastname;

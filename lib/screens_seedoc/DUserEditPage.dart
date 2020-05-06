@@ -126,29 +126,20 @@ class _DUserEditPageState extends State<DUserEditPage> {
                   // 5) SIGNUP USER
                   //========================================================================             
                   else {
-
-
-                    _dUserModel.companyName = _emailController.text;
+                    //======================================================================
+                    // PREPARE VALUE
+                    //======================================================================                       
+                    _dUserModel.email = _emailController.text;
                     _dUserModel.firstname = _firstnameController.text;
                     _dUserModel.lastname = _lastnameController.text;
                     _dUserModel.mobileno = _mobilenoController.text;
                     _dUserModel.lineid = _lineidController.text;
                     _dUserModel.companyName = _companyNameController.text;
                     _dUserModel.companyTaxid = _companyTaxIdController.text;
-
-
-                    dUserEdit(context, _dUserModel
-                    // {
-                    //   "username": _emailController.text, 
-                    //   "empid": _empIdController.text,
-                    //   "firstname": _firstnameController.text,
-                    //   "lastname": _firstnameController.text,
-                    //   "lineid": _lineidController.text ,
-                    //   "mobileno": _mobilenoController.text ,
-                    //   "company_taxid": _companyTaxIdController.text,
-                    //   "company_name": _companyNameController.text,
-                    // }
-                    , _emailController.text);                    
+                    //======================================================================
+                    // UPDATE DATA TO DB
+                    //======================================================================    
+                    dUserEdit(context, _dUserModel, _emailController.text);                    
                   }  
                   //========================================================================
                   // 6) BUTTON NAME
