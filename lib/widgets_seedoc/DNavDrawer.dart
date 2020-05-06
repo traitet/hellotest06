@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../screens_seedoc/DDocSearchPage.dart';
 import '../screens_seedoc/DDocViewPage.dart';
 import '../screens_seedoc/DDocNewPage.dart';
-import '../screens_seedoc/DLoginPage.dart';
+import '../screens_seedoc/DUserLoginPage.dart';
 import '../screens_seedoc/DDocWfSettingPage.dart';
 import '../screens_seedoc/DUserEditPage.dart';
 
@@ -72,7 +72,7 @@ class _DNavDrawerState extends State<DNavDrawer> {
               Icon(Icons.verified_user)),
           BuildListTileLogout(
               "Logout",
-              MaterialPageRoute(builder: (context) => DLoginPage()),
+              MaterialPageRoute(builder: (context) => DUserLoginPage()),
               Icon(Icons.exit_to_app)),
         ],
       ),

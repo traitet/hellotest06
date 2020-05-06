@@ -21,12 +21,12 @@ TextEditingController _passwordController = TextEditingController()
 
 String verificationId;
 
-class DLoginPage extends StatefulWidget {
+class DUserLoginPage extends StatefulWidget {
   @override
-  _DLoginPageState createState() => _DLoginPageState();
+  _DUserLoginPageState createState() => _DUserLoginPageState();
 }
 
-class _DLoginPageState extends State<DLoginPage> {
+class _DUserLoginPageState extends State<DUserLoginPage> {
   //============================================================================
   // OVERRIDE "INIT STATE"
   //============================================================================

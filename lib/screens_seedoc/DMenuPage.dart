@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:hellotest06/screens_seedoc/DLoginPage.dart';
+import 'package:hellotest06/screens_seedoc/DUserLoginPage.dart';
 import 'package:hellotest06/services/LoggerService.dart';
 import '../widgets_seedoc/DCardMenu.dart';
 import '../widgets_seedoc/DNavDrawer.dart';
@@ -52,7 +52,7 @@ class _DMenuPageState extends State<DMenuPage> {
   // 1) LOGIN BY GOOGLE OR FIREBASE
   //============================================================================
     FirebaseAuth.instance.signOut();
-    Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => DLoginPage()));    
+    Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => DUserLoginPage()));    
     logger.i("Sign out complete via firebase and google");
 
   }

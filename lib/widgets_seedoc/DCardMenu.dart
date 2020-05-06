@@ -6,7 +6,7 @@ import '../screens_seedoc/DDocViewPage.dart';
 import '../screens_seedoc/DDocSearchPage.dart';
 import '../screens_seedoc/DDocNewPage.dart';
 import '../screens_seedoc/DDocWfSettingPage.dart';
-import '../screens_seedoc/DLoginPage.dart';
+import '../screens_seedoc/DUserLoginPage.dart';
 import '../screens_seedoc/DUserEditPage.dart';
 
 class DCardMenu extends StatefulWidget {
@@ -40,7 +40,7 @@ class _DCardMenuState extends State<DCardMenu> {
             BuildCardButtons(myIcon: Icons.settings,myText: "Setting Doc Workflow ",myNavigateText: "DDocWfSettingPage",myEmail: widget.email),  
             BuildCardButtons(myIcon: Icons.cloud_upload,myText: "Upload Image",myNavigateText: "UploadImagePage",myEmail: widget.email),   
             BuildCardButtons(myIcon: Icons.file_upload,myText: "Upload Image and Menu",myNavigateText: "SetDBFoodMenuPage",myEmail: widget.email),   
-            BuildCardButtons(myIcon: Icons.exit_to_app,myText: "Login",myNavigateText: "DLoginPage",myEmail: widget.email),  
+            BuildCardButtons(myIcon: Icons.exit_to_app,myText: "Login",myNavigateText: "DUserLoginPage",myEmail: widget.email),  
         ],
       ),
     );
@@ -118,7 +118,7 @@ class BuildCardButtons extends StatelessWidget {
             if (myNavigateText=="DDocViewPage"){Navigator.push(context, MaterialPageRoute(builder: (context) => DDocViewPage(docid: "")));}  
             if (myNavigateText=="DDocSearchPage"){Navigator.push(context, MaterialPageRoute(builder: (context) => DDocSearchPage(email: myEmail ,)));}  
             if (myNavigateText=="DUserEditPage"){Navigator.push(context, MaterialPageRoute(builder: (context) => DUserEditPage()));}  
-            if (myNavigateText=="DLoginPage"){Navigator.push(context, MaterialPageRoute(builder: (context) => DLoginPage()));}                                                              
+            if (myNavigateText=="DUserLoginPage"){Navigator.push(context, MaterialPageRoute(builder: (context) => DUserLoginPage()));}                                                              
           },
           child: Column(
             //========================================================

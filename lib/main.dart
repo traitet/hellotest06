@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import './screens_seedoc/DDocNewPage.dart';
 import './screens_seedoc/DDocSearchPage.dart';
 import './screens_seedoc/DDocViewPage.dart';
-import './screens_seedoc/DLoginPage.dart';
+import './screens_seedoc/DUserLoginPage.dart';
 import './screens_seedoc/DUserNewPage.dart';
 import 'package:image_picker/image_picker.dart';
 import './screens/LayoutPage.dart';
@@ -106,7 +106,7 @@ class _MyHomePageState extends State<MyHomePage> {
             //====================================================================
             // BUTTON
             //====================================================================  
-            RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => DLoginPage()),);}, child: Text('See Doc Login'),),              
+            RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => DUserLoginPage()),);}, child: Text('See Doc Login'),),              
             RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => DUserNewPage()),);}, child: Text('D-Sign up'),),              
             RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => DDocSearchPage(email: "traitet@gmail.com",)),);}, child: Text('D-Search -traitet'),),      
             RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => DDocSearchPage(email: "satit_po@gmail.com",)),);}, child: Text('D-Search -satit'),),                                                   
