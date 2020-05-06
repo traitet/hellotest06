@@ -7,19 +7,21 @@ class DUserModel {
   //=============================================================
   // 1) PROPERTY
   //=============================================================
-  final String email;
-  final String firstname;
-  final String lastname;
-  final String lineid;
-  final String mobileno;
-  final String companyName;
-  final String companyTaxid;
+    String email;
+    String empid;
+    String firstname;
+    String lastname;
+    String lineid;
+    String mobileno;
+    String companyName;
+    String companyTaxid;
 
   //=============================================================
   // 2) GET/SET
   //=============================================================
   DUserModel(
       {this.email,
+      this.empid,
       this.firstname,
       this.lastname,
       this.lineid,
@@ -28,34 +30,55 @@ class DUserModel {
       this.companyTaxid});
 
   //=============================================================
-  // FACTORY: MAP DATA TO FIRESTORE
+  // 2) MAP MODEL -> SNAPSHOT
+  //=============================================================
+  Map<String, dynamic> toFileStone() =>
+    {
+      'email': email,
+      'empid': empid,      
+      'firstname': firstname,
+      'lastname': lastname,  
+      'lineid': lineid,   
+      'mobileno': mobileno,   
+      'company_taxid': companyTaxid, 
+      'company_name': companyName,                                   
+    };
+
+  //=============================================================
+  // 3) MAP SNAPSHOT -> MODEL
   //=============================================================
   factory DUserModel.fromFilestore(DocumentSnapshot doc) {
     Map data = doc.data;
     return DUserModel(
-        email: data['email'] ?? '',
-        firstname: data['firstname'] ?? '',
-        lastname: data['lastname'] ?? '',
-        lineid: data['lineid'] ?? '',
-        mobileno: data['mobileno'],
-        companyTaxid: data['company_taxid'],
-        companyName: data['company_name'],);
+      email: data['email'] ?? '',
+      empid: data['empid'] ?? '',      
+      firstname: data['firstname'] ?? '',
+      lastname: data['lastname'] ?? '',
+      lineid: data['lineid'] ?? '',
+      mobileno: data['mobileno'],
+      companyTaxid: data['company_taxid'],
+      companyName: data['company_name'],
+    );
   }
 
   //=============================================================
-  // FACTORY: MAP DATA TO JSON
+  // MAP JSON -> MODEL
   //=============================================================
   factory DUserModel.fromJson(Map<String, dynamic> json) {
     return DUserModel(
-        email: json['email'] ?? '',
-        firstname: json['firstname'] ?? '',
-        lastname: json['lastname'] ?? '',
-        lineid: json['lineid'] ?? '',
-        mobileno: json['mobileno'],
-        companyTaxid: json['company_taxid'],
-        companyName: json['company_name'],
-      );
-    
+      email: json['email'] ?? '',
+      empid: json['empid'] ?? '',      
+      firstname: json['firstname'] ?? '',
+      lastname: json['lastname'] ?? '',
+      lineid: json['lineid'] ?? '',
+      mobileno: json['mobileno'],
+      companyTaxid: json['company_taxid'],
+      companyName: json['company_name'],
+    );
   }
 }
+
+
+
+
 

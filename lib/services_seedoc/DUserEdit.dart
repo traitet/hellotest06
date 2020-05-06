@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import '../services/ShowNotification.dart';
 import '../services/LoggerService.dart';
+import '../models_seedoc/DUserModel.dart';
 
 //==================================================================================
 // FUNCTION: SIGNUP USER
@@ -10,15 +11,17 @@ Future<void> dUserEdit(
   //================================================================================
   // 1) PARAMETER: (1) PARA1: DATA, PARA2: DOCUMENT
   //================================================================================    
-  BuildContext context, Map<String, dynamic> data, String documentName){
+  BuildContext context,  DUserModel data, String documentName){
+    
     //==============================================================================
     // 2) RETURN 
     //==============================================================================       
     return
     //==============================================================================
     // 3) CALL SET DATA (INSERT)
-    //==============================================================================       
-    Firestore.instance.collection("TM_USER").document(documentName).setData(data).then((returnData) {
+    //==============================================================================
+         
+    Firestore.instance.collection("TM_USER").document(documentName).setData(data.toFileStone()).then((returnData) {
       //============================================================================
       // 4) SHOW MESSAGE AFTER SUCCESS
       //============================================================================         

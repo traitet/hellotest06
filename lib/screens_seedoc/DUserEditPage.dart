@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import '../services/LoggerService.dart';
 import '../services/ShowNotification.dart';
-import '../services/SignupUser.dart';
+import '../services_seedoc/DUserEdit.dart';
+import '../models_seedoc/DUserModel.dart';
 
 
 //=====================================================================================
@@ -35,18 +37,52 @@ class _DUserEditPageState extends State<DUserEditPage> {
   final _mobilenoController = TextEditingController();  
   final _companyTaxIdController = TextEditingController();  
   final _companyNameController = TextEditingController();   
+  DUserModel _dUserModel;
 
+  //======================================================================================
+  // 3) INIT: GET DATA FROM DB
+  //======================================================================================
   @override
-
+  void initState() {
+    super.initState();
+    Firestore.instance.collection('TM_USER').document(widget.email).get().then((myDocument) {
+      //===================================================================================
+      // 3.1) AFTER GET DATA
+      //===================================================================================
+      setState(() {
+        _dUserModel = DUserModel.fromFilestore(myDocument);
+        _emailController.text = _dUserModel.email;        
+        _empIdController.text = _dUserModel.empid;        
+        _firstnameController.text = _dUserModel.firstname;
+        _lastnameController.text = _dUserModel.lastname;
+        _lineidController.text = _dUserModel.lineid;        
+        _mobilenoController.text = _dUserModel.mobileno;
+        _companyTaxIdController.text = _dUserModel.companyTaxid;
+        _companyNameController.text = _dUserModel.companyName;
+      if (myDocument.data.length == 0 ) {
+        //=================================================================================
+        // GET DEFAULT DATA FROM E-MAIL
+        //=================================================================================    
+          _emailController.text = widget.email;
+          String _firstName =  widget.email.split('@')[0].split('_')[0].split('.')[0];
+          String _lastName =  widget.email.split('@')[0].split('_')[1];    
+          String _companyName = widget.email.split('@')[1].split('.')[0];
+          _firstnameController.text = _firstName[0].toUpperCase() + _firstName.substring(1);
+          _lastnameController.text = _lastName[0].toUpperCase() + _lastName.substring(1);
+          _companyNameController.text = _companyName[0].toUpperCase() + _companyName.substring(1);
+      } 
+      });
+    });
+  }
+  //======================================================================================
+  // BUILD WIDGET
+  //======================================================================================
+  @override
   Widget build(BuildContext context) {
-    _emailController.text = widget.email;
-    String _firstName =  widget.email.split('@')[0].split('_')[0].split('.')[0];
-    String _lastName =  widget.email.split('@')[0].split('_')[1];    
-    String _companyName = widget.email.split('@')[1].split('.')[0];
-    _firstnameController.text = _firstName[0].toUpperCase() + _firstName.substring(1);
-    _lastnameController.text = _lastName[0].toUpperCase() + _lastName.substring(1);
-    _companyNameController.text = _companyName[0].toUpperCase() + _companyName.substring(1);
 
+    //===================================================================================
+    // RETURN SCAFFOLD
+    //===================================================================================      
     return Scaffold(
       appBar: AppBar(title: Text('Edit Profile: ' + widget.email),),
       body: Padding(
@@ -90,16 +126,29 @@ class _DUserEditPageState extends State<DUserEditPage> {
                   // 5) SIGNUP USER
                   //========================================================================             
                   else {
-                    signupUser(context, {
-                      "username": _emailController.text, 
-                      "empid": _empIdController.text,
-                      "firstname": _firstnameController.text,
-                      "lastname": _firstnameController.text,
-                      "lineid": _lineidController.text ,
-                      "mobileno": _mobilenoController.text ,
-                      "company_taxid": _companyTaxIdController.text,
-                      "company_name": _companyNameController.text,
-                    }, _emailController.text);                    
+
+
+                    _dUserModel.companyName = _emailController.text;
+                    _dUserModel.firstname = _firstnameController.text;
+                    _dUserModel.lastname = _lastnameController.text;
+                    _dUserModel.mobileno = _mobilenoController.text;
+                    _dUserModel.lineid = _lineidController.text;
+                    _dUserModel.companyName = _companyNameController.text;
+                    _dUserModel.companyTaxid = _companyTaxIdController.text;
+
+
+                    dUserEdit(context, _dUserModel
+                    // {
+                    //   "username": _emailController.text, 
+                    //   "empid": _empIdController.text,
+                    //   "firstname": _firstnameController.text,
+                    //   "lastname": _firstnameController.text,
+                    //   "lineid": _lineidController.text ,
+                    //   "mobileno": _mobilenoController.text ,
+                    //   "company_taxid": _companyTaxIdController.text,
+                    //   "company_name": _companyNameController.text,
+                    // }
+                    , _emailController.text);                    
                   }  
                   //========================================================================
                   // 6) BUTTON NAME
