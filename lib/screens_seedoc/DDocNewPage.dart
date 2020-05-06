@@ -11,7 +11,6 @@ import '../services_seedoc/DDocNew.dart';
 import '../services_seedoc/DDocUpdate.dart';
 import '../services/ShowNotification.dart';
 
-
 class DDocNewPage extends StatefulWidget {
   DDocNewPage({Key key}) : super(key: key);
   @override
@@ -120,48 +119,9 @@ class _DDocNewPageState extends State<DDocNewPage> {
               //========================================================================
               // WIDGET:IMAGE BODY WIDGET
               //========================================================================
-              Column(
-                children: <Widget>[
-                  IconButton(
-                    iconSize: 30.0,
-                    icon: Icon(Icons.settings),
-                    onPressed: () {
-                      fnConfig(context, _docid);
-                    },
-                  ),
-                  Text(
-                    "Config",
-                  )
-                ],
-              ),
-              Column(
-                children: <Widget>[
-                  IconButton(
-                    iconSize: 30.0,
-                    icon: Icon(Icons.save),
-                    onPressed: () {
-                      fnSave(context, _docid, _docNoController.text);
-                    },
-                  ),
-                  Text(
-                    "Save",
-                  )
-                ],
-              ),
-              Column(
-                children: <Widget>[
-                  IconButton(
-                    iconSize: 30.0,
-                    icon: Icon(Icons.send),
-                    onPressed: () {
-                      fnSaveSubmit(context, _docid, _docNoController.text);
-                    },
-                  ),
-                  Text(
-                    "Save & Submit",
-                  )
-                ],
-              ),
+              Column(children: <Widget>[IconButton(iconSize: 30.0,icon: Icon(Icons.settings),onPressed: () {fnDocWfSetting(context, _docid);},),Text("Config",)],),
+              Column(children: <Widget>[IconButton(iconSize: 30.0,icon: Icon(Icons.save),onPressed: () {fnSave(context, _docid, _docNoController.text);},),Text("Save",)],),
+              Column(children: <Widget>[IconButton(iconSize: 30.0,icon: Icon(Icons.send),onPressed: () {fnSaveSubmit(context, _docid, _docNoController.text);},),Text("Save and Submit",)],),                            
             ],
           ),
         ),
@@ -176,37 +136,21 @@ class _DDocNewPageState extends State<DDocNewPage> {
           //==============================================================================
           widgetBodyImage(),
           widgetBodyText,
-
           //==============================================================================
           // UPLOAD IMAGE
           //==============================================================================
           RaisedButton(child: Text("Select Image"), onPressed: chooseFile),
-          _image != null
-              ? Image.asset(
-                  _image.path,
-                  height: 150,
-                )
-              : Container(height: 10),
+          _image != null ? Image.asset(_image.path,height: 150,): Container(height: 10),
 
           //==============================================================================
           //INPUT DATA
           //==============================================================================
-          TextFormField(
-              decoration: InputDecoration(
-                  labelText: 'Doc ID', prefixIcon: Icon(Icons.email)),
-              controller: _docNoController),
-          TextFormField(
-              decoration: InputDecoration(
-                  labelText: 'User Name', prefixIcon: Icon(Icons.verified_user)),
-              controller: _usernameController),
-          TextFormField(
-              decoration: InputDecoration(
-                  labelText: 'Doc Title', prefixIcon: Icon(Icons.pages)),
-              controller: _docTitleController),
+          TextFormField(decoration: InputDecoration(labelText: 'Doc ID', prefixIcon: Icon(Icons.email)),controller: _docNoController),
+          TextFormField(decoration: InputDecoration(labelText: 'User Name', prefixIcon: Icon(Icons.verified_user)),controller: _usernameController),
+          TextFormField(decoration: InputDecoration(labelText: 'Doc Title', prefixIcon: Icon(Icons.pages)),controller: _docTitleController),
           //==============================================================================
           // 2) BUTTON
           //==============================================================================
-
           RaisedButton(onPressed: () {}, child: Text('CONFIG')),
           RaisedButton(
             onPressed: () async {
@@ -295,20 +239,10 @@ class _DDocNewPageState extends State<DDocNewPage> {
 void fnScan() {}
 
 //======================================================
-// FUNCTION APPROVE
+// FUNCTION CONFIG
 //======================================================
-void fnConfig(BuildContext context, String myDocId) {
-
-  Navigator.push(
-    context,
-    MaterialPageRoute(
-        builder: (context) => DDocWfSettingPage(
-              docid: myDocId,
-            )),
-  );
-  logger.i("Config Success");
-    showMessageBox(context, "success", "Config Document($myDocId) completely",
-      actions: [dismissButton(context)]);
+void fnDocWfSetting(BuildContext context, String myDocId) {
+  Navigator.push(context,MaterialPageRoute(builder: (context) => DDocWfSettingPage(docid: myDocId,)),  );
 }
 
 //======================================================
@@ -323,17 +257,7 @@ void fnSave(BuildContext context, String myDocId, String myDocNo) {
 //======================================================
 void fnSaveSubmit(BuildContext context, String myDocId, String myDocNo)  {
   _fnDocUpdate(context, myDocId, myDocNo);
-  // showMessageBox(
-  //     context, "success", "Save and Send Document($myDocId) completely",
-  //     actions: [dismissButton(context)]);
-  // logger.i("Save and Send Success");
-  Navigator.push(
-    context,
-    MaterialPageRoute(
-        builder: (context) => DDocViewPage(
-              docid: myDocId,
-            )),
-  );
+  Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => DDocViewPage(docid: myDocId,)),);
 }
 
 void _fnDocNew(BuildContext context, String myDocId, String myDocNo) {

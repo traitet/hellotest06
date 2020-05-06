@@ -27,9 +27,9 @@ class _DDocViewPageState extends State<DDocViewPage> {
   // 2) DECLARE VARIABLE (DATA FROM DB)
   //========================================================================================
   String _docno = '';
-  String _title = '';
-  String _username = '';
-  bool _isCreater = true; 
+  String _title;
+  String _username;
+  bool _isCreater=true; 
 
   @override
   //========================================================================================
@@ -37,19 +37,15 @@ class _DDocViewPageState extends State<DDocViewPage> {
   //========================================================================================
   void initState() {
     super.initState();
-    Firestore.instance
-        .collection('TT_DOCUMENT')
-        .document(widget.docid)
-        .get()
-        .then((value) {
+    Firestore.instance.collection('TT_DOCUMENT').document(widget.docid).get().then((myDocument) {
       //===================================================================================
       // 3.1) AFTER GET DATA
       //===================================================================================
       setState(() {
-        _isCreater = value.data['is_creater'];
-        _username = value.data['username'];
-        _docno = value.data['docno'];
-        _title = value.data['title'];
+        _isCreater = myDocument.data['is_creater']??true;
+        _username = myDocument.data['username']??'';
+        _docno = myDocument.data['docno']??'';
+        _title = myDocument.data['title']??'';
       });
     });
   }
@@ -66,16 +62,7 @@ class _DDocViewPageState extends State<DDocViewPage> {
       //====================================================================================
       // APP BAR
       //====================================================================================
-      appBar: AppBar(
-        title: Text("View Doc: " + _docno),
-        actions: <Widget>[
-          IconButton(
-              icon: Icon(Icons.camera_alt),
-              onPressed: () {
-                // fnScan(context);
-              })
-        ],
-      ),
+      appBar: AppBar(title: Text("View Doc: " + _docno??'Loading..'),),
       //====================================================================================
       // BUTTOM NAVIGATE BAR
       //====================================================================================

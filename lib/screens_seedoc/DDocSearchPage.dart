@@ -3,7 +3,7 @@
 //========================================================================================
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'DDocSearchDetailPage.dart';
+import 'DDocViewPage.dart';
 
 //========================================================================================
 // 2) MAIN CLASS
@@ -36,9 +36,7 @@ class _DDocSearchPageState extends State<DDocSearchPage> {
       //==================================================================================
       // APP BAR
       //==================================================================================
-        appBar: AppBar(
-          title: Text("Search Doc: " + widget.email),
-        ),
+        appBar: AppBar(title: Text("Search Doc: " + widget.email),),
       //==================================================================================
       // BODY
       //==================================================================================        
@@ -86,13 +84,7 @@ class _DDocSearchPageState extends State<DDocSearchPage> {
                             //============================================================
                             // CLICK EVENT: GO ITEM_PAGE
                             //============================================================                              
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => DDocSearchDetailPage( 
-                                          docid: snapshot
-                                              .data.documents[index].documentID,
-                                        )));
+                            Navigator.push(context,MaterialPageRoute(builder: (context) => DDocViewPage(docid: snapshot.data.documents[index].documentID,)));
                           },                   
                             child: Column(
                               children: <Widget>[                                 

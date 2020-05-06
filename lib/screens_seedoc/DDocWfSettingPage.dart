@@ -1,24 +1,33 @@
 import 'package:flutter/material.dart';
 import '../services/LoggerService.dart';
 import '../services/ShowNotification.dart';
-// import '../services_seedoc/dDocNewWfSetting.dart';
 
+//============================================================================
+// MAIN CLASS
+//============================================================================
 class DDocWfSettingPage extends StatefulWidget {
+  //==========================================================================
+  // CLASS PARAMETER
+  //==========================================================================  
   final String docid;
   DDocWfSettingPage({Key key,  @required  this.docid}) : super(key: key);
-
+  //==========================================================================
+  // OVERIDE STATE
+  //==========================================================================
   @override
   _DDocWfSettingPageState createState() => _DDocWfSettingPageState();
 }
 
+//============================================================================
+// STATE CLASS
+//============================================================================
 class _DDocWfSettingPageState extends State<DDocWfSettingPage> {
-// DECLARE VARIABLE
-  TextEditingController _approve1Controller = TextEditingController()
-    ..text = 'traitet@gmail.com';
-  TextEditingController _approve2Controller = TextEditingController()
-    ..text = 'satit_po123@gmail.com';
-  TextEditingController _approve3Controller = TextEditingController()
-    ..text = 'traitet@hotmail.com';
+  //============================================================================
+  // DECLARE VAIRABLE
+  //============================================================================
+  TextEditingController _approve1Controller = TextEditingController()..text = 'traitet@gmail.com';
+  TextEditingController _approve2Controller = TextEditingController()..text = 'satit_po@gmail.com';
+  TextEditingController _approve3Controller = TextEditingController()..text = 'traitet@hotmail.com';
 
   @override
   //============================================================================
@@ -30,7 +39,7 @@ class _DDocWfSettingPageState extends State<DDocWfSettingPage> {
         // APP BAR
         //======================================================================
         appBar: AppBar(
-          title: Text("Workflow Settup: " , style: TextStyle(color: Colors.white)),
+          title: Text("Workflow Setting: " + widget.docid.split('|')[0], style: TextStyle(color: Colors.white)),
         ),
         //======================================================================
         // BODY
@@ -51,9 +60,9 @@ class _DDocWfSettingPageState extends State<DDocWfSettingPage> {
                         mainAxisSize: MainAxisSize.min,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          containerTextField1("Manager1"),
-                          containerTextField2("Manager2"),    
-                          containerTextField3("Manager3"),                                                   
+                          containerTextField1("Approve 1"),
+                          containerTextField2("Approve 1"),    
+                          containerTextField3("Approve 1"),                                                   
                           buildButtonSave(context),
                   
                         ],
@@ -66,9 +75,9 @@ class _DDocWfSettingPageState extends State<DDocWfSettingPage> {
   //*************************************************************************************************
   // BUILD CONTAINER
   //*************************************************************************************************
-  //======================================================================
+  //==========================================================================
   // TEXT FIELD EMAIL
-  //======================================================================
+  //==========================================================================
   Container containerTextField1(String myText) {
     return Container(
         padding: EdgeInsets.all(12),
@@ -81,9 +90,9 @@ class _DDocWfSettingPageState extends State<DDocWfSettingPage> {
             style: TextStyle(fontSize: 18)));
   }
 
-    //======================================================================
+    //========================================================================
   // TEXT FIELD PASSWORD
-  //======================================================================
+  //==========================================================================
   Container containerTextField2(String myText,) {
     return Container(
         padding: EdgeInsets.all(12),
@@ -98,7 +107,7 @@ class _DDocWfSettingPageState extends State<DDocWfSettingPage> {
 
       //======================================================================
   // TEXT FIELD PASSWORD
-  //======================================================================
+  //==========================================================================
   Container containerTextField3(String myText,) {
     return Container(
         padding: EdgeInsets.all(12),
@@ -110,9 +119,6 @@ class _DDocWfSettingPageState extends State<DDocWfSettingPage> {
             decoration: InputDecoration.collapsed(hintText: myText),
             style: TextStyle(fontSize: 18)));
   }
-
-
-
 
 //============================================================================
 // WIDGET#2: LOGIN BUTTON
@@ -139,25 +145,7 @@ class _DDocWfSettingPageState extends State<DDocWfSettingPage> {
                 showMessageBox(context, "Error", "Please enter Approver 1 and 2",
                     actions: [dismissButton(context)]);
                 logger.e("Approver 1 and 2 cannot be null");
-              } // IF
-              //==========================================================================
-              // 5) SIGNUP USER
-              //==========================================================================
-              else {
-                //========================================================================
-                // 7) ADD NEW DOCUMENT
-                //========================================================================
-                // dDocNewWfSetting(
-                //     context,
-                //     {
-                //       "docid": widget.docid,
-                //       "approve1": _approve1Controller.text,
-                //       "approve2": _approve2Controller.text,
-                //       "approve3": _approve3Controller.text,
-                //       "create_time": DateTime.now()
-                //     },
-                //     widget.docid);
-              }
+              } 
 
         });
   }
