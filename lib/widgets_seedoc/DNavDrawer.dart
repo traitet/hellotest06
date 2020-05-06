@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../screens_seedoc/DDocSearchPage.dart';
 import '../screens_seedoc/DDocViewPage.dart';
-import '../screens_seedoc/DDocCreatePage.dart';
+import '../screens_seedoc/DDocNewPage.dart';
 import '../screens_seedoc/DLoginPage.dart';
 import '../screens_seedoc/DDocWfSettingPage.dart';
 import '../screens_seedoc/DEditProfilePage.dart';
@@ -47,7 +47,7 @@ class _DNavDrawerState extends State<DNavDrawer> {
           //===================================================
           BuildListTile(
               "Create Document",
-              MaterialPageRoute(builder: (context) => DDocCreatePage()),
+              MaterialPageRoute(builder: (context) => DDocNewPage()),
               Icon(Icons.book)),
           BuildListTile(
               "Doc Flow Setup",
@@ -59,7 +59,7 @@ class _DNavDrawerState extends State<DNavDrawer> {
               Icon(Icons.view_list)),
           BuildListTile(
               "Search Document",
-              MaterialPageRoute(builder: (context) => DDocSearchPage(docid: "",)),
+              MaterialPageRoute(builder: (context) => DDocSearchPage(username: "",)),
               Icon(Icons.search)),
           BuildListTile(
               "Profile",

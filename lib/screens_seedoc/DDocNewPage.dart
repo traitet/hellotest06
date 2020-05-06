@@ -12,19 +12,19 @@ import '../services_seedoc/DDocUpdate.dart';
 import '../services/ShowNotification.dart';
 
 
-class DDocCreatePage extends StatefulWidget {
-  DDocCreatePage({Key key}) : super(key: key);
+class DDocNewPage extends StatefulWidget {
+  DDocNewPage({Key key}) : super(key: key);
   @override
-  _DDocCreatePageState createState() => _DDocCreatePageState();
+  _DDocNewPageState createState() => _DDocNewPageState();
 }
 
   String _timestampstr = DateTime.now().millisecondsSinceEpoch.toString();
 
-class _DDocCreatePageState extends State<DDocCreatePage> {
+class _DDocNewPageState extends State<DDocNewPage> {
   //====================================================================================
   // 1) DECLARE VARIABLE FOR CONTROLLER
   //====================================================================================
-  final _docIdController = TextEditingController()..text = "D2000002";
+  final _docNoController = TextEditingController()..text = "D2000002";
   final _usernameController = TextEditingController()..text = "traitet";
   final _docTitleController = TextEditingController()..text = "Petty Cash";
   //====================================================================================
@@ -32,6 +32,7 @@ class _DDocCreatePageState extends State<DDocCreatePage> {
   //====================================================================================
   File _image;
   String _uploadedFileURL;
+  String _docid;
 
   // String _docid = "";
   @override
@@ -41,19 +42,46 @@ class _DDocCreatePageState extends State<DDocCreatePage> {
   void initState() {
     super.initState();
     Firestore.instance
-        .collection('TT_DOCUMENT').orderBy("docid",descending: true).limit(1).getDocuments()
-        .then((value) {
+        .collection('TT_DOCUMENT').orderBy("docno",descending: true).limit(1).getDocuments()
+        .then((myDocuments) {
       //=================================================================================
       // 3.1) AFTER GET DATA
       //=================================================================================
       setState(() {
+        //===============================================================================
+        // 1) NOT FOUND IN DB
+        //===============================================================================          
+        String _docno = ''; 
+        String _newdocno = '';
+        if (myDocuments.documents.length==0){_docno="D2000000";}
+        else {_docno = myDocuments.documents[0].data['docno'];}    //DOCID : 8 DIGITS
+        //===============================================================================
+        // 1) GET TIME STAMPT E.G. 1588756759854
+        //===============================================================================        
         _timestampstr = DateTime.now().millisecondsSinceEpoch.toString();
-        var _docid = value.documents[0].data['docid'];    //DOCID : 8 DIGITS
-        var _intno = int.parse(_docid.substring(3)) + 1;
-        var _newid = "000000" + _intno.toString();
-        var _newdocid = "D20" + _newid.substring(_newid.length-5);
-        _docIdController.text = _newdocid;
-        Firestore.instance.collection("TT_DOCUMENT").document(_newdocid+'|'+_timestampstr).setData({"docid": _newdocid});
+        //===============================================================================
+        // 2) FIND NEW DOCNO E.G. D2000004
+        //===============================================================================           
+        try
+        {
+          var _intno = int.parse(_docno.substring(3)) + 1;
+          _newdocno = "000000" + _intno.toString();
+          _newdocno = "D20" + _newdocno.substring(_newdocno.length-5);
+        }
+        catch(error){
+          _newdocno = "D20000001";
+          logger.e(error.toString());
+        }
+        //===============================================================================
+        // 3) FIND DOC ID (KEY)  E.G. D2000004||1588756759854
+        //=============================================================================== 
+        _docid = _newdocno+'|'+_timestampstr;                  
+        _docNoController.text = _newdocno;
+
+        //===============================================================================
+        // 4) SAVE DOC ID INTO DB (WITHOUT DATA)
+        //===============================================================================           
+        Firestore.instance.collection("TT_DOCUMENT").document(_docid).setData({"docno": _newdocno});
       });
     });
   }
@@ -98,7 +126,7 @@ class _DDocCreatePageState extends State<DDocCreatePage> {
                     iconSize: 30.0,
                     icon: Icon(Icons.settings),
                     onPressed: () {
-                      fnConfig(context, _docIdController.text);
+                      fnConfig(context, _docid);
                     },
                   ),
                   Text(
@@ -112,7 +140,7 @@ class _DDocCreatePageState extends State<DDocCreatePage> {
                     iconSize: 30.0,
                     icon: Icon(Icons.save),
                     onPressed: () {
-                      fnSave(context, _docIdController.text);
+                      fnSave(context, _docid, _docNoController.text);
                     },
                   ),
                   Text(
@@ -126,7 +154,7 @@ class _DDocCreatePageState extends State<DDocCreatePage> {
                     iconSize: 30.0,
                     icon: Icon(Icons.send),
                     onPressed: () {
-                      fnSaveSubmit(context, _docIdController.text);
+                      fnSaveSubmit(context, _docid, _docNoController.text);
                     },
                   ),
                   Text(
@@ -166,7 +194,7 @@ class _DDocCreatePageState extends State<DDocCreatePage> {
           TextFormField(
               decoration: InputDecoration(
                   labelText: 'Doc ID', prefixIcon: Icon(Icons.email)),
-              controller: _docIdController),
+              controller: _docNoController),
           TextFormField(
               decoration: InputDecoration(
                   labelText: 'User Name', prefixIcon: Icon(Icons.verified_user)),
@@ -211,11 +239,12 @@ class _DDocCreatePageState extends State<DDocCreatePage> {
                     {
                       "username": _usernameController.text,
                       "title": _docTitleController.text,
-                      "docid": _docIdController.text,
+                      "docno": _docNoController.text,
                       "imageurl": _uploadedFileURL,
-                      "create_time": DateTime.now()
+                      "create_time": DateTime.now(),
+                      "is_creater": true,
                     },
-                    _docIdController.text);
+                    _docNoController.text);
               }
               //========================================================================
               // 6) BUTTON NAME
@@ -285,19 +314,19 @@ void fnConfig(BuildContext context, String myDocId) {
 //======================================================
 // FUNCTION SAME
 //======================================================
-void fnSave(BuildContext context, String myDocId) {
-  _fnDocNew(context, myDocId);
+void fnSave(BuildContext context, String myDocId, String myDocNo) {
+  _fnDocNew(context, myDocId, myDocNo);
 }
 
 //======================================================
 // FUNCTION SAVE AND SUBMIT
 //======================================================
-void fnSaveSubmit(BuildContext context, String myDocId) {
-  _fnDocUpdate(context, myDocId);
-  showMessageBox(
-      context, "success", "Save and Send Document($myDocId) completely",
-      actions: [dismissButton(context)]);
-  logger.i("Save and Send Success");
+void fnSaveSubmit(BuildContext context, String myDocId, String myDocNo)  {
+  _fnDocUpdate(context, myDocId, myDocNo);
+  // showMessageBox(
+  //     context, "success", "Save and Send Document($myDocId) completely",
+  //     actions: [dismissButton(context)]);
+  // logger.i("Save and Send Success");
   Navigator.push(
     context,
     MaterialPageRoute(
@@ -307,13 +336,14 @@ void fnSaveSubmit(BuildContext context, String myDocId) {
   );
 }
 
-void _fnDocNew(BuildContext context, String myDocId) {
+void _fnDocNew(BuildContext context, String myDocId, String myDocNo) {
   dDocNew(
       context,
       {
         "username": 'traitet',
-        "docid": myDocId,
+        "docno": myDocNo,
         "create_time": DateTime.now(),
+        "is_creater": true,        
         "imageurl":
             'https://www.redmineup.com/cms/assets/thumbnail/39805/700/classic_invoice.png?class=border-all+pad-base&token=134deedcbd9393687562eb37db06b84c8e23e753dd61efe2b724a826800e8282',
         "user_detail": {
@@ -336,16 +366,17 @@ void _fnDocNew(BuildContext context, String myDocId) {
           }
         ]
       },
-      myDocId+'|'+_timestampstr);
+      myDocId);
 }
 
-void _fnDocUpdate(BuildContext context, String myDocId) {
+void _fnDocUpdate(BuildContext context, String myDocId, String myDocNo) {
   dDocUpdate(
       context,
       {
         "username": 'traitet',
-        "docid": myDocId,
+        "docno": myDocNo,
         "create_time": DateTime.now(),
+        "is_creater": true,        
         "imageurl":
             'https://www.redmineup.com/cms/assets/thumbnail/39805/700/classic_invoice.png?class=border-all+pad-base&token=134deedcbd9393687562eb37db06b84c8e23e753dd61efe2b724a826800e8282',
         "user_detail": {
@@ -368,7 +399,7 @@ void _fnDocUpdate(BuildContext context, String myDocId) {
           }
         ]
       },
-      myDocId+'|'+_timestampstr);
+      myDocId);
 }
 
 //**************************************************************************************************************************/

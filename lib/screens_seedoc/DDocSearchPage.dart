@@ -12,8 +12,8 @@ class DDocSearchPage extends StatefulWidget {
       //==================================================================================
     // 1) ARAMETER AND CONSTUCTURE METHOD
     //====================================================================================
-    final String docid;
-      DDocSearchPage({Key key, @required this.docid,})
+    final String username;
+      DDocSearchPage({Key key, @required this.username,})
       : super(key: key);
   @override
   _DDocSearchPageState createState() => _DDocSearchPageState();

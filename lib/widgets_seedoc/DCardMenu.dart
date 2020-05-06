@@ -4,7 +4,7 @@ import '../screens/SetDBFoodMenuPage.dart';
 import '../screens/UploadImagePage.dart';
 import '../screens_seedoc/DDocViewPage.dart';
 import '../screens_seedoc/DDocSearchPage.dart';
-import '../screens_seedoc/DDocCreatePage.dart';
+import '../screens_seedoc/DDocNewPage.dart';
 import '../screens_seedoc/DDocWfSettingPage.dart';
 import '../screens_seedoc/DLoginPage.dart';
 import '../screens_seedoc/DEditProfilePage.dart';
@@ -27,7 +27,7 @@ class _DCardMenuState extends State<DCardMenu> {
         crossAxisCount: 2,
         padding: EdgeInsets.all(3.0),
         children: <Widget>[
-            BuildCardButtons(myIcon: Icons.book,myText: "Create Document",myNavigateText: "DDocCreatePage",),
+            BuildCardButtons(myIcon: Icons.book,myText: "Create Document",myNavigateText: "DDocNewPage",),
             BuildCardButtons(myIcon: Icons.settings,myText: "Setting Doc Workflow ",myNavigateText: "DDocWfSettingPage",),  
             // BuildCardButtons(myIcon: Icons.videocam,myText: "Flutter Image Picker",myNavigateText: "FlutterImagePickerPage",),   
             BuildCardButtons(myIcon: Icons.cloud_upload,myText: "Upload Image",myNavigateText: "UploadImagePage",),   
@@ -50,7 +50,7 @@ class BuildRaiseButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => DDocCreatePage()),);}, child: Text('Call Api Dog'),);
+    return RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => DDocNewPage()),);}, child: Text('Call Api Dog'),);
   }
 }
 
@@ -64,7 +64,7 @@ class BuildCardButton extends StatelessWidget {
     return 
     Card(
       child: InkWell(
-        onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context) => DDocCreatePage()),);},
+        onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context) => DDocNewPage()),);},
         child: Column(children: <Widget>[
           Icon(Icons.access_alarm),
           Text("Create Document"),
@@ -106,13 +106,13 @@ class BuildCardButtons extends StatelessWidget {
         decoration: BoxDecoration(color: Color.fromRGBO(220, 220, 220, 1.0)),
         child: new InkWell(
           onTap: () {
-            if (myNavigateText=="DDocCreatePage"){Navigator.push(context, MaterialPageRoute(builder: (context) => DDocCreatePage()));}
+            if (myNavigateText=="DDocNewPage"){Navigator.push(context, MaterialPageRoute(builder: (context) => DDocNewPage()));}
             if (myNavigateText=="DDocWfSettingPage"){Navigator.push(context, MaterialPageRoute(builder: (context) => DDocWfSettingPage(docid: "",)));}            
             // if (myNavigateText=="FlutterImagePickerPage"){Navigator.push(context, MaterialPageRoute(builder: (context) => FlutterImagePickerPage(context);}  
             if (myNavigateText=="UploadImagePage"){Navigator.push(context, MaterialPageRoute(builder: (context) => UploadImagePage()));}  
             if (myNavigateText=="SetDBFoodMenuPage"){Navigator.push(context, MaterialPageRoute(builder: (context) => SetDBFoodMenuPage()));}  
             if (myNavigateText=="DDocViewPage"){Navigator.push(context, MaterialPageRoute(builder: (context) => DDocViewPage(docid: "")));}  
-            if (myNavigateText=="DDocSearchPage"){Navigator.push(context, MaterialPageRoute(builder: (context) => DDocSearchPage(docid: "",)));}  
+            if (myNavigateText=="DDocSearchPage"){Navigator.push(context, MaterialPageRoute(builder: (context) => DDocSearchPage(username: "",)));}  
             if (myNavigateText=="DEditProfilePage"){Navigator.push(context, MaterialPageRoute(builder: (context) => DEditProfilePage()));}  
             if (myNavigateText=="DLoginPage"){Navigator.push(context, MaterialPageRoute(builder: (context) => DLoginPage()));}                                                              
           },

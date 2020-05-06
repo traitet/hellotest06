@@ -26,9 +26,10 @@ class _DDocViewPageState extends State<DDocViewPage> {
   //========================================================================================
   // 2) DECLARE VARIABLE (DATA FROM DB)
   //========================================================================================
-  String _docid = '';
+  String _docno = '';
   String _title = '';
   String _username = '';
+  bool _isCreater = true; 
 
   @override
   //========================================================================================
@@ -45,8 +46,9 @@ class _DDocViewPageState extends State<DDocViewPage> {
       // 3.1) AFTER GET DATA
       //===================================================================================
       setState(() {
+        _isCreater = value.data['is_creater'];
         _username = value.data['username'];
-        _docid = value.data['docid'];
+        _docno = value.data['docno'];
         _title = value.data['title'];
       });
     });
@@ -65,12 +67,12 @@ class _DDocViewPageState extends State<DDocViewPage> {
       // APP BAR
       //===============================================================================
       appBar: AppBar(
-        title: Text("View Doc: " + widget.docid),
+        title: Text("View Doc: " + _docno),
         actions: <Widget>[
           IconButton(
               icon: Icon(Icons.camera_alt),
               onPressed: () {
-                fnScan(context);
+                // fnScan(context);
               })
         ],
       ),
@@ -86,50 +88,12 @@ class _DDocViewPageState extends State<DDocViewPage> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
               //========================================================================
-              // WIDGET:IMAGE BODY WIDGET
+              // WIDGET:IMAGE BODY WIDGET (check _isCreater)
               //========================================================================
-              Column(
-                children: <Widget>[
-                  IconButton(
-                    iconSize: 30.0,
-                    icon: Icon(Icons.backspace),
-                    onPressed: () {
-                      fnRecall(context, _docid);
-                    },
-                  ),
-                  Text(
-                    "Recall",
-                  )
-                ],
-              ),
-              Column(
-                children: <Widget>[
-                  IconButton(
-                    iconSize: 30.0,
-                    icon: Icon(Icons.home),
-                    onPressed: () {
-                      fnReject(context, _docid);
-                    },
-                  ),
-                  Text(
-                    "Reject",
-                  )
-                ],
-              ),
-              Column(
-                children: <Widget>[
-                  IconButton(
-                    iconSize: 30.0,
-                    icon: Icon(Icons.send),
-                    onPressed: () {
-                      fnApprove(context, _docid);
-                    },
-                  ),
-                  Text(
-                    "Approve",
-                  )
-                ],
-              ),
+              Column(children: <Widget>[IconButton(iconSize: 30.0, icon: Icon(Icons.backspace),onPressed: !_isCreater?null: () => fnRecall(context, widget.docid) ,),Text("Recall",)],),
+              Column(children: <Widget>[IconButton(iconSize: 30.0, icon: Icon(Icons.home),onPressed: _isCreater?null: () => fnReject(context, widget.docid) ,),Text("Reject",)],),
+              Column(children: <Widget>[IconButton(iconSize: 30.0, icon: Icon(Icons.send),onPressed: _isCreater?null: () => fnApprove(context, widget.docid) ,),Text("Approve",)],)                               
+  
             ],
           ),
         ),
@@ -147,7 +111,7 @@ class _DDocViewPageState extends State<DDocViewPage> {
             widgetBodyImage(),
             widgetBodyText(_title??''),
             Text(
-              _docid ?? 'Loading...',
+              _docno ?? 'Loading...',
             ),
             Text(
               _title ?? '',
@@ -161,6 +125,7 @@ class _DDocViewPageState extends State<DDocViewPage> {
     );
   }
 }
+
 
 //**************************************************************************************************************************/
 // FUNCTION
@@ -250,7 +215,7 @@ Widget widgetBodyText(String _title) => Container(
                     padding: const EdgeInsets.only(bottom: 8),
                     child: Container(
                       child: Text(
-                        "E-Document: 5 Mar 2020, 13:30",
+                        "E-Document: 6 Mar 2020, 16.23",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                         ),

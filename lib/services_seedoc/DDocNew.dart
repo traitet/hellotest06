@@ -12,17 +12,6 @@ Future<void> dDocNew(BuildContext context, Map<String, dynamic> data,
   // 1) DECLARE VARIABLE
   //================================================================================
   final _dbref = Firestore.instance;
-  //================================================================================
-  // 2) NEW DOCUMENT
-  //================================================================================
-//   DocumentReference ref = await _dbref.collection("TT_DOCUMENT").add(data);
-//   String _docId = ref.documentID;
-//   showMessageBox(context, "success",
-//       "Register Document($_docId) to Firestore Database completely",
-//       actions: [dismissButton(context)]);
-//   logger.i(ref.documentID);
-//   return ref.documentID.toString();
-// }
 
 //==============================================================================
 // SET DATA
