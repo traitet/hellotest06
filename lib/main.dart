@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import './sceens_seetutorial/CFriendChatPage.dart';
 import './screens_seedoc/DDocNewPage.dart';
 import './screens_seedoc/DDocSearchPage.dart';
 import './screens_seedoc/DDocViewPage.dart';
 import './screens_seedoc/DUserLoginPage.dart';
 import './screens_seedoc/DUserNewPage.dart';
-import 'package:image_picker/image_picker.dart';
 import './screens/LayoutPage.dart';
 import './screens/MenuPage.dart';
 import './screens/SetDBFoodMenuPage.dart';
@@ -106,6 +107,8 @@ class _MyHomePageState extends State<MyHomePage> {
             //====================================================================
             // BUTTON
             //====================================================================  
+           //RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => CupertinoStoreApp()),);}, child: Text('E-Store'),),               
+            RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => CFriendChatPage()),);}, child: Text('See Chat App'),),                  
             RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => DUserLoginPage()),);}, child: Text('See Doc Login'),),              
             RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => DUserNewPage()),);}, child: Text('D-Sign up'),),              
             RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => DDocSearchPage(email: "traitet@gmail.com",)),);}, child: Text('D-Search -traitet'),),      

@@ -61,6 +61,10 @@ dependencies:
   # RECORD QR CODE: REF: https://benzneststudios.com/blog/flutter/scan-qr-code-and-barcode-in-flutter/
   #===========================================================     
   barcode_scan: ^2.0.2
+  #===========================================================
+  # GOOGLE TUTORIAL
+  #=========================================================== 
+  # provider: ^3.0.0+1
 
 dev_dependencies:
   flutter_test:
