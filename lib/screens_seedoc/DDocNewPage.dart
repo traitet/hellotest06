@@ -15,10 +15,11 @@ import '../services/ShowNotification.dart';
 // MAIN CLASS
 //======================================================================================
 class DDocNewPage extends StatefulWidget {
-  //====================================================================================
+  //======================================================================================
   // PARAMETER
-  //====================================================================================
-  DDocNewPage({Key key}) : super(key: key);
+  //======================================================================================
+  final String email;
+  DDocNewPage({Key key, @required this.email,}): super(key: key);
   //====================================================================================
   // OVERRIDE
   //====================================================================================  
@@ -92,7 +93,7 @@ class _DDocNewPageState extends State<DDocNewPage> {
         //===============================================================================
         // 4) SAVE DOC ID INTO DB (WITHOUT DATA)
         //===============================================================================           
-        Firestore.instance.collection("TT_DOCUMENT").document(_docid).setData({"docno": _newdocno});
+        Firestore.instance.collection("TT_DOCUMENT").document(_docid).setData({"docno": _newdocno,"email":widget.email});
       });
     });
   }
@@ -109,12 +110,6 @@ class _DDocNewPageState extends State<DDocNewPage> {
         title: Text("Create Doc"),
         actions: <Widget>[
           IconButton(icon: Icon(Icons.camera_alt), onPressed: chooseFile),
-          _image != null
-              ? Image.asset(
-                  _image.path,
-                  height: 150,
-                )
-              : Container(height: 10),
         ],
       ),
       //================================================================================
@@ -132,8 +127,8 @@ class _DDocNewPageState extends State<DDocNewPage> {
               // WIDGET:IMAGE BODY WIDGET
               //========================================================================
               Column(children: <Widget>[IconButton(iconSize: 30.0,icon: Icon(Icons.settings),onPressed: () {fnDocWfSetting(context, _docid);},),Text("Config",)],),
-              Column(children: <Widget>[IconButton(iconSize: 30.0,icon: Icon(Icons.save),onPressed: () {fnSave(context, _docid, _docNoController.text);},),Text("Save",)],),
-              Column(children: <Widget>[IconButton(iconSize: 30.0,icon: Icon(Icons.send),onPressed: () {fnSaveSubmit(context, _docid, _docNoController.text);},),Text("Save and Submit",)],),                            
+              Column(children: <Widget>[IconButton(iconSize: 30.0,icon: Icon(Icons.save),onPressed: () {fnSave(context, _docid, _docNoController.text,widget.email);},),Text("Save",)],),
+              Column(children: <Widget>[IconButton(iconSize: 30.0,icon: Icon(Icons.send),onPressed: () {fnSaveSubmit(context, _docid, _docNoController.text,widget.email);},),Text("Save and Submit",)],),                            
             ],
           ),
         ),
@@ -146,13 +141,13 @@ class _DDocNewPageState extends State<DDocNewPage> {
           //==============================================================================
           // BUILD WIDGET IMAGE AND TEXT
           //==============================================================================
-          widgetBodyImage(),
+          _image != null ? Image.asset(_image.path,height: 200,): widgetBodyImage(),
           widgetBodyText,
           //==============================================================================
-          // UPLOAD IMAGE
+          // UPLOAD IMAGE         
           //==============================================================================
           RaisedButton(child: Text("Select Image"), onPressed: chooseFile),
-          _image != null ? Image.asset(_image.path,height: 150,): Container(height: 10),
+
 
           //==============================================================================
           //INPUT DATA
@@ -186,10 +181,11 @@ class _DDocNewPageState extends State<DDocNewPage> {
                 //========================================================================
                 // 6) WAIT UPLOAD FILE
                 //========================================================================
-                await uploadFile();
+                await fnUploadFile();
                 //========================================================================
                 // 7) ADD NEW DOCUMENT
                 //========================================================================
+                if (_uploadedFileURL != null){
                 dDocNew(
                     context,
                     {
@@ -200,8 +196,8 @@ class _DDocNewPageState extends State<DDocNewPage> {
                       "create_time": DateTime.now(),
                       "is_creater": true,
                     },
-                    _docNoController.text);
-              }
+                    _docNoController.text);}
+                }
               //========================================================================
               // 6) BUTTON NAME
               //========================================================================
@@ -227,7 +223,7 @@ class _DDocNewPageState extends State<DDocNewPage> {
   //====================================================================================
   // FUNCTION#2: UPLOAD
   //====================================================================================
-  Future uploadFile() async {
+  Future fnUploadFile() async {
     StorageReference storageReference = FirebaseStorage.instance
         .ref()
         .child('chats/${Path.basename(_image.path)}}');
@@ -260,22 +256,23 @@ void fnDocWfSetting(BuildContext context, String myDocId) {
 //======================================================
 // FUNCTION SAME
 //======================================================
-void fnSave(BuildContext context, String myDocId, String myDocNo) {
-  _fnDocNew(context, myDocId, myDocNo);
+void fnSave(BuildContext context, String myDocId, String myDocNo,String myEmail) {
+  _fnDocNew(context, myDocId, myDocNo, myEmail);
 }
 
 //======================================================
 // FUNCTION SAVE AND SUBMIT
 //======================================================
-void fnSaveSubmit(BuildContext context, String myDocId, String myDocNo)  {
-  _fnDocUpdate(context, myDocId, myDocNo);
+void fnSaveSubmit(BuildContext context, String myDocId, String myDocNo,String myEmail)  {
+  _fnDocUpdate(context, myDocId, myDocNo,myEmail);
   Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => DDocViewPage(docid: myDocId,)),);
 }
 
-void _fnDocNew(BuildContext context, String myDocId, String myDocNo) {
+void _fnDocNew(BuildContext context, String myDocId, String myDocNo, String myEmail) {
   dDocNew(
       context,
       {
+        "email": myEmail,
         "username": 'traitet',
         "docno": myDocNo,
         "create_time": DateTime.now(),
@@ -305,10 +302,11 @@ void _fnDocNew(BuildContext context, String myDocId, String myDocNo) {
       myDocId);
 }
 
-void _fnDocUpdate(BuildContext context, String myDocId, String myDocNo) {
+void _fnDocUpdate(BuildContext context, String myDocId, String myDocNo, String myEmail) {
   dDocUpdate(
       context,
       {
+        "email": myEmail,
         "username": 'traitet',
         "docno": myDocNo,
         "create_time": DateTime.now(),

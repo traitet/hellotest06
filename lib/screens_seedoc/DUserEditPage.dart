@@ -36,10 +36,10 @@ class _DUserEditPageState extends State<DUserEditPage> {
   final _lineidController = TextEditingController();    
   final _mobilenoController = TextEditingController();  
   final _companyTaxIdController = TextEditingController();  
-  final _companyNameController = TextEditingController();   
-  final _departmentController = TextEditingController();     
+  final _companyNameController = TextEditingController();    
+  // final _departmentController = TextEditingController();     
   DUserModel _dUserModel;
-  Map<String, dynamic> _deptModel;
+  // Map<String, dynamic> _deptModel;
 
   //======================================================================================
   // 3) INIT: GET DATA FROM DB
@@ -62,11 +62,9 @@ class _DUserEditPageState extends State<DUserEditPage> {
         _mobilenoController.text = _dUserModel.mobileno;
         _companyTaxIdController.text = _dUserModel.companyTaxid;
         _companyNameController.text = _dUserModel.companyName;
-        _deptModel = _dUserModel.department ;
-    
-        var d = _deptModel['deptid'] + ' | ' + _deptModel['deptname'];
-  
-      _departmentController.text =  d;
+        // _deptModel = _dUserModel.department ; 
+        // var d = _deptModel['deptid'] + ' | ' + _deptModel['deptname'];
+        // _departmentController.text =  d;
       if (myDocument.data.length == 0 ) {
         //=================================================================================
         // GET DEFAULT DATA FROM E-MAIL
@@ -100,7 +98,7 @@ class _DUserEditPageState extends State<DUserEditPage> {
             //==============================================================================
             // 1) TEXTBOX 
             //==============================================================================  
-            TextFormField(decoration: InputDecoration(labelText: 'Department', prefixIcon: Icon(Icons.home)),controller: _departmentController,),                            
+            // TextFormField(decoration: InputDecoration(labelText: 'Department', prefixIcon: Icon(Icons.home)),controller: _departmentController,),                            
             TextFormField(decoration: InputDecoration(labelText: '*E-mail', prefixIcon: Icon(Icons.email)),controller: _emailController),
             TextFormField(decoration: InputDecoration(labelText: '*Emp ID', prefixIcon: Icon(Icons.people)),controller: _empIdController),          
             TextFormField(decoration: InputDecoration(labelText: '*First Name', prefixIcon: Icon(Icons.first_page)),controller: _firstnameController,),  
@@ -137,16 +135,22 @@ class _DUserEditPageState extends State<DUserEditPage> {
                   else {
                     //======================================================================
                     // PREPARE VALUE
-                    //======================================================================                       
-                    _dUserModel.email = _emailController.text;
-                    _dUserModel.firstname = _firstnameController.text;
-                    _dUserModel.lastname = _lastnameController.text;
-                    _dUserModel.mobileno = _mobilenoController.text;
-                    _dUserModel.lineid = _lineidController.text;
-                    _dUserModel.companyName = _companyNameController.text;
-                    _dUserModel.companyTaxid = _companyTaxIdController.text;
-                    //_dUserModel.department = Department(deptId: 'A33',deptName: 'QA Dept') as Map<String, dynamic>;
-                    //_dUserModel.address = Address(city: "bangkok",street: "Suksawat") as Map<String, dynamic >;                    
+                    //====================================================================== 
+
+                    _dUserModel = DUserModel(
+                      email: _emailController.text,
+                      empid: _empIdController.text,                      
+                      firstname: _firstnameController.text,
+                      lastname: _lastnameController.text,
+                      mobileno: _mobilenoController.text, 
+                      lineid:_lineidController.text,
+                      companyName:  _companyNameController.text, 
+                      companyTaxid: _companyTaxIdController.text,
+                      department: Department(deptId: 'A200',deptName: 'ITM'),
+                      );
+
+                      logger.i(_dUserModel);
+                 
      
 
                     //======================================================================

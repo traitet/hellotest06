@@ -13,7 +13,8 @@ Future<void> dUserEdit(
   //================================================================================    
   BuildContext context,  DUserModel data, String documentName){
       //  logger.i(data.toFileStone());
-      //  var a = data.toFileStone();
+      var a = data.toFileStone();
+      logger.i(a.toString());
     //==============================================================================
     // 2) RETURN 
     //==============================================================================       
@@ -21,6 +22,11 @@ Future<void> dUserEdit(
     //==============================================================================
     // 3) CALL SET DATA (INSERT)
     //==============================================================================
+  // Map<String, dynamic>  a = data.toFileStone();
+    
+
+// data.toFileStone()
+
     Firestore.instance.collection("TM_USER").document(documentName).setData(data.toFileStone()).then((returnData) {
       //============================================================================
       // 4) SHOW MESSAGE AFTER SUCCESS

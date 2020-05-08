@@ -50,7 +50,7 @@ class _DNavDrawerState extends State<DNavDrawer> {
           //===================================================
           // 4) LIST TILE
           //===================================================
-          BuildListTile("Create Document",MaterialPageRoute(builder: (context) => DDocNewPage()),Icon(Icons.book)),
+          BuildListTile("Create Document",MaterialPageRoute(builder: (context) => DDocNewPage(email: 'traitet@gmail.com',)),Icon(Icons.book)),
           BuildListTile("Doc Flow Setup",MaterialPageRoute(builder: (context) => DDocWfSettingPage(docid: "D2000017|1588776824675",)),Icon(Icons.settings)),              
           BuildListTile("View Document",MaterialPageRoute(builder: (context) => DDocViewPage(docid: "D2000017|1588776824675",)),Icon(Icons.view_list)),
           BuildListTile("Search Document",MaterialPageRoute(builder: (context) => DDocSearchPage(email: "traitet@gmail.com",)),Icon(Icons.search)),

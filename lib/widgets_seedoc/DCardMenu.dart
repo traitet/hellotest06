@@ -54,7 +54,7 @@ class BuildRaiseButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => DDocNewPage()),);}, child: Text('Call Api Dog'),);
+    return RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => DDocNewPage(email: 'traitet@gmail.com',)),);}, child: Text('Call Api Dog'),);
   }
 }
 
@@ -64,11 +64,11 @@ class BuildCardButton extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context,) {
     return 
     Card(
       child: InkWell(
-        onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context) => DDocNewPage()),);},
+        onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context) => DDocNewPage(email: 'traitet@gmail.com',)),);},
         child: Column(children: <Widget>[
           Icon(Icons.access_alarm),
           Text("Create Document"),
@@ -110,7 +110,7 @@ class BuildCardButtons extends StatelessWidget {
         decoration: BoxDecoration(color: Color.fromRGBO(220, 220, 220, 1.0)),
         child: new InkWell(
           onTap: () {
-            if (myNavigateText=="DDocNewPage"){Navigator.push(context, MaterialPageRoute(builder: (context) => DDocNewPage()));}
+            if (myNavigateText=="DDocNewPage"){Navigator.push(context, MaterialPageRoute(builder: (context) => DDocNewPage(email:'traitet@gmail.com',)));}
             if (myNavigateText=="DDocWfSettingPage"){Navigator.push(context, MaterialPageRoute(builder: (context) => DDocWfSettingPage(docid: "D2000017|1588776824675",)));}            
             // if (myNavigateText=="FlutterImagePickerPage"){Navigator.push(context, MaterialPageRoute(builder: (context) => FlutterImagePickerPage(context);}  
             if (myNavigateText=="UploadImagePage"){Navigator.push(context, MaterialPageRoute(builder: (context) => UploadImagePage()));}  

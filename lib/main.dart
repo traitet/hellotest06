@@ -110,7 +110,7 @@ class _MyHomePageState extends State<MyHomePage> {
             RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => DUserNewPage()),);}, child: Text('D-Sign up'),),              
             RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => DDocSearchPage(email: "traitet@gmail.com",)),);}, child: Text('D-Search -traitet'),),      
             RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => DDocSearchPage(email: "satit_po@gmail.com",)),);}, child: Text('D-Search -satit'),),                                                   
-            RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => DDocNewPage()),);}, child: Text('D-Create Document'),),                
+            RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => DDocNewPage(email: 'traitet@gmail.com',)),);}, child: Text('D-Create Document'),),                
             RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => DDocViewPage(docid: 'D2000004|1588756759854',)),);}, child: Text('D-View Document'),),            
             RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => CallApiUserPage()),);}, child: Text('Call Api User'),),   
             RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => CallApiDogPage()),);}, child: Text('Call Api Dog'),),  

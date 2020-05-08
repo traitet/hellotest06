@@ -30,6 +30,7 @@ class _DDocViewPageState extends State<DDocViewPage> {
   String _title;
   String _username;
   bool _isCreater=true; 
+  String _imageUrl;
 
   @override
   //========================================================================================
@@ -46,6 +47,7 @@ class _DDocViewPageState extends State<DDocViewPage> {
         _username = myDocument.data['username']??'';
         _docno = myDocument.data['docno']??'';
         _title = myDocument.data['title']??'';
+        _imageUrl = myDocument.data['imageUrl'];
       });
     });
   }
@@ -95,8 +97,11 @@ class _DDocViewPageState extends State<DDocViewPage> {
             //================================================================================
             // BUILD WIDGET IMAGE AND TEXT
             //================================================================================
-            widgetBodyImage(),
-            widgetBodyText(_title??''),
+            _imageUrl == null ? widgetBodyImage():Image.network(_imageUrl),
+            //widgetBodyImage(),
+
+            // // widgetBodyImage(),
+            // widgetBodyText(_title??''),
             Text(_docno ?? 'Loading...',),
             Text(_title ?? '',),
             Text(_username ?? '',),
