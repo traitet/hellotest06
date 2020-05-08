@@ -47,20 +47,24 @@ class _DCardMenuState extends State<DCardMenu> {
   }
 }
 
-class BuildRaiseButton extends StatelessWidget {
-  const BuildRaiseButton({
-    Key key,
-  }) : super(key: key);
+// class BuildRaiseButton extends StatelessWidget {
+//   const BuildRaiseButton({
+//     Key key,
+//   }) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => DDocNewPage(email: 'traitet@gmail.com',)),);}, child: Text('Call Api Dog'),);
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => DDocNewPage(email: 'traitet@gmail.com',)),);}, child: Text('Call Api Dog'),);
+//   }
+// }
 
+//==============================================================
+// SUB FUNCTION: BUILD CARD BUTTON
+//==============================================================
 class BuildCardButton extends StatelessWidget {
+  final String myEmail; 
   const BuildCardButton({
-    Key key,
+    Key key,this.myEmail,
   }) : super(key: key);
 
   @override
@@ -68,7 +72,7 @@ class BuildCardButton extends StatelessWidget {
     return 
     Card(
       child: InkWell(
-        onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context) => DDocNewPage(email: 'traitet@gmail.com',)),);},
+        onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context) => DDocNewPage(email: myEmail,)),);},
         child: Column(children: <Widget>[
           Icon(Icons.access_alarm),
           Text("Create Document"),
@@ -110,7 +114,7 @@ class BuildCardButtons extends StatelessWidget {
         decoration: BoxDecoration(color: Color.fromRGBO(220, 220, 220, 1.0)),
         child: new InkWell(
           onTap: () {
-            if (myNavigateText=="DDocNewPage"){Navigator.push(context, MaterialPageRoute(builder: (context) => DDocNewPage(email:'traitet@gmail.com',)));}
+            if (myNavigateText=="DDocNewPage"){Navigator.push(context, MaterialPageRoute(builder: (context) => DDocNewPage(email:myEmail,)));}
             if (myNavigateText=="DDocWfSettingPage"){Navigator.push(context, MaterialPageRoute(builder: (context) => DDocWfSettingPage(docid: "D2000017|1588776824675",)));}            
             // if (myNavigateText=="FlutterImagePickerPage"){Navigator.push(context, MaterialPageRoute(builder: (context) => FlutterImagePickerPage(context);}  
             if (myNavigateText=="UploadImagePage"){Navigator.push(context, MaterialPageRoute(builder: (context) => UploadImagePage()));}  

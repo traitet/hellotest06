@@ -16,7 +16,7 @@ class DUserModel {
   final String companyName;
   final String companyTaxid;
   final Department department;
-  final Department address;
+  // final Address address;
   // final List<Map<String, dynamic>> staff;
 
   //=============================================================
@@ -32,7 +32,7 @@ class DUserModel {
     this.companyName,
     this.companyTaxid,
     this.department,
-    this.address,
+    // this.address,
     // this.staff,
   });
 
@@ -49,7 +49,7 @@ class DUserModel {
         'company_taxid': companyTaxid,
         'company_name': companyName,
         'department': department.toFileStone(),
-        'address': address.toFileStone(),
+        // 'address': address.toFileStone(),
         // 'staff': staff,
       };
 
@@ -67,7 +67,8 @@ class DUserModel {
       mobileno: data['mobileno'],
       companyTaxid: data['company_taxid'],
       companyName: data['company_name'],
-      department: data['department'],
+      department: Department.fromFilestore(data['department']),
+      // address: Address.fromFilestore(data['address']),      
     );
   }
 
@@ -106,8 +107,8 @@ class Department {
   //=============================================================
   // FIRESTONE -> CLASS
   //=============================================================
-  factory Department.fromFilestore(DocumentSnapshot doc) {
-    Map data = doc.data;
+  factory Department.fromFilestore(Map<dynamic, dynamic> data) {
+    // Map data = doc.data;
     return Department(
       deptId: data['deptid'] ?? '',
       deptName: data['deptname'] ?? '',
@@ -137,8 +138,7 @@ class Address {
   //=============================================================
   // 1) FOR GET DATA
   //=============================================================
-  factory Address.fromFilestore(DocumentSnapshot doc) {
-    Map data = doc.data;
+  factory Address.fromFilestore(Map<dynamic, dynamic> data) {
     return Address(street: data['street'], city: data['city']);
   }
 

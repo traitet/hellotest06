@@ -216,6 +216,8 @@ class _DDocNewPageState extends State<DDocNewPage> {
     await ImagePicker.pickImage(source: ImageSource.gallery).then((image) {
       setState(() {
         _image = image;
+      
+
       });
     });
   }
@@ -233,6 +235,7 @@ class _DDocNewPageState extends State<DDocNewPage> {
     storageReference.getDownloadURL().then((fileURL) {
       setState(() {
         _uploadedFileURL = fileURL;
+      
       });
     });
   }
