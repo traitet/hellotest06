@@ -17,9 +17,7 @@ Future<void> dDocNew(BuildContext context, Map<String, dynamic> data,
 // SET DATA
 //==============================================================================
 _dbref.collection("TT_DOCUMENT").document(documentName).setData(data).then((returnData) {
-  showMessageBox(context, "success",
-      "Register Document($documentName) to Firestore Database completely",
-      actions: [dismissButton(context)]);
+  showMessageBox(context, "success","Register Document($documentName) to Firestore Database completely",actions: [dismissButton(context)]);
   logger.i("setData Success");
 }).catchError((e) {
   logger.e("setDAta Error");

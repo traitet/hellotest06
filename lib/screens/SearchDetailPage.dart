@@ -35,11 +35,7 @@ class _SearchDetailPageState extends State<SearchDetailPage> {
   @override
   void initState() {
     super.initState();
-    Firestore.instance
-        .collection("catalog")
-        .document(widget.username) 
-        .get()
-        .then((value) {
+    Firestore.instance.collection("catalog").document(widget.username).get().then((value) {
       setState(() {
         company = value.data["company"];
         fullname = value.data["fullname"];

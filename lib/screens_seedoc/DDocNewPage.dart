@@ -53,8 +53,7 @@ class _DDocNewPageState extends State<DDocNewPage> {
   //=====================================================================================
   void initState() {
     super.initState();
-    Firestore.instance
-        .collection('TT_DOCUMENT').orderBy("docno",descending: true).limit(1).getDocuments()
+    Firestore.instance.collection('TT_DOCUMENT').orderBy("docno",descending: true).limit(1).getDocuments()
         .then((myDocuments) {
       //=================================================================================
       // 3.1) AFTER GET DATA
@@ -168,10 +167,8 @@ class _DDocNewPageState extends State<DDocNewPage> {
               //==========================================================================
               // 4) VALIDATE
               //==========================================================================
-              if (_usernameController.text == "" ||
-                  _docTitleController.text == "") {
-                showMessageBox(context, "Error", "Please enter Doc Title",
-                    actions: [dismissButton(context)]);
+              if (_usernameController.text == "" || _docTitleController.text == "") {
+                showMessageBox(context, "Error", "Please enter Doc Title", actions: [dismissButton(context)]);
                 logger.e("Username or password cannot be null");
               } // IF
               //==========================================================================
@@ -214,21 +211,16 @@ class _DDocNewPageState extends State<DDocNewPage> {
   //====================================================================================
   Future chooseFile() async {
     await ImagePicker.pickImage(source: ImageSource.gallery).then((image) {
-      setState(() {
-        _image = image;
-      
-
-      });
+      setState(() {_image = image;
     });
+  });
   }
 
   //====================================================================================
   // FUNCTION#2: UPLOAD
   //====================================================================================
   Future fnUploadFile() async {
-    StorageReference storageReference = FirebaseStorage.instance
-        .ref()
-        .child('chats/${Path.basename(_image.path)}}');
+    StorageReference storageReference = FirebaseStorage.instance.ref().child('chats/${Path.basename(_image.path)}}');
     StorageUploadTask uploadTask = storageReference.putFile(_image);
     await uploadTask.onComplete;
     logger.i('File Uploaded');
@@ -272,16 +264,14 @@ void fnSaveSubmit(BuildContext context, String myDocId, String myDocNo,String my
 }
 
 void _fnDocNew(BuildContext context, String myDocId, String myDocNo, String myEmail) {
-  dDocNew(
-      context,
+  dDocNew(context,
       {
         "email": myEmail,
         "username": 'traitet',
         "docno": myDocNo,
         "create_time": DateTime.now(),
         "is_creater": true,        
-        "imageurl":
-            'https://www.redmineup.com/cms/assets/thumbnail/39805/700/classic_invoice.png?class=border-all+pad-base&token=134deedcbd9393687562eb37db06b84c8e23e753dd61efe2b724a826800e8282',
+        "imageurl":  'https://www.redmineup.com/cms/assets/thumbnail/39805/700/classic_invoice.png?class=border-all+pad-base&token=134deedcbd9393687562eb37db06b84c8e23e753dd61efe2b724a826800e8282',
         "user_detail": {
           "fullname": "Traitet Thepbandansuk",
           "mobileno": "085-6000606",

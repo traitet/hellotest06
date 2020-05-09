@@ -79,8 +79,7 @@ class _DDocSearchPageState extends State<DDocSearchPage> {
                     // UI: CARD
                     //====================================================================                      
                     child: Card(
-                        child: Container(     
-                                            
+                        child: Container(                   
                         child: InkWell(
                           onTap: () {
                             //============================================================

@@ -46,8 +46,7 @@ class _SearchPageState extends State<SearchPage> {
       //==================================================================================
       // GET DATA FROM API
       //==================================================================================          
-          stream: Firestore.instance.collection("catalog").snapshots(),
-          builder: (context, snapshot) {
+          stream: Firestore.instance.collection("catalog").snapshots(),builder: (context, snapshot) {
             //============================================================================
             // IF NO DATA
             //============================================================================            
@@ -85,13 +84,7 @@ class _SearchPageState extends State<SearchPage> {
                             //============================================================
                             // CLICK EVENT: GO ITEM_PAGE
                             //============================================================                              
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => SearchDetailPage( 
-                                          username: snapshot
-                                              .data.documents[index].documentID,
-                                        )));
+                            Navigator.push(context,MaterialPageRoute(builder: (context) => SearchDetailPage( username: snapshot.data.documents[index].documentID,)));
                           },                   
                             child: Column(
                               children: <Widget>[                                 

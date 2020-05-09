@@ -119,10 +119,7 @@ class _DDocViewPageState extends State<DDocViewPage> {
 //======================================================
 // FUNCTION RECALL
 //======================================================
-void fnRecall(BuildContext context, String myDocId) {
-  showMessageBox(context, "success",
-      "Recall Document($myDocId) to Firestore Database completely",
-      actions: [dismissButton(context)]);
+void fnRecall(BuildContext context, String myDocId) {  showMessageBox(context, "success","Recall Document($myDocId) to Firestore Database completely", actions: [dismissButton(context)]);
   logger.i("Recall Success");
 }
 
@@ -130,9 +127,7 @@ void fnRecall(BuildContext context, String myDocId) {
 // FUNCTION REJECT
 //======================================================
 void fnReject(BuildContext context, String myDocId) {
-  showMessageBox(context, "success",
-      "Reject Document($myDocId) to Firestore Database completely",
-      actions: [dismissButton(context)]);
+  showMessageBox(context, "success","Reject Document($myDocId) to Firestore Database completely", actions: [dismissButton(context)]);
   logger.i("Reject Success");
 }
 
@@ -140,9 +135,7 @@ void fnReject(BuildContext context, String myDocId) {
 // FUNCTION APPROVE
 //======================================================
 void fnApprove(BuildContext context, String myDocId) {
-  showMessageBox(context, "success",
-      "Approve Document($myDocId) to Firestore Database completely",
-      actions: [dismissButton(context)]);
+  showMessageBox(context, "success","Approve Document($myDocId) to Firestore Database completely",actions: [dismissButton(context)]);  
   logger.i("Approve Success");
 }
 
@@ -150,8 +143,7 @@ void fnApprove(BuildContext context, String myDocId) {
 // FUNCTION SCAN
 //======================================================
 void fnScan(BuildContext context) {
-  showMessageBox(context, "success", "Please take photo of your document",
-      actions: [dismissButton(context)]);
+  showMessageBox(context, "success", "Please take photo of your document",actions: [dismissButton(context)]);
   logger.i("Taking photo Success");
 }
 
@@ -164,10 +156,7 @@ void fnScan(BuildContext context) {
 Column columnButtomButtonBar(BuildContext context, myIconData, String myLabel) {
   return Column(
     children: <Widget>[
-      IconButton(
-        iconSize: 30.0,
-        icon: Icon(myIconData),
-        onPressed: () {},
+      IconButton(iconSize: 30.0,icon: Icon(myIconData),onPressed: () {},
       ),
       Text(
         myLabel,
@@ -181,8 +170,7 @@ Column columnButtomButtonBar(BuildContext context, myIconData, String myLabel) {
 //======================================================
 Widget widgetBodyImage() => Padding(
       padding: const EdgeInsets.all(8.0),
-      child: Image.asset('assets/images/bg01.jpg',
-          width: 300, height: 200, fit: BoxFit.cover),
+      child: Image.asset('assets/images/bg01.jpg',width: 300, height: 200, fit: BoxFit.cover),
     );
 
 //======================================================

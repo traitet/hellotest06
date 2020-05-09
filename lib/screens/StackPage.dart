@@ -22,9 +22,7 @@ class _StackPageState extends State<StackPage> {
             Container(
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: NetworkImage(
-                    'https://cdn.mos.cms.futurecdn.net/3tcJXLkZ8Sk9cPpLquFTWV.jpg'                    
-                  ),
+                  image: NetworkImage('https://cdn.mos.cms.futurecdn.net/3tcJXLkZ8Sk9cPpLquFTWV.jpg'),
                   fit: BoxFit.cover,
                 )
               ),
@@ -39,10 +37,7 @@ class _StackPageState extends State<StackPage> {
                   Padding(
                     padding: const EdgeInsets.only(bottom: 40),
                     child: Text('FINAL FANTASY VII: README TEST TEST TEST',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 15,
-                      ),
+                      style: TextStyle(color: Colors.white,fontSize: 15,),
                     )
                   )
                 ],

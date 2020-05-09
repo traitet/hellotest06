@@ -74,8 +74,7 @@ class _DResetPasswordPageState extends State<DResetPasswordPage> {
   Container buildTextFieldEmail() {
     return Container(
         padding: EdgeInsets.all(12),
-        decoration: BoxDecoration(
-            color: Colors.yellow[50], borderRadius: BorderRadius.circular(16)),
+        decoration: BoxDecoration(color: Colors.yellow[50], borderRadius: BorderRadius.circular(16)),
         child: TextField(
             controller: emailController,
             decoration: InputDecoration.collapsed(hintText: "Email"),
@@ -89,9 +88,7 @@ class _DResetPasswordPageState extends State<DResetPasswordPage> {
   resetPassword() {
       String email = emailController.text.trim();
       _auth.sendPasswordResetEmail(email: email);
-      scaffoldKey.currentState.showSnackBar(SnackBar(
-        content: Text("We send the detail to $email successfully.",
-            style: TextStyle(color: Colors.white)),
+      scaffoldKey.currentState.showSnackBar(SnackBar(content: Text("We send the detail to $email successfully.",style: TextStyle(color: Colors.white)),
         backgroundColor: Colors.green[300],
       ));
     }

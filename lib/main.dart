@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hellotest06/screen_seerest/RMenuNew.dart';
 import 'package:image_picker/image_picker.dart';
 import './sceens_seetutorial/CFriendChatPage.dart';
 import './screens_seedoc/DDocNewPage.dart';
@@ -107,7 +108,7 @@ class _MyHomePageState extends State<MyHomePage> {
             //====================================================================
             // BUTTON
             //====================================================================  
-           //RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => CupertinoStoreApp()),);}, child: Text('E-Store'),),               
+            RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => RMenuNewPage()),);}, child: Text('Maintain Menu'),),               
             RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => CFriendChatPage()),);}, child: Text('See Chat App'),),                  
             RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => DUserLoginPage()),);}, child: Text('See Doc Login'),),              
             RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => DUserNewPage()),);}, child: Text('D-Sign up'),),              
