@@ -11,6 +11,7 @@ class RMenuModel {
   final String name;
   final String description;
   final double price;
+  final String imageUrl;
 
   //=============================================================
   // 2) CONSTUCTURE
@@ -20,6 +21,7 @@ class RMenuModel {
     this.name,
     this.description,
     this.price,
+    this.imageUrl
 
   });
 
@@ -31,7 +33,7 @@ class RMenuModel {
         'name': name,
         'description': description,
         'price': price,
-
+        'imageUrl': imageUrl,
       };
 
   //=============================================================
@@ -44,7 +46,7 @@ class RMenuModel {
       name: data['name'] ?? '',
       description: data['description'] ?? '',
       price: data['price'] ?? 0,
-     
+      imageUrl: data['imageUrl'] ?? 0,     
     );
   }
 

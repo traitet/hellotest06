@@ -147,7 +147,6 @@ class _DDocNewPageState extends State<DDocNewPage> {
           //==============================================================================
           RaisedButton(child: Text("Select Image"), onPressed: chooseFile),
 
-
           //==============================================================================
           //INPUT DATA
           //==============================================================================
@@ -210,8 +209,7 @@ class _DDocNewPageState extends State<DDocNewPage> {
   // FUNCTION: CHOOSE FILE
   //====================================================================================
   Future chooseFile() async {
-    await ImagePicker.pickImage(source: ImageSource.gallery).then((image) {
-      setState(() {_image = image;
+    await ImagePicker.pickImage(source: ImageSource.gallery).then((image) {setState(() {_image = image;
     });
   });
   }
