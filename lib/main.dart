@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:hellotest06/screen_seerest/RMenuNew.dart';
+import './screens_seerest/RMenuNewPage.dart';
+import './screens_seerest/RMenuViewPage.dart';
+import './screens_seerest/RMenuSearchPage.dart';
+import './screens_seerest/RMenuCatNewPage.dart';
 import 'package:image_picker/image_picker.dart';
 import './sceens_seetutorial/CFriendChatPage.dart';
 import './screens_seedoc/DDocNewPage.dart';
@@ -108,7 +111,10 @@ class _MyHomePageState extends State<MyHomePage> {
             //====================================================================
             // BUTTON
             //====================================================================  
-            RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => RMenuNewPage()),);}, child: Text('Maintain Menu'),),               
+            RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => RMenuViewPage(menuId: "M0001",)),);}, child: Text('Rest: View Food Menu'),),    
+            RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => RMenuSearchPage()),);}, child: Text('Rest: Search Food Menu'),),                            
+            RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => RMenuNewPage()),);}, child: Text('Rest: New Menu'),),  
+            RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => RMenuCatNewPage()),);}, child: Text('Rest: New Menu Category'),),                             
             RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => CFriendChatPage()),);}, child: Text('See Chat App'),),                  
             RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => DUserLoginPage()),);}, child: Text('See Doc Login'),),              
             RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => DUserNewPage()),);}, child: Text('D-Sign up'),),              

@@ -3,29 +3,29 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 //===============================================================
 // CLASS DOC MODEL
 //===============================================================
-class RMenuModel {
+class ROrderModel {
   //=============================================================
   // 1) PROPERTY
   //=============================================================
   final String id;
   final String name;
-  final String description;
-  final String imageUrl;
-  final double price;
-  final int spicy;
-  final int rating;
+  final String description; 
+  final String table;
+  final String customer;
+  final String menuId;
+  final int qty;
 
   //=============================================================
   // 2) CONSTUCTURE
   //=============================================================
-  RMenuModel({
+  ROrderModel({
     this.id,
     this.name,
     this.description,
-    this.imageUrl,
-    this.price,
-    this.spicy,
-    this.rating
+    this.table,
+    this.customer,
+    this.menuId,
+    this.qty
 
   });
 
@@ -36,25 +36,25 @@ class RMenuModel {
         'id': id,
         'name': name,
         'description': description,
-        'imageUrl': imageUrl,
-        'price': price,
-        'spicy': spicy,        
-        'rating': rating
+        'table': table,
+        'customer': customer,
+        'menuId': menuId,
+        'qty': qty,        
       };
 
   //=============================================================
   // 3) MAP SNAPSHOT -> MODEL
   //=============================================================
-  factory RMenuModel.fromFilestore(DocumentSnapshot doc) {
+  factory ROrderModel.fromFilestore(DocumentSnapshot doc) {
     Map data = doc.data;
-    return RMenuModel(
+    return ROrderModel(
       id: data['id'] ?? '',
       name: data['name'] ?? '',
       description: data['description'] ?? '',
-      imageUrl: data['imageUrl'] ?? 0,   
-      price: data['price'] ?? 0,   
-      spicy: data['spicy'] ?? 0,         
-      rating: data['rating'] ?? 0,     
+      table: data['table'] ?? '',     
+      customer: data['customer'] ?? '',   
+      menuId: data['menuId'] ?? '',  
+      qty: data['qty']??0,     
     );
   }
 

@@ -23,6 +23,7 @@ class _StackPageState extends State<StackPage> {
               decoration: BoxDecoration(
                 image: DecorationImage(
                   image: NetworkImage('https://cdn.mos.cms.futurecdn.net/3tcJXLkZ8Sk9cPpLquFTWV.jpg'),
+                  //image: NetworkImage('https://firebasestorage.googleapis.com/v0/b/hellotest06-88fae.appspot.com/o/chats%2Fimage_picker2667190986017541656.jpg%7D?alt=media&token=df74f51a-de37-432f-bced-758e8f621e68'),                  
                   fit: BoxFit.cover,
                 )
               ),

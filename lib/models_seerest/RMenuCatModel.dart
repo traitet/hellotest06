@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 //===============================================================
 // CLASS DOC MODEL
 //===============================================================
-class RMenuModel {
+class RMenuCatModel {
   //=============================================================
   // 1) PROPERTY
   //=============================================================
@@ -11,21 +11,15 @@ class RMenuModel {
   final String name;
   final String description;
   final String imageUrl;
-  final double price;
-  final int spicy;
-  final int rating;
 
   //=============================================================
   // 2) CONSTUCTURE
   //=============================================================
-  RMenuModel({
+  RMenuCatModel({
     this.id,
     this.name,
     this.description,
-    this.imageUrl,
-    this.price,
-    this.spicy,
-    this.rating
+    this.imageUrl
 
   });
 
@@ -37,24 +31,18 @@ class RMenuModel {
         'name': name,
         'description': description,
         'imageUrl': imageUrl,
-        'price': price,
-        'spicy': spicy,        
-        'rating': rating
       };
 
   //=============================================================
   // 3) MAP SNAPSHOT -> MODEL
   //=============================================================
-  factory RMenuModel.fromFilestore(DocumentSnapshot doc) {
+  factory RMenuCatModel.fromFilestore(DocumentSnapshot doc) {
     Map data = doc.data;
-    return RMenuModel(
+    return RMenuCatModel(
       id: data['id'] ?? '',
       name: data['name'] ?? '',
       description: data['description'] ?? '',
-      imageUrl: data['imageUrl'] ?? 0,   
-      price: data['price'] ?? 0,   
-      spicy: data['spicy'] ?? 0,         
-      rating: data['rating'] ?? 0,     
+     imageUrl: data['imageUrl'] ?? 0,     
     );
   }
 

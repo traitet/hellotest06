@@ -107,9 +107,7 @@ class _DDocNewPageState extends State<DDocNewPage> {
       //================================================================================
       appBar: AppBar(
         title: Text("Create Doc"),
-        actions: <Widget>[
-          IconButton(icon: Icon(Icons.camera_alt), onPressed: chooseFile),
-        ],
+        actions: <Widget>[IconButton(icon: Icon(Icons.camera_alt), onPressed: chooseFile),],
       ),
       //================================================================================
       // BUTTOM NAVIGATE BAR
@@ -117,7 +115,7 @@ class _DDocNewPageState extends State<DDocNewPage> {
       bottomNavigationBar: BottomAppBar(
         shape: CircularNotchedRectangle(),
         child: Container(
-          height: 75,
+          height: 75, 
           child: Row(
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.spaceAround,
