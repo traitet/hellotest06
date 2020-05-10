@@ -28,7 +28,8 @@ class RMenuViewPage extends StatefulWidget {
   //========================================================  
 class _RMenuViewPageState extends State<RMenuViewPage> {
   File _image;
-  String _uploadedFileURL; 
+  String _uploadedFileURL = ''; 
+ 
   //========================================================
   // DECALRE VARIABLE
   //========================================================  
@@ -38,7 +39,8 @@ class _RMenuViewPageState extends State<RMenuViewPage> {
   final _imageUrlController = TextEditingController()..text = 'www.imagefoodmenu.com';   
   final _priceController = TextEditingController()..text = '100';
   final _spicyController = TextEditingController()..text = '2';  
-  final _ratingController = TextEditingController()..text = '4';   
+  final _ratingController = TextEditingController()..text = '4';  
+
 
 //========================================================================================
 // 4) GET DATA FROM DB ?? YES
@@ -55,6 +57,8 @@ class _RMenuViewPageState extends State<RMenuViewPage> {
         _priceController.text = value.data["price"].toString();
         _spicyController.text = value.data["spicy"].toString();  
         _spicyController.text = value.data["rating"].toString();  
+        _uploadedFileURL = value.data["imageUrl"];
+        logger.i(value.data.toString());
                    
       });
     });
@@ -65,17 +69,20 @@ class _RMenuViewPageState extends State<RMenuViewPage> {
   //========================================================  
   @override
   Widget build(BuildContext context) {
+        // logger.i('image:' + _image.toString());
+        // logger.i('_uploadedFileURL: '+ _uploadedFileURL??'');          
     return Scaffold(
       appBar: AppBar(title: Text('View and Edit Menu'),
       actions: <Widget>[IconButton(icon: Icon(Icons.camera_alt), onPressed: chooseFile),],  ),    
       body: ListView(
         children: <Widget>[
-              
           _idController.text == '' ? Text("Loading . . . "):
           //==============================================================================
-          // BUILD WIDGET IMAGE AND TEXT
+          // BUILD WIDGET IMAGE AND TEXT (1) UPLOAD 2) GOOGLE 3) WRONG URL
           //==============================================================================
-          _imageUrlController.text !='' ? Container(padding: const EdgeInsets.all(8.0),height: 200,child: Image.network(_imageUrlController.text)): widgetBodyImage(),          
+            _image != null ? Image.asset(_image.path,height: 200,):  
+            _uploadedFileURL != '' ? Container(padding: const EdgeInsets.all(8.0),height: 200,child: Image.network(_imageUrlController.text)):
+            widgetBodyImage(),          
           //================================================
           // UI: TEXT
           //================================================  
@@ -85,12 +92,10 @@ class _RMenuViewPageState extends State<RMenuViewPage> {
           TextFormField(decoration: InputDecoration(labelText: 'Price', prefixIcon: Icon(Icons.insert_chart)),controller:_priceController,), 
           TextFormField(decoration: InputDecoration(labelText: 'Spicy', prefixIcon: Icon(Icons.insert_chart)),controller:_spicyController,), 
           TextFormField(decoration: InputDecoration(labelText: 'Rating', prefixIcon: Icon(Icons.insert_chart)),controller:_ratingController,),   
-
           //==============================================================================
           // UPLOAD IMAGE         
           //==============================================================================
           RaisedButton(child: Text("Select Image"), onPressed: chooseFile),
-
           //================================================
           // UI: SAVE BUTTON
           //================================================                      
@@ -100,10 +105,13 @@ class _RMenuViewPageState extends State<RMenuViewPage> {
     );
   }
 
-  //========================================================
+  //==========================================================
   // SAVE (COLLECTION=TABLE, DOCUMENT=PK)
-  //========================================================   
+  //==========================================================   
   fnSave() async {
+    //========================================================
+    // UPLOAD FILE
+    //======================================================== 
     await fnUploadFile();
     //========================================================
     // PREPARE DATA
@@ -163,7 +171,7 @@ Widget widgetBodyImage() => Padding(
     StorageUploadTask uploadTask = storageReference.putFile(_image);
     await uploadTask.onComplete;
     logger.i('File Uploaded');
-    storageReference.getDownloadURL().then((fileURL) {
+    await storageReference.getDownloadURL().then((fileURL) {
       setState(() {
         _uploadedFileURL = fileURL;
       

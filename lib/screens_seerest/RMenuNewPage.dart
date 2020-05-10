@@ -32,7 +32,7 @@ class _RMenuNewPageState extends State<RMenuNewPage> {
   //========================================================  
   var _image;
   var _docId;
-  String _imageURL;  
+  String _imageURL = '';  
   final _idController = TextEditingController()..text = 'M0001';
   final _nameController = TextEditingController()..text = 'Fried rice';
   final _descriptionController = TextEditingController()..text = 'ข้าวผัด'; 
@@ -61,7 +61,12 @@ class _RMenuNewPageState extends State<RMenuNewPage> {
           //==============================================================================
           // BUILD WIDGET IMAGE AND TEXT
           //==============================================================================
-          _image != null ? Image.asset(_image.path,height: 200,): widgetBodyImage(),
+          //==============================================================================
+          // BUILD WIDGET IMAGE AND TEXT (1) UPLOAD 2) GOOGLE 3) WRONG URL
+          //==============================================================================
+            _image != null ? Image.asset(_image.path,height: 200,): _imageURL != '' ?   
+            Container(padding: const EdgeInsets.all(8.0),height: 200,child: Image.network(_imageURL)): 
+            widgetBodyImage(), 
           //==============================================================================
           // UPLOAD IMAGE         
           //==============================================================================
@@ -79,7 +84,7 @@ class _RMenuNewPageState extends State<RMenuNewPage> {
   // SAVE (COLLECTION=TABLE, DOCUMENT=PK)
   //======================================================================================   
   fnSave() async {
-    if (_nameController.text == "" || _descriptionController.text ==""){
+    if (_nameController.text == "" || _descriptionController.text =="" ){
         showMessageBox(context, "Error", "Please enter Name and Descripton", actions: [dismissButton(context)]);
         logger.e("Name or Description cannot be null");              
     } // IF
