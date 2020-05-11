@@ -29,6 +29,8 @@ class RMenuViewPage extends StatefulWidget {
 class _RMenuViewPageState extends State<RMenuViewPage> {
   File _image;
   String _uploadedFileURL = ''; 
+  String _dropdownValue = 'Main';  
+  var snapshotMenuCatList;
  
   //========================================================
   // DECALRE VARIABLE
@@ -40,6 +42,7 @@ class _RMenuViewPageState extends State<RMenuViewPage> {
   final _priceController = TextEditingController()..text = '100';
   final _spicyController = TextEditingController()..text = '2';  
   final _ratingController = TextEditingController()..text = '4';  
+
 
 
 //========================================================================================
@@ -58,10 +61,21 @@ class _RMenuViewPageState extends State<RMenuViewPage> {
         _spicyController.text = value.data["spicy"].toString();  
         _spicyController.text = value.data["rating"].toString();  
         _uploadedFileURL = value.data["imageUrl"];
-        logger.i(value.data.toString());
-                   
+        _dropdownValue = value.data["menuCategory"];
+        logger.i(value.data.toString());        
       });
+    Firestore.instance.collection("TM_REST_MENU_CAT").getDocuments().then((snapshot) {
+        setState(() {
+          snapshotMenuCatList = snapshot.documents;
+          logger.i(snapshotMenuCatList.toString);
+        });
     });
+
+
+
+    });
+
+
   }
 
   //========================================================
@@ -82,7 +96,11 @@ class _RMenuViewPageState extends State<RMenuViewPage> {
           //==============================================================================
             _image != null ? Image.asset(_image.path,height: 200,):  
             _uploadedFileURL != '' ? Container(padding: const EdgeInsets.all(8.0),height: 200,child: Image.network(_imageUrlController.text)):
-            widgetBodyImage(),          
+            widgetBodyImage(),     
+          //================================================
+          // UI: TEXT
+          //================================================  
+          buildMenuCatDropdown(),       
           //================================================
           // UI: TEXT
           //================================================  
@@ -90,20 +108,63 @@ class _RMenuViewPageState extends State<RMenuViewPage> {
           TextFormField(decoration: InputDecoration(labelText: 'Menu Name', prefixIcon: Icon(Icons.insert_chart)),controller: _nameController,),
           TextFormField(decoration: InputDecoration(labelText: 'Menu Description', prefixIcon: Icon(Icons.insert_chart)),controller: _descriptionController,),
           TextFormField(decoration: InputDecoration(labelText: 'Price', prefixIcon: Icon(Icons.insert_chart)),controller:_priceController,), 
-          TextFormField(decoration: InputDecoration(labelText: 'Spicy', prefixIcon: Icon(Icons.insert_chart)),controller:_spicyController,), 
-          TextFormField(decoration: InputDecoration(labelText: 'Rating', prefixIcon: Icon(Icons.insert_chart)),controller:_ratingController,),   
+          //TextFormField(decoration: InputDecoration(labelText: 'Spicy', prefixIcon: Icon(Icons.insert_chart)),controller:_spicyController,), 
+          TextFormField(decoration: InputDecoration(labelText: 'Rating', prefixIcon: Icon(Icons.insert_chart)),controller:_ratingController,keyboardType: TextInputType.number,), 
+
+       
           //==============================================================================
           // UPLOAD IMAGE         
           //==============================================================================
           RaisedButton(child: Text("Select Image"), onPressed: chooseFile),
-          //================================================
+          //=================================================
           // UI: SAVE BUTTON
-          //================================================                      
+          //=================================================                      
           RaisedButton(onPressed: (){fnSave();}, child: Text('SAVE'),),               
         ],
       ),
     );
   }
+  //==========================================================
+  // WIDGET: MENU CATEGORY DROPDOWN
+  //==========================================================  
+  Widget buildMenuCatDropdown() {
+    return Row(
+      children: <Widget>[
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text('Menu Category: '),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: DropdownButton<String>(
+            hint: Text('Menu Category'),
+            value: _dropdownValue,
+            icon: Icon(Icons.arrow_downward),
+            iconSize: 24,
+            elevation: 16,
+            style: TextStyle(color: Colors.deepPurpleAccent),
+            underline: Container(
+              height: 2,
+              color: Colors.deepPurpleAccent,
+            ),
+            onChanged: (String newValue) {
+              setState(() {
+                _dropdownValue = newValue;
+              });
+            },
+            items: <String>['Main', 'Meat', 'Dessert', 'Vegetable'].map<DropdownMenuItem<String>>((String value) {
+              return DropdownMenuItem<String>(
+                value: value,
+                child: Text(value),
+              );
+            }).toList(),
+          ),
+        ),
+      ],
+    );
+  }
+
+
 
   //==========================================================
   // SAVE (COLLECTION=TABLE, DOCUMENT=PK)
@@ -112,7 +173,7 @@ class _RMenuViewPageState extends State<RMenuViewPage> {
     //========================================================
     // UPLOAD FILE
     //======================================================== 
-    await fnUploadFile();
+    if (_image != null){await fnUploadFile();}
     //========================================================
     // PREPARE DATA
     //========================================================       
@@ -123,8 +184,10 @@ class _RMenuViewPageState extends State<RMenuViewPage> {
       imageUrl: _uploadedFileURL,
       price: double.parse(_priceController.text),
       spicy: int.parse(_spicyController.text),
-      rating: int.parse(_ratingController.text)      
+      rating: int.parse(_ratingController.text),     
+      menuCategory: _dropdownValue,       
     );
+    logger.i(myModel);
   //========================================================
   // SHOW LOG
   //========================================================   
@@ -142,8 +205,6 @@ class _RMenuViewPageState extends State<RMenuViewPage> {
     });
     
   }
-
-
 
 //======================================================
 // WIDGET:IMAGE BODY WIDGET

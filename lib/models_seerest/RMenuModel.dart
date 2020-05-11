@@ -14,6 +14,7 @@ class RMenuModel {
   final double price;
   final int spicy;
   final int rating;
+  final String menuCategory; 
 
   //=============================================================
   // 2) CONSTUCTURE
@@ -25,7 +26,8 @@ class RMenuModel {
     this.imageUrl,
     this.price,
     this.spicy,
-    this.rating
+    this.rating,
+    this.menuCategory,
 
   });
 
@@ -39,7 +41,8 @@ class RMenuModel {
         'imageUrl': imageUrl,
         'price': price,
         'spicy': spicy,        
-        'rating': rating
+        'rating': rating,
+        'menuCategory': menuCategory,
       };
 
   //=============================================================
@@ -54,7 +57,8 @@ class RMenuModel {
       imageUrl: data['imageUrl'] ?? 0,   
       price: data['price'] ?? 0,   
       spicy: data['spicy'] ?? 0,         
-      rating: data['rating'] ?? 0,     
+      rating: data['rating'] ?? 0,  
+     menuCategory: data['menuCategory'] ?? '',         
     );
   }
 
