@@ -14,6 +14,7 @@ class ROrderModel {
   final String customer;
   final String menuId;
   final int qty;
+  final String imageUrl;
 
   //=============================================================
   // 2) CONSTUCTURE
@@ -25,7 +26,8 @@ class ROrderModel {
     this.table,
     this.customer,
     this.menuId,
-    this.qty
+    this.qty,
+    this.imageUrl,
 
   });
 
@@ -39,7 +41,8 @@ class ROrderModel {
         'table': table,
         'customer': customer,
         'menuId': menuId,
-        'qty': qty,        
+        'qty': qty,   
+        'imageUrl': imageUrl,                 
       };
 
   //=============================================================
@@ -54,7 +57,8 @@ class ROrderModel {
       table: data['table'] ?? '',     
       customer: data['customer'] ?? '',   
       menuId: data['menuId'] ?? '',  
-      qty: data['qty']??0,     
+      qty: data['qty']??0,    
+      imageUrl: data['imageUrl'] ?? '',         
     );
   }
 

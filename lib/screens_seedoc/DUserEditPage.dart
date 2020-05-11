@@ -97,8 +97,7 @@ class _DUserEditPageState extends State<DUserEditPage> {
           children: <Widget>[
             //==============================================================================
             // 1) TEXTBOX 
-            //==============================================================================  
-                           
+            //==============================================================================         
             TextFormField(decoration: InputDecoration(labelText: '*E-mail', prefixIcon: Icon(Icons.email)),controller: _emailController),
             TextFormField(decoration: InputDecoration(labelText: '*Emp ID', prefixIcon: Icon(Icons.people)),controller: _empIdController),          
             TextFormField(decoration: InputDecoration(labelText: '*First Name', prefixIcon: Icon(Icons.first_page)),controller: _firstnameController,),  

@@ -82,7 +82,6 @@ class _DDocViewPageState extends State<DDocViewPage> {
               Column(children: <Widget>[IconButton(iconSize: 30.0, icon: Icon(Icons.backspace),onPressed: !_isCreater?null: () => fnRecall(context, widget.docid) ,),Text("Recall",)],),
               Column(children: <Widget>[IconButton(iconSize: 30.0, icon: Icon(Icons.home),onPressed: _isCreater?null: () => fnReject(context, widget.docid) ,),Text("Reject",)],),
               Column(children: <Widget>[IconButton(iconSize: 30.0, icon: Icon(Icons.send),onPressed: _isCreater?null: () => fnApprove(context, widget.docid) ,),Text("Approve",)],)                               
-  
             ],
           ),
         ),
@@ -111,7 +110,6 @@ class _DDocViewPageState extends State<DDocViewPage> {
     );
   }
 }
-
 
 //**************************************************************************************************************************
 // FUNCTION
