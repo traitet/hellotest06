@@ -1,12 +1,10 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:hellotest06/screens_seerest/RSplashScreen.dart';
+import 'package:image_picker/image_picker.dart';
 import './screens_seerest/RMenuNewPage.dart';
 import './screens_seerest/RMenuViewPage.dart';
 import './screens_seerest/RMenuSearchPage.dart';
 import './screens_seerest/RMenuCatNewPage.dart';
-import 'package:image_picker/image_picker.dart';
 import './sceens_seetutorial/CFriendChatPage.dart';
 import './screens_seedoc/DDocNewPage.dart';
 import './screens_seedoc/DDocSearchPage.dart';
@@ -57,7 +55,8 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MyHomePage(title: 'Hello Test 06 - UPDATED'),
+      home: RSplashScreen(), 
+      //MyHomePage(title: 'Hello Test 06 - UPDATED'),
     );
   }
 }
@@ -80,17 +79,7 @@ class MyHomePage extends StatefulWidget {
 // STF CLASS
 //=================================================================================
 class _MyHomePageState extends State<MyHomePage> {
-
-  //===============================================================================
-  // LOAD SPLASH SCREEN
-  //===============================================================================
-  @override
-  void initState() {
-    super.initState();
-    loadData();
-  }
-
-  //===============================================================================
+ //===============================================================================
   // BUILD WIDGET
   //===============================================================================
   @override
@@ -168,18 +157,6 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
 
-//====================================================================
-// LOAD SPLASH SCREEN
-//====================================================================  
-Future<Timer> loadData() async {
-  return new Timer(Duration(seconds: 5), onDoneLoading);
-}
-//====================================================================
-// ON DID LOAD
-//==================================================================== 
-onDoneLoading() async {
-  Navigator.of(context).push(MaterialPageRoute(builder: (context) => RSplashScreen()));
-}
 
 
 
