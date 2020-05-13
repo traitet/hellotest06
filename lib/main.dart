@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:hellotest06/screens_seerest/RSplashScreen.dart';
 import './screens_seerest/RMenuNewPage.dart';
 import './screens_seerest/RMenuViewPage.dart';
 import './screens_seerest/RMenuSearchPage.dart';
@@ -38,13 +41,13 @@ void main() {
   runApp(MyApp());
 }
 
-//============================================================================
+//=================================================================================
 // MY APP CLASS
-//============================================================================
+//=================================================================================
 class MyApp extends StatelessWidget {
-  //==========================================================================
+  //===============================================================================
   // ROOT APP WIDGET
-  //==========================================================================
+  //===============================================================================
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -65,6 +68,7 @@ class MyHomePage extends StatefulWidget {
   // PARAMETER: TITLE
   //==============================================================================
   final String title;
+   
   //==============================================================================
   // OVERRIDE CREATE STATE
   //==============================================================================
@@ -72,42 +76,48 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-//================================================================================
+//=================================================================================
 // STF CLASS
-//================================================================================
+//=================================================================================
 class _MyHomePageState extends State<MyHomePage> {
-  // int _counter = 0;
-  // void _incrementCounter() {
-  //   setState(() {
-  //     _counter++;
-  //   });
-  // }
 
+  //===============================================================================
+  // LOAD SPLASH SCREEN
+  //===============================================================================
+  @override
+  void initState() {
+    super.initState();
+    loadData();
+  }
+
+  //===============================================================================
+  // BUILD WIDGET
+  //===============================================================================
   @override
   Widget build(BuildContext context) {
-    //============================================================================
+    //=============================================================================
     // SCAFFOLD
-    //============================================================================
+    //=============================================================================
     return Scaffold(
-      //==========================================================================
+      //===========================================================================
       // APP BAR
-      //==========================================================================
+      //===========================================================================
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      //==========================================================================
+      //===========================================================================
       // BODY
-      //==========================================================================
+      //===========================================================================
       body: Center(
-        //========================================================================
+        //=========================================================================
         // CHILD: COLUMN
-        //========================================================================
+        //=========================================================================
         child: ListView(
           // mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            //====================================================================
+            //=====================================================================
             // TEXT
-            //====================================================================           
+            //=====================================================================           
             Text('CHECK HOT RELOAD'),            
             //====================================================================
             // BUTTON
@@ -141,24 +151,38 @@ class _MyHomePageState extends State<MyHomePage> {
             RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => Ep4Page()),);}, child: Text('EP4-Statefull & List'),),   
             RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => STLWidgetPage()),);}, child: Text('Stateless Page'),),   
             RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => STFWidgetPage()),);}, child: Text('Statefull Widget Page'),), 
-            //RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => DLogininSmsPage()),);}, child: Text('See Doc Login (SMS)'),),   
-             
+            RaisedButton(child: Text('Choose File'),onPressed: chooseFile,   color: Colors.cyan,),
+            
+            //RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => DLogininSmsPage()),);}, child: Text('See Doc Login (SMS)'),),    
             // RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => DUserNewPage()),);}, child: Text('See Sign Up'),),  
             // RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => DMenuPage(username: 'traitet@',)),);}, child: Text('See Menu Page'),),  
             // RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => ReadQRPage()),);}, child: Text('Read QR'),),  
             // RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => DDocNewPage()),);}, child: Text('Call Api User'),),             
 
-RaisedButton(    
-                    child: Text('Choose File'),    
-                    onPressed: chooseFile,    
-                    color: Colors.cyan,    
-                  )    ,
+
 
           ],
         ),
       ),
     );
   }
+
+
+//====================================================================
+// LOAD SPLASH SCREEN
+//====================================================================  
+Future<Timer> loadData() async {
+  return new Timer(Duration(seconds: 5), onDoneLoading);
+}
+//====================================================================
+// ON DID LOAD
+//==================================================================== 
+onDoneLoading() async {
+  Navigator.of(context).push(MaterialPageRoute(builder: (context) => RSplashScreen()));
+}
+
+
+
 }
 
 
@@ -170,3 +194,6 @@ Future chooseFile() async {
     //  });    
    });    
  }  
+
+
+ 

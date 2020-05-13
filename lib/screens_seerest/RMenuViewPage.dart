@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:hellotest06/models_seerest/ROrderModel.dart';
 import '../models_seerest/RMenuModel.dart';
 import '../services/LoggerService.dart';
 import '../services/ShowNotification.dart';
@@ -34,6 +35,7 @@ class _RMenuViewPageState extends State<RMenuViewPage> {
   String _uploadedFileURL = ''; 
   String _dropdownValue = 'Main';  
   var snapshotMenuCatList;
+  RMenuModel  _model; 
  
   //======================================================================================
   // DECALRE VARIABLE
@@ -46,23 +48,27 @@ class _RMenuViewPageState extends State<RMenuViewPage> {
   final _spicyController = TextEditingController()..text = '2';  
   final _ratingController = TextEditingController()..text = '4';  
 
-//========================================================================================
+//=========================================================================================
 // 4) GET DATA FROM DB ?? YES
-//========================================================================================
+//=========================================================================================
   @override
   void initState() {
     super.initState();
     Firestore.instance.collection("TM_REST_MENU").document(widget.menuId).get().then((value) {
       setState(() {
-        _idController.text = value.data["id"];
-        _nameController.text = value.data["name"];
-        _descriptionController.text = value.data["description"];
-        _imageUrlController.text = value.data["imageUrl"];
-        _priceController.text = value.data["price"].toString();
-        _spicyController.text = value.data["spicy"].toString();  
-        _spicyController.text = value.data["rating"].toString();  
-        _uploadedFileURL = value.data["imageUrl"];
-        _dropdownValue = value.data["menuCategory"];
+        //=================================================================================
+        // 4) GET DATA FROM DB ?? YES
+        //=================================================================================       
+        _model = RMenuModel.fromFilestore(value);  
+        _idController.text = _model.id;
+        _nameController.text = _model.name;
+        _descriptionController.text = _model.description;
+        _imageUrlController.text = _model.imageUrl;
+        _priceController.text = _model.price.toString();
+        _spicyController.text = _model.spicy.toString();  
+        _spicyController.text = _model.rating.toString();  
+        _uploadedFileURL = _model.imageUrl;
+        _dropdownValue = _model.menuCategory;
         logger.i(value.data.toString());        
       });
     Firestore.instance.collection("TM_REST_MENU_CAT").getDocuments().then((snapshot) {
