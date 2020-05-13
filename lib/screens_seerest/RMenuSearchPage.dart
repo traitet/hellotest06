@@ -5,6 +5,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hellotest06/screens_seerest/ROrderPage..dart';
+import 'package:hellotest06/widgets/BadgeIcon.dart';
 import '../screens_seerest/RMenuViewPage.dart';
 import '../models_seerest/ROrderModel.dart';
 import '../services/LoggerService.dart';
@@ -29,23 +30,24 @@ class _RMenuSearchPageState extends State<RMenuSearchPage> {
   int index = 0;
   int _countOrderItem = 0;
   int _orderItemQty = 0;
+  int _orderItemCount = 0;  
   //========================================================================================
   // OVERRIDE
   //========================================================================================   
   @override
-  //=====================================================================================
+  //========================================================================================
   // 3) INIT: GET DATA FROM DB
-  //=====================================================================================
+  //========================================================================================
   void initState() {
     super.initState();
     Firestore.instance.collection('TT_ORDER').getDocuments().then((myDocuments) {
-      //=================================================================================
+      //====================================================================================
       // 3.1) AFTER GET DATA
-      //=================================================================================
+      //====================================================================================
       setState(() {
-        //===============================================================================
+        //==================================================================================
         // 1) NOT FOUND IN DB
-        //===============================================================================          
+        //==================================================================================          
           logger.i(myDocuments.documents.length.toString());
           _orderItemQty = myDocuments.documents.length;
       });
@@ -63,7 +65,14 @@ class _RMenuSearchPageState extends State<RMenuSearchPage> {
       //====================================================================================       
       appBar: AppBar(
         title: Text('Menu Search: ' + _orderItemQty.toString()),       
-        actions: <Widget>[IconButton(icon: myBadgeIcon(_orderItemQty), onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => ROrderPage()),);}     ),],
+        actions: <Widget>[IconButton(
+            icon: StreamBuilder(
+            initialData: _orderItemCount,
+            stream:  Firestore.instance.collection("TT_ORDER").snapshots(),
+            builder: (BuildContext context, AsyncSnapshot _shapshot) => BadgeIcon(icon:Icon(Icons.add_shopping_cart, size: 25,),
+            badgeCount:  _shapshot.data.documents.length        
+        ), )
+        , onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => ROrderPage()),);}     ),],
       ),
       //====================================================================================
       // BUTTOM NAVIGATOR
@@ -90,6 +99,7 @@ class _RMenuSearchPageState extends State<RMenuSearchPage> {
               //============================================================================                 
               itemCount: snapshot.data.documents.length,
               itemBuilder: (context, index){
+    
                 //==========================================================================
                 // GET DATA FROM DB
                 //==========================================================================     
@@ -112,6 +122,10 @@ class _RMenuSearchPageState extends State<RMenuSearchPage> {
       )
     );
   }
+
+
+
+
 
   //========================================================================================
   // WIDGET: BODY TEXT
@@ -199,41 +213,20 @@ class _RMenuSearchPageState extends State<RMenuSearchPage> {
   // BOTTOM NAV BAR (ITEM)
   //======================================================
   BottomNavigationBarItem homeNav() => BottomNavigationBarItem(icon: Icon(Icons.home), title:  Text('Home'), );
-  BottomNavigationBarItem menuNav() => BottomNavigationBarItem(icon: Icon(Icons.add_shopping_cart), title:  Text('Menu'), );  
+  BottomNavigationBarItem menuNav() => BottomNavigationBarItem(
+    icon: StreamBuilder(
+      initialData: _orderItemCount,
+      stream:  Firestore.instance.collection("TT_ORDER").snapshots(),
+      builder: (BuildContext context, AsyncSnapshot _shapshot) => BadgeIcon(
+        icon:Icon(Icons.add_shopping_cart, size: 25,),
+       badgeCount:  _shapshot.data.documents.length        
+    ), 
+    ),
+    title:  Text('New'));
   BottomNavigationBarItem orderNav() => BottomNavigationBarItem(icon: Icon(Icons.shopping_basket), title:  Text('Order'));
   BottomNavigationBarItem moreNav() => BottomNavigationBarItem(icon: Icon(Icons.menu), title:  Text('More'));
 
-  //======================================================
-  // WIDGET QTY SPINDER
-  //======================================================
-  Widget myBadgeIcon(int count) => Positioned(
-                right: 0,
-                top: 0,
-                child: new Container(
-                padding: EdgeInsets.all(1),
-                decoration: new BoxDecoration(
-                    color: Colors.red,
-                    borderRadius: BorderRadius.circular(8.5),
-                ),
-                constraints: BoxConstraints(
-                    minWidth: 30,
-                    minHeight: 30,
-                ),
-                child: Text(
-                    count.toString(),
-                    style: new TextStyle(
-                    color: Colors.white,
-                    fontSize: 20,
-                    ),
-                    textAlign: TextAlign.center,
-                ),
-                ),
-            );
-        
-
-
 }// CLASS
-
 
 
 
