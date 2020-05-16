@@ -4,7 +4,8 @@
 //========================================================  
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_counter/flutter_counter.dart';
+import 'package:hellotest06/models_seerest/RMenuCatModel.dart';
+// import 'package:flutter_counter/flutter_counter.dart';
 import 'package:hellotest06/models_seerest/RMenuModel.dart';
 import 'package:hellotest06/screens_seerest/ROrderPage..dart';
 import 'package:hellotest06/widgets/BadgeIcon.dart';
@@ -29,7 +30,8 @@ class _RMenuSearchPageState extends State<RMenuSearchPage> {
   //======================================================================================== 
   int index = 0;
   int _orderItemCount = 0;  
-  Map<String, int> _counterArr = {};  
+  String _menuCategory = 'Main';
+  // Map<String, int> _counterArr = {};  
 
   //========================================================================================
   // OVERRIDE
@@ -80,53 +82,105 @@ class _RMenuSearchPageState extends State<RMenuSearchPage> {
       //====================================================================================
       // BODY
       //====================================================================================       
-      body: StreamBuilder(
-        //==================================================================================
-        // GET DATA FROM DB
-        //==================================================================================         
-        stream: Firestore.instance.collection("TM_REST_MENU").snapshots(),
-        //==================================================================================
-        // BUILDER
-        //==================================================================================          
-        builder:(context, snapshot) {
-           if (!snapshot.hasData){return Center(child: Column(children: <Widget>[CircularProgressIndicator(),Text('Loading...') ],),);}
-           else
-           {
+      body: ListView(
+        children: <Widget>[
+          Container(
+            height: 90,
+            child: StreamBuilder(
+              stream: Firestore.instance.collection("TM_REST_MENU_CAT").snapshots(),
+              builder:(context, snapshot) {
+                if (!snapshot.hasData){return Center(child: Column(children: <Widget>[CircularProgressIndicator(),Text('Loading...') ],),);}
+                else{
+                  return ListView.builder(
+                     scrollDirection: Axis.horizontal,
+                    itemCount: snapshot.data.documents.length,
+                    itemBuilder: (context, index){  
+                      //==========================================================================
+                      // GET DATA
+                      //========================================================================== 
+                      var _model = RMenuCatModel.fromFilestore(snapshot.data.documents[index]); 
+                      //==========================================================================
+                      // FILL DATA
+                      //==========================================================================                 
+                      String _docId = snapshot.data.documents[index].documentID;              
+                      String _name =  _model.name ;   
+                      logger.i(_model.toFileStone().toString);    
+                      String _imageUrl =  _model.imageUrl;     
+                      return Card(  child: Container(child: InkWell(
+                          onTap: () { setState(() {
+                             _menuCategory = _name;
+                          });},                   
+                          child: Column(children: <Widget>[widgetMenuCat(_name,_imageUrl,_docId),],),),),);
+                    }, //itemBuilder                                               
+                  ); 
+                }}
+            )
+          ),
+            
+            
+          Container(
+            height: 500,
+            child: StreamBuilder(
+              //==================================================================================
+              // GET DATA FROM DB
+              //==================================================================================         
+              stream: Firestore.instance.collection("TM_REST_MENU").where('menuCategory', isEqualTo: _menuCategory).snapshots(),
+              //==================================================================================
+              // BUILDER
+              //==================================================================================          
+              builder:(context, snapshot) {
+                 if (!snapshot.hasData){return Center(child: Column(children: <Widget>[CircularProgressIndicator(),Text('Loading...') ],),);}
+                 else
+                 {
 
-            return ListView.builder(
-              //============================================================================
-              // 1) DECLARE VARIABLE
-              //============================================================================                 
-              itemCount: snapshot.data.documents.length,
-              itemBuilder: (context, index){
-                //==========================================================================
-                // GET DATA
-                //========================================================================== 
-                var _model = RMenuModel.fromFilestore(snapshot.data.documents[index]); 
-                //==========================================================================
-                // FILL DATA
-                //==========================================================================                 
-                String _docId = snapshot.data.documents[index].documentID;              
-                String _name =  _model.name ;  
-                String _description =  _model.description;  
-                double _price =  _model.price??100;     
-                String _imageUrl =  _model.imageUrl??'';                                      
-              return Padding(padding: const EdgeInsets.all(8.0),
-                  //========================================================================
-                  // CARD AT EACH INDEX
-                  //========================================================================                  
-                  child: Card(  child: Container(child: InkWell(
-                    onTap: () {Navigator.push(context,MaterialPageRoute(builder: (context) => RMenuViewPage(menuId: snapshot.data.documents[index].documentID,)));},                   
-                    child: Column(children: <Widget>[
-                      widgetBodyText(_docId,_name,_description,_price,_imageUrl), 
-                    ],),),),));
-              }, //Return#1
-            );
-           } //Else
-         } // Builder
+                  return ListView.builder(
+                    //============================================================================
+                    // 1) DECLARE VARIABLE
+                    //============================================================================                 
+                    itemCount: snapshot.data.documents.length,
+                    itemBuilder: (context, index){
+                      //==========================================================================
+                      // GET DATA
+                      //========================================================================== 
+                      var _model = RMenuModel.fromFilestore(snapshot.data.documents[index]); 
+                      //==========================================================================
+                      // FILL DATA
+                      //==========================================================================                 
+                      String _docId = snapshot.data.documents[index].documentID;              
+                      String _name =  _model.name ;  
+                      String _description =  _model.description;  
+                      double _price =  _model.price??100;     
+                      String _imageUrl =  _model.imageUrl??'';                                      
+                    return Padding(padding: const EdgeInsets.all(8.0),
+                        //========================================================================
+                        // CARD AT EACH INDEX
+                        //========================================================================                  
+                        child: Card(  child: Container(child: InkWell(
+                          onTap: () {Navigator.push(context,MaterialPageRoute(builder: (context) => RMenuViewPage(menuId: snapshot.data.documents[index].documentID,)));},                   
+                          child: Column(children: <Widget>[
+                            widgetBodyText(_docId,_name,_description,_price,_imageUrl), 
+                          ],),),),));
+                    }, //itemBuilder
+                  );
+                 } //Else
+               } // Builder
+            ),
+          ),
+        ],
       )
     );
   }
+
+  //========================================================================================
+  // WIDGET: BODY TEXT
+  //========================================================================================
+  Widget widgetMenuCat(String myText,String myImageUrl,  String myMenuCatId,) {
+    return Container(height: 80,width: 80,child: Stack(children: <Widget>[
+      Container(width: 90,),//child: Image.asset('assets/images/bg01.jpg',fit: BoxFit.cover,),
+      Container(alignment: Alignment.center,color:  Colors.grey,child: Text(myText)),
+     // Center(child: Icon(myIcon,size: 40.0,color: Colors.black,)),
+    ],),
+    );}
 
   //========================================================================================
   // WIDGET: BODY TEXT
