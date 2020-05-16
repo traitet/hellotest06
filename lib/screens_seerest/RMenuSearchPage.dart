@@ -4,13 +4,13 @@
 //========================================================  
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_counter/flutter_counter.dart';
+import 'package:hellotest06/models_seerest/RMenuModel.dart';
 import 'package:hellotest06/screens_seerest/ROrderPage..dart';
 import 'package:hellotest06/widgets/BadgeIcon.dart';
 import '../screens_seerest/RMenuViewPage.dart';
 import '../models_seerest/ROrderModel.dart';
 import '../services/LoggerService.dart';
-// import 'package:path/path.dart' as Path;
-// import 'dart:io';
 
 //==========================================================
 // MAIN CLASS
@@ -28,9 +28,9 @@ class _RMenuSearchPageState extends State<RMenuSearchPage> {
   // DECLARE VARIABLE
   //======================================================================================== 
   int index = 0;
-  int _countOrderItem = 0;
-  int _orderItemQty = 0;
   int _orderItemCount = 0;  
+  Map<String, int> _counterArr = {};  
+
   //========================================================================================
   // OVERRIDE
   //========================================================================================   
@@ -49,10 +49,9 @@ class _RMenuSearchPageState extends State<RMenuSearchPage> {
         // 1) NOT FOUND IN DB
         //==================================================================================          
           logger.i(myDocuments.documents.length.toString());
-          _orderItemQty = myDocuments.documents.length;
+          _orderItemCount = myDocuments.documents.length;
       });
-    });
-  }
+    });}
 
   //========================================================================================
   // BUILD UI
@@ -64,13 +63,13 @@ class _RMenuSearchPageState extends State<RMenuSearchPage> {
       // APP BAR:      
       //====================================================================================       
       appBar: AppBar(
-        title: Text('Menu Search: ' + _orderItemQty.toString()),       
+        title: Text('Menu Search'),       
         actions: <Widget>[IconButton(
             icon: StreamBuilder(
             initialData: _orderItemCount,
             stream:  Firestore.instance.collection("TT_ORDER").snapshots(),
             builder: (BuildContext context, AsyncSnapshot _shapshot) => BadgeIcon(icon:Icon(Icons.add_shopping_cart, size: 25,),
-            badgeCount:  _shapshot.data.documents.length        
+            badgeCount:  _shapshot.data.documents.length??0        
         ), )
         , onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => ROrderPage()),);}     ),],
       ),
@@ -93,27 +92,33 @@ class _RMenuSearchPageState extends State<RMenuSearchPage> {
            if (!snapshot.hasData){return Center(child: Column(children: <Widget>[CircularProgressIndicator(),Text('Loading...') ],),);}
            else
            {
+
             return ListView.builder(
               //============================================================================
               // 1) DECLARE VARIABLE
               //============================================================================                 
               itemCount: snapshot.data.documents.length,
               itemBuilder: (context, index){
-    
                 //==========================================================================
-                // GET DATA FROM DB
-                //==========================================================================     
-                String _docId = snapshot.data.documents[index].documentID; 
-                String _name =  snapshot.data.documents[index].data["name"];  
-                String _description =  snapshot.data.documents[index].data["description"];  
-                double _price =  snapshot.data.documents[index].data["price"]??100;     
-                String _imageUrl =  snapshot.data.documents[index].data["imageUrl"]??'';                                                                                 
+                // GET DATA
+                //========================================================================== 
+                var _model = RMenuModel.fromFilestore(snapshot.data.documents[index]); 
+                //==========================================================================
+                // FILL DATA
+                //==========================================================================                 
+                String _docId = snapshot.data.documents[index].documentID;              
+                String _name =  _model.name ;  
+                String _description =  _model.description;  
+                double _price =  _model.price??100;     
+                String _imageUrl =  _model.imageUrl??'';                                      
               return Padding(padding: const EdgeInsets.all(8.0),
-                   
-                  child: Card(  child: Container( child: InkWell(
+                  //========================================================================
+                  // CARD AT EACH INDEX
+                  //========================================================================                  
+                  child: Card(  child: Container(child: InkWell(
                     onTap: () {Navigator.push(context,MaterialPageRoute(builder: (context) => RMenuViewPage(menuId: snapshot.data.documents[index].documentID,)));},                   
                     child: Column(children: <Widget>[
-                      widgetBodyText(_docId,_name,_description,_price,_imageUrl),        
+                      widgetBodyText(_docId,_name,_description,_price,_imageUrl), 
                     ],),),),));
               }, //Return#1
             );
@@ -122,10 +127,6 @@ class _RMenuSearchPageState extends State<RMenuSearchPage> {
       )
     );
   }
-
-
-
-
 
   //========================================================================================
   // WIDGET: BODY TEXT
@@ -159,10 +160,22 @@ class _RMenuSearchPageState extends State<RMenuSearchPage> {
                 Column
                 (crossAxisAlignment: CrossAxisAlignment.end,children: <Widget>[
                   //=========================================================================
-                  // BUTTON
+                  // COUNTER BUTTON
                   //=========================================================================
-                  Text('Qty: 1'),
-                  RaisedButton(onPressed: (){fnSaveOrder(myMenuId,myName,myDescription,myPrice,imageUrl);},child: Text('Order Now'),color: Colors.orange,),
+                  // new Counter( initialValue:_counterArr[myMenuId]??1, minValue: 1, maxValue: 10, step: 1 , onChanged: (value) {
+                  //   setState(() {
+                  //     _counterArr[myMenuId] = value;
+                  //   });
+                  // }, decimalPlaces: 0),
+                  //=========================================================================
+                  // TEXT
+                  //=========================================================================                  
+                  Text('' ),
+                  //=========================================================================
+                  // BUTTON
+                  //=========================================================================     
+                  RaisedButton(onPressed: (){fnSaveOrder(myMenuId,myName,myDescription,myPrice,imageUrl,1??1 );},child: Text('Order Now'),color: Colors.orange,),                               
+                  //RaisedButton(onPressed: (){fnSaveOrder(myMenuId,myName,myDescription,myPrice,imageUrl,_counterArr[myMenuId] );},child: Text('Order Now'),color: Colors.orange,),
                 ],)
           ],
         ),
@@ -173,12 +186,11 @@ class _RMenuSearchPageState extends State<RMenuSearchPage> {
   //=======================================================================================
   // FUNCTION: SAVE ORDER
   //=======================================================================================
-  fnSaveOrder(String myId,String myName, String myDescription, double myPrice, String imageUrl, ){
+  fnSaveOrder(String myId,String myName, String myDescription, double myPrice, String imageUrl, int myQty){
         //=================================================================================
     // PREPARE DATA
     //=====================================================================================       
-    ROrderModel myModel = ROrderModel(id: 'ORD001',name: myName,description: myDescription, qty: 1, customer: "Mr.Sornchai", menuId: myId, table: 'T001', imageUrl: imageUrl);
-    logger.i(myModel);
+    ROrderModel myModel = ROrderModel(id: 'ORD001',name: myName,description: myDescription, qty: myQty, customer: "Mr.Sornchai", menuId: myId, table: 'T001', imageUrl: imageUrl);
     //=====================================================================================
     // SHOW LOG
     //=====================================================================================   
@@ -189,8 +201,7 @@ class _RMenuSearchPageState extends State<RMenuSearchPage> {
     String _timestampstr = DateTime.now().millisecondsSinceEpoch.toString();    
     Firestore.instance.collection("TT_ORDER").document(_timestampstr).setData(myModel.toFileStone()) ; 
     setState(() {
-          _countOrderItem++;
-          logger.i('Insert Order Complete: ' + _countOrderItem.toString() + ' item(s)') ;
+          logger.i('Insert Order Complete') ;
     });      // SAVE DB
   }
   //=======================================================================================
@@ -219,7 +230,7 @@ class _RMenuSearchPageState extends State<RMenuSearchPage> {
       stream:  Firestore.instance.collection("TT_ORDER").snapshots(),
       builder: (BuildContext context, AsyncSnapshot _shapshot) => BadgeIcon(
         icon:Icon(Icons.add_shopping_cart, size: 25,),
-       badgeCount:  _shapshot.data.documents.length        
+       badgeCount:  _shapshot.data.documents.length??0        
     ), 
     ),
     title:  Text('New'));
