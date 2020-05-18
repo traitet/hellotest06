@@ -43,9 +43,9 @@ class _AMenuPageState extends State<AMenuPage> {
           badgeCount: _snapshot.data.documents.length,)
         )
 //=============================================================================================
-// กดปุ่มแล้วไป Order Page
+// กดปุ่มแล้วไป SEARCH DOC Page
 //=============================================================================================         
-        , onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => ASearchDocPage(email: widget.email,)),); 
+        , onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => ASearchDocPage(email: widget.email,docType: 'PR',)),); 
 
 
         })
@@ -57,7 +57,7 @@ class _AMenuPageState extends State<AMenuPage> {
              RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => ACreateDocCarReqPage(email: widget.email)),);}, child: Text('Issue Doc Car Request - CAR'),),    
              RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => ACreateDocPrPage(email: widget.email)),);}, child: Text('Issue Doc PR - PR'),),                          
              RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => ASearchDocTypePage(email: widget.email,)),);}, child: Text('Search Doc Type'),),     
-             RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => ASearchDocPage(email: widget.email,)),);}, child: Text('Approve: Search Doc / My Tasks'),),     
+             RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => ASearchDocPage(email: widget.email,docType: 'PR',)),);}, child: Text('Approve: Search Doc / My Tasks'),),     
                                                             
       ],),
       

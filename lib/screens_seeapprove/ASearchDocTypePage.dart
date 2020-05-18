@@ -5,6 +5,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hellotest06/models_seeapprove/ADocTypeModel.dart';
+import 'package:hellotest06/screens_seeapprove/ASearchDocPage.dart';
 import 'package:hellotest06/screens_seeapprove/AViewDocPage.dart';
 import 'package:hellotest06/widgets/BadgeIcon.dart';
 // import 'package:golfep1/services/LoggerService.dart';
@@ -99,7 +100,7 @@ class _ASearchDocTypePageState extends State<ASearchDocTypePage> {
               return Card(
                 child: Container(child: InkWell(
                   onTap: (){
-                    Navigator.push(context,MaterialPageRoute(builder: (context) => AViewDocPage(docId: snapshot.data.documents[_index].documentID,email: widget.email,)));
+                    Navigator.push(context,MaterialPageRoute(builder: (context) => ASearchDocPage(docType: _id,email: widget.email,)));
                   },
                   child: Row(children: <Widget>[
 //=============================================================================================
@@ -116,7 +117,8 @@ class _ASearchDocTypePageState extends State<ASearchDocTypePage> {
 //=============================================================================================
 // SHOW ICON
 //=============================================================================================         
-        IconButton(icon: StreamBuilder(initialData: 0,stream: Firestore.instance.collection('ATT_DOC_TYPE').where('id',isEqualTo: _id).snapshots(),builder: (BuildContext context, AsyncSnapshot _snapshot) => BadgeIcon(icon: Icon(Icons.add_shopping_cart, size: 25,),badgeCount: _snapshot.data.documents.length,))  , onPressed: (){}),
+        IconButton(icon: StreamBuilder(initialData: 0,
+        stream: Firestore.instance.collection('ATT_DOC').where('docType',isEqualTo: _id).snapshots(),builder: (BuildContext context, AsyncSnapshot _snapshot) => BadgeIcon(icon: Icon(Icons.add_shopping_cart, size: 25,),badgeCount: _snapshot.data.documents.length,))  , onPressed: (){}),
         
                   ],),
                 )),

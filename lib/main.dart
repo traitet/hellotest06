@@ -112,7 +112,7 @@ class _MyHomePageState extends State<MyHomePage> {
             //====================================================================
             // BUTTON
             //====================================================================  
-            RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => ALoginPage()),);}, child: Text('Approve: Login'),),               
+            RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => ALoginPage()),);}, child: Text('A E-document: Login'),),               
             RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => RMenuViewPage(menuId: "M0001",)),);}, child: Text('Rest: View Food Menu'),),    
             RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => RMenuSearchPage()),);}, child: Text('Rest: Search Food Menu'),),                            
             RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => RMenuNewPage()),);}, child: Text('Rest: New Menu'),),  

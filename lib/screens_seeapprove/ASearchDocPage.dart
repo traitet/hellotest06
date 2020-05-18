@@ -17,7 +17,8 @@ class ASearchDocPage extends StatefulWidget {
   // PARAMETER
   //======================================================================================
   final String email;
-  ASearchDocPage({Key key, @required this.email,}): super(key: key);
+  final String docType;
+  ASearchDocPage({Key key, @required this.email, @required this.docType,}): super(key: key);
 
 
 
@@ -48,7 +49,7 @@ class _ASearchDocPageState extends State<ASearchDocPage> {
 //=============================================================================================
 // GET DATA FROM DB
 //=============================================================================================           
-          stream: Firestore.instance.collection('ATT_DOC').snapshots(),
+          stream: Firestore.instance.collection('ATT_DOC').where('docType',isEqualTo: widget.docType).snapshots(),
           builder: (BuildContext context, AsyncSnapshot _snapshot) => BadgeIcon(icon: Icon(Icons.add_shopping_cart, size: 25,),
 //=============================================================================================
 // SHOW จำนวน Order Item จาก DB (TT_ORDER)
@@ -68,7 +69,7 @@ class _ASearchDocPageState extends State<ASearchDocPage> {
 //=============================================================================================
 // GET DATA FROM DB (FIREBASE ->SNAPSHOT(TABLE))
 //=============================================================================================        
-      stream: Firestore.instance.collection('ATT_DOC').snapshots(),
+      stream: Firestore.instance.collection('ATT_DOC').where('docType',isEqualTo: widget.docType).snapshots(),
 //=============================================================================================
 // BUILDER
 //=============================================================================================        
