@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hellotest06/screens_seeapprove/ALoginPage.dart';
 import 'package:hellotest06/screens_seerest/RSplashScreen.dart';
 import 'package:image_picker/image_picker.dart';
 import './screens_seerest/RMenuNewPage.dart';
@@ -111,6 +112,7 @@ class _MyHomePageState extends State<MyHomePage> {
             //====================================================================
             // BUTTON
             //====================================================================  
+            RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => ALoginPage()),);}, child: Text('Approve: Login'),),               
             RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => RMenuViewPage(menuId: "M0001",)),);}, child: Text('Rest: View Food Menu'),),    
             RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => RMenuSearchPage()),);}, child: Text('Rest: Search Food Menu'),),                            
             RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => RMenuNewPage()),);}, child: Text('Rest: New Menu'),),  
