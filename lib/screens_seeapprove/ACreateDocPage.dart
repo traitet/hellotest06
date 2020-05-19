@@ -1,9 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:hellotest06/models_seeapprove/ADocModel.dart';
+import 'package:hellotest06/models_seedoc/DUserModel.dart';
 import 'package:hellotest06/screens_seeapprove/AWfSetting.dart';
 import 'package:hellotest06/services/LoggerService.dart';
-import 'package:hellotest06/services/ShowNotification.dart';
 
 class ACreateDocPage extends StatefulWidget {
    //======================================================================================
@@ -21,12 +22,14 @@ class _ACreateDocPageState extends State<ACreateDocPage> {
 // DECLARE TEXT EDIT CONTROLLER
 //====================================================================== 
       //final _createdByController = TextEditingController()..text;
+      GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();      
       final _nameController = TextEditingController()..text = 'Request General';
       final _descriptionController = TextEditingController()..text = 'Requested General for any document '; 
       final String _timestampstr = DateTime.now().millisecondsSinceEpoch.toString();        
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: scaffoldKey,
       appBar: AppBar(title: Text('Create Doc: ' + _timestampstr),),
       body: ListView(children: <Widget>[
 //======================================================================
@@ -41,16 +44,41 @@ class _ACreateDocPageState extends State<ACreateDocPage> {
 //======================================================================
 // SAVE TO DB
 //======================================================================               
-              ADocModel myModel = ADocModel(docType: 'GENERAL', id: _timestampstr,name: _nameController.text,description: _descriptionController.text, createdBy: widget.email,imageUrl: 'https://firebasestorage.googleapis.com/v0/b/hellotest06-88fae.appspot.com/o/download.png?alt=media&token=7193690e-bd2b-4880-b949-8267024beed6');
-              logger.i(myModel.toFileStone());
+              // ADocModel myModel = ADocModel(
+              //     docType: 'GENERAL', 
+              //     id: _timestampstr,
+              //     name: _nameController.text,
+              //     description: _descriptionController.text, 
+              //     createdBy: widget.email,
+              //     imageUrl: 'https://firebasestorage.googleapis.com/v0/b/hellotest06-88fae.appspot.com/o/download.png?alt=media&token=7193690e-bd2b-4880-b949-8267024beed6',              
+              //     //workFlows:  WorkFlows(userName: 'traitet@gmail.com',action: 'APPROVE', comment: 'approved ok'),
+              //   );                      
+              // logger.i(myModel.toFileStone());
+              // Firestore.instance.collection('ATT_DOC').document(_timestampstr).setData(myModel.toFileStone());
 
-              Firestore.instance.collection('ATT_DOC').document(_timestampstr).setData(myModel.toFileStone());
+              var _data = {
+                  'docType': 'GENERAL', 
+                  'id': _timestampstr,
+                  'name': _nameController.text,
+                  'description': _descriptionController.text, 
+                  'createdBy': widget.email,
+                  'imageUrl': 'https://firebasestorage.googleapis.com/v0/b/hellotest06-88fae.appspot.com/o/download.png?alt=media&token=7193690e-bd2b-4880-b949-8267024beed6',              
+                  'workFlows': [
+                    {'id':1,'userName': 'traitet@gmail.com','action': 'APPROVE', 'comment': 'approved ok'},
+                    {'id':2,'userName': 'traitet@gmail.com','action': 'APPROVE', 'comment': 'approved ok'},
+                    {'id':3,'userName': 'satit_po@gmail.com','action': 'APPROVE', 'comment': 'approved ok leve 2'},                    
+                  ]
+                 };                     
+                logger.i(_data);
+              Firestore.instance.collection('ATT_DOC').document(_timestampstr).setData(_data);
+
 //======================================================================
 // SAVE COMPLETE
 //======================================================================               
               setState(() {
                 logger.i('Insert Order Completed');
-                showMessageBox(context, "success", "Register Document($_timestampstr) to Firestore Database completely", actions: [dismissButton(context)]);
+                //showMessageBox(context, "success", "Register Document($_timestampstr) to Firestore Database completely", actions: [dismissButton(context)]);
+                scaffoldKey.currentState.showSnackBar(SnackBar(content: Text("Register Document($_timestampstr) to Firestore Database completely",style: TextStyle(color: Colors.white)),backgroundColor: Colors.green[300],));                
               });
 
 //======================================================================

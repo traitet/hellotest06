@@ -89,11 +89,7 @@ class _AResetPasswordPageState extends State<AResetPasswordPage> {
   resetPassword() {
       String email = emailController.text.trim();
       _auth.sendPasswordResetEmail(email: email);
-      scaffoldKey.currentState.showSnackBar(SnackBar(
-        content: Text("We send the detail to $email successfully.",
-            style: TextStyle(color: Colors.white)),
-        backgroundColor: Colors.green[300],
-      ));
+      scaffoldKey.currentState.showSnackBar(SnackBar(content: Text("We send the detail to $email successfully.",style: TextStyle(color: Colors.white)),backgroundColor: Colors.green[300],));
     }
 }
  
