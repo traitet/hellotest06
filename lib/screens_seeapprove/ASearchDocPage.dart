@@ -21,7 +21,9 @@ class ASearchDocPage extends StatefulWidget {
   ASearchDocPage({Key key, @required this.email, @required this.docType,}): super(key: key);
 
 
-
+//=============================================================================================
+// OERRIDE
+//=============================================================================================  
   @override
   _ASearchDocPageState createState() => _ASearchDocPageState();
 }
@@ -30,6 +32,7 @@ class ASearchDocPage extends StatefulWidget {
 // STATE CLASS
 //=============================================================================================  
 class _ASearchDocPageState extends State<ASearchDocPage> {
+  bool _isCreater = true;
   @override
   Widget build(BuildContext context) {
 //=============================================================================================
@@ -122,10 +125,10 @@ class _ASearchDocPageState extends State<ASearchDocPage> {
 //=============================================================================================   
                     Row(
                       children: <Widget>[
-                        Expanded(child: Padding(padding: const EdgeInsets.all(8.0),child: RaisedButton(onPressed: (){}, child: Text('Call Back'),),)),
-                        Expanded(child: Padding(padding: const EdgeInsets.all(8.0),child: RaisedButton(onPressed: (){}, child: Text('Cancel '),),)),  
-                        Expanded(child: Padding(padding: const EdgeInsets.all(8.0),child: RaisedButton(onPressed: (){}, child: Text('Approve'),),)),
-                        Expanded(child: Padding(padding: const EdgeInsets.all(8.0),child: RaisedButton(onPressed: (){}, child: Text('Reject'),),)),                          
+                        Visibility(visible: _isCreater, child: Expanded(child: Padding(padding: const EdgeInsets.all(8.0),child: RaisedButton(onPressed: (){}, child: Text('Recall'),),))),
+                        Visibility(visible: _isCreater, child: Expanded(child: Padding(padding: const EdgeInsets.all(8.0),child: RaisedButton(onPressed: (){}, child: Text('Cancel '),),))),  
+                        Visibility(visible: !_isCreater, child: Expanded(child: Padding(padding: const EdgeInsets.all(8.0),child: RaisedButton(onPressed: (){}, child: Text('Approve'),),))),
+                        Visibility(visible: !_isCreater, child: Expanded(child: Padding(padding: const EdgeInsets.all(8.0),child: RaisedButton(onPressed: (){}, child: Text('Reject'),),))),                          
                       ],
                     ),  
                   ],

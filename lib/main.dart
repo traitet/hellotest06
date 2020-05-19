@@ -30,6 +30,8 @@ import './screens/StackPage.dart';
 import './screens/UploadImagePage.dart';
 import './screens/MyResetPasswordPage.dart';
 import './screens/MyLoginPage.dart';
+// import 'package:firebase/firebase.dart' as WebFirebase;
+// import 'package:firebase/firestore.dart' as WebFirestore;
 // import './screens/ReadQRPage.dart';
 // import './screens/ReadQRPage.dart';
 //============================================================================
