@@ -31,7 +31,7 @@ import './screens/UploadImagePage.dart';
 import './screens/MyResetPasswordPage.dart';
 import './screens/MyLoginPage.dart';
 // import './screens/ReadQRPage.dart';
-
+// import './screens/ReadQRPage.dart';
 //============================================================================
 // MAIN APP
 //============================================================================
