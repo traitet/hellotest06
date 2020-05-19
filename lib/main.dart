@@ -30,7 +30,6 @@ import './screens/StackPage.dart';
 import './screens/UploadImagePage.dart';
 import './screens/MyResetPasswordPage.dart';
 import './screens/MyLoginPage.dart';
-
 // import './screens/ReadQRPage.dart';
 
 //============================================================================
@@ -143,6 +142,7 @@ class _MyHomePageState extends State<MyHomePage> {
             RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => STLWidgetPage()),);}, child: Text('Stateless Page'),),   
             RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => STFWidgetPage()),);}, child: Text('Statefull Widget Page'),), 
             RaisedButton(child: Text('Choose File'),onPressed: chooseFile,   color: Colors.cyan,),
+                      
             
             //RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => DLogininSmsPage()),);}, child: Text('See Doc Login (SMS)'),),    
             // RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => DUserNewPage()),);}, child: Text('See Sign Up'),),  
