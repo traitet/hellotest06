@@ -1,8 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_database/firebase_database.dart';
+// import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:hellotest06/models_seeapprove/ADocModel.dart';
-import 'package:hellotest06/models_seedoc/DUserModel.dart';
 import 'package:hellotest06/screens_seeapprove/AWfSetting.dart';
 import 'package:hellotest06/services/LoggerService.dart';
 
@@ -71,6 +69,17 @@ class _ACreateDocPageState extends State<ACreateDocPage> {
                  };                     
                 logger.i(_data);
               Firestore.instance.collection('ATT_DOC').document(_timestampstr).setData(_data);
+
+
+              // final dbRef = FirebaseDatabase.instance.reference().child('ATT_DOC').child('workFlows');
+              // dbRef.push().set({
+              //   'id':3,'userName': 'satit_po@gmail.com','action': 'APPROVE', 'comment': 'approved ok leve 99'
+              // }).then((value){
+              //   Scaffold.of(context).showSnackBar(SnackBar(content: Text('Succesfully added')));
+              // }).catchError((onError) {
+              //   logger.i(onError);
+              // });
+
 
 //======================================================================
 // SAVE COMPLETE

@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:uuid/uuid.dart';
 
 //===============================================================
 // CLASS DOC MODEL
@@ -19,7 +20,7 @@ class DDocModel {
   // 2) GET/SET
   //=============================================================
   DDocModel(
-      {this.id,
+      {this.id = Uuid.NAMESPACE_X500,
       this.username,
       this.title,
       this.imageUrl,

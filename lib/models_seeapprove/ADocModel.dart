@@ -18,7 +18,7 @@ class ADocModel {
   //=============================================================
   // 2) CONSTUCTURE
   //=============================================================
-  ADocModel({
+  const ADocModel({
     this.id ='',
     this.name='',
     this.description='',
@@ -27,7 +27,7 @@ class ADocModel {
     this.docType='',
     // this.workFlows,
 
-  });
+  }) : assert(id != null, name != null);
 
   //=============================================================
   // 2) MAP MODEL -> SNAPSHOT
