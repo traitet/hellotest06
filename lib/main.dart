@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:hellotest06/screens_seeapprove/ALoginPage.dart';
-import 'package:hellotest06/screens_seerest/RSplashScreen.dart';
 import 'package:image_picker/image_picker.dart';
+import './screens_seeapprove/ALoginPage.dart';
+import './screens_seelastminute/LMenuPage.dart';
+import './screens_seerest/RSplashScreen.dart';
 import './screens_seerest/RMenuNewPage.dart';
 import './screens_seerest/RMenuViewPage.dart';
 import './screens_seerest/RMenuSearchPage.dart';
@@ -113,6 +114,7 @@ class _MyHomePageState extends State<MyHomePage> {
             //====================================================================
             // BUTTON
             //====================================================================  
+            RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => LMenuPage(email: 'traitet@gmail.com',)),);}, child: Text('L: Last Minute App'),),             
             RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => ALoginPage()),);}, child: Text('A E-document: Login'),),               
             RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => RMenuViewPage(menuId: "M0001",)),);}, child: Text('Rest: View Food Menu'),),    
             RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => RMenuSearchPage()),);}, child: Text('Rest: Search Food Menu'),),                            
