@@ -5,7 +5,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hellotest06/models_seeapprove/ADocModel.dart';
-import 'package:hellotest06/screens_seeapprove/AViewDocPage.dart';
 import 'package:hellotest06/screens_seelastminute/LViewDealPage.dart';
 import 'package:hellotest06/widgets/BadgeIcon.dart';
 // import 'package:golfep1/services/LoggerService.dart';

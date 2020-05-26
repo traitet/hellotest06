@@ -8,24 +8,28 @@ class LDealModel {
   //=============================================================
   // 1) PROPERTY
   //=============================================================
-  final String id;
-  final String name;
-  final String description;
-  final String imageUrl;
-  final String createdBy;
-  final String docType;  
+  String id;
+  String name;
+  String description;
+  String imageUrl;
+  String createdBy;
+  String docType;  
+  List<String> streets;
+  List<WorkFlows> workflows;
   // final WorkFlows workFlows;
 
   //=============================================================
   // 2) CONSTUCTURE
   //=============================================================
-  const LDealModel({
+  LDealModel({
     this.id  = Uuid.NAMESPACE_X500,
     this.name='',
     this.description='',
     this.imageUrl='',
     this.createdBy='',
     this.docType='',
+    this.streets,
+    this.workflows,
     // this.workFlows,
 
   }) : assert(id != null, name != null);
@@ -33,15 +37,19 @@ class LDealModel {
   //=============================================================
   // 2) MAP MODEL -> SNAPSHOT
   //=============================================================
-  Map<String, dynamic> toFileStone() => {
+  Map<String, dynamic> toFileStone()  {
+    return {
         'id': id,
         'name': name??'',
         'description': description??'',
         'imageUrl': imageUrl??'',
         'createdBy': createdBy??'',
-        'docType': docType??'',        
-        // 'workFlows': workFlows.toFileStone(),
-      };
+        'docType': docType??'',  
+        'workflows': workflows.map((e) => e.userName).toList() , 
+        'streets': streets,
+        // 'workFlows': workflows,
+    };
+  }
 
   //=============================================================
   // 3) MAP SNAPSHOT -> MODEL
@@ -54,12 +62,47 @@ class LDealModel {
       description: data['description'] ?? '',
       imageUrl: data['imageUrl'] ?? '',   
       createdBy: data['createdBy'] ?? '',   
-      docType: data['docType'] ?? '',         
+      docType: data['docType'] ?? '',     
+      streets: data['streets'],
+      workflows: data['workflows']    
       //workFlows: WorkFlows.fromFilestore(data['workFlows']),
   
     );
   }
 }
+
+
+
+
+
+// class WorkFlowsList {
+//   final List<WorkFlows> workflows;
+//   WorkFlowsList({
+//     this.workflows
+//   });
+
+
+//   Map<String, dynamic> toFileStone() => {
+//         'workflows': workflows,
+//       };
+
+
+
+//   factory WorkFlowsList.fromFirestone(List<WorkFlows> doc) {
+
+//     List<WorkFlows> workflows = new List<WorkFlows>();
+
+//     return new WorkFlowsList(
+//        workflows: workflows,
+//     );
+//   }
+// }
+
+
+
+
+
+
 
 
 //=============================================================
@@ -69,20 +112,21 @@ class WorkFlows {
   //=============================================================
   // 1) VARIABLE
   //============================================================= 
-  final String userName;
-  final String action;  
-  final String comment;  
+  String userName;
+  String action;  
+  String comment;  
   //=============================================================
   // 2) CONSTRUCTURE
   //=============================================================  
   WorkFlows({
-    this.userName='',
-    this.action='', 
-    this.comment=''});
+    this.userName,
+    this.action, 
+    this.comment
+    });
   //=============================================================
   // FIRESTONE -> CLASS
   //=============================================================
-  factory WorkFlows.fromFilestore(Map<dynamic, dynamic> data) {
+  factory WorkFlows.fromFilestore(Map<String, dynamic> data) {
     // Map data = doc.data;
     return WorkFlows(
       userName: data['userName'] ?? '',

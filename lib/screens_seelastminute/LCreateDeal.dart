@@ -48,19 +48,34 @@ class _LCreateDealPageState extends State<LCreateDealPage> {
 //======================================================================
 // SAVE INPUT
 //======================================================================             
-            RaisedButton(onPressed: () async {
+            RaisedButton(onPressed: () {
 //======================================================================
 // SAVE INPUT
 //======================================================================
-              await fnUploadFile();  
-              logger.i('upload image completed: ' + _uploadedFileURL??''  );          
+              // await fnUploadFile();  
+             // logger.i('upload image completed: ' + _uploadedFileURL??''  );          
 //======================================================================
 // SAVE TO DB
 //======================================================================               
-              LDealModel myModel = LDealModel(docType: "DEAL",name: _nameController.text,description: _descriptionController.text, createdBy: widget.email,imageUrl: _uploadedFileURL);
-              logger.i(myModel.toFileStone());
+               List<WorkFlows> workFlows = new List<WorkFlows>(3) ;
+              workFlows[0] = WorkFlows(action: 'ISSUE',userName: 'traitet',comment: 'document issued');               
+              workFlows[1] = WorkFlows(action: 'APPROVE',userName: 'satit',comment: 'document issued');
+              workFlows[2] = WorkFlows(action: 'REJECT',userName: 'tananum',comment: 'document issued');              
+              // workFlows.add(WorkFlows(action: 'APPROVE',userName: 'satit',comment: 'ok approve'));    
+              // workFlows.add(WorkFlows(action: 'APPROVE',userName: 'satit',comment: 'ok approve'));      
+
+              // WorkFlowsList workflowlist;
+              // workflowlist.workflows.add(WorkFlows(action: 'ISSUE',userName: 'traitet',comment: 'document issued')) ;          
+              
+              LDealModel myModel = LDealModel(docType: "DEAL",name: _nameController.text,description: _descriptionController.text, createdBy: widget.email,imageUrl: _uploadedFileURL,
+                  streets: ['a','b','c'], 
+                  workflows:workFlows);
+              //logger.i(myModel.toFileStone());
+              var a = myModel.toFileStone();
+               logger.i(myModel);              
+              logger.i(a);
               Firestore.instance.collection('LTT_DEAL').document(_timestampstr).setData(myModel.toFileStone());
-//======================================================================
+//======================================================================workFlows
 // SAVE COMPLETE
 //======================================================================               
               setState(() {

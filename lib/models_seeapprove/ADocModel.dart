@@ -13,7 +13,8 @@ class ADocModel {
   final String imageUrl;
   final String createdBy;
   final String docType;  
-  // final WorkFlows workFlows;
+  // final List<WorkFlows> listWorkFlows;
+  // final Department department;
 
   //=============================================================
   // 2) CONSTUCTURE
@@ -25,21 +26,24 @@ class ADocModel {
     this.imageUrl='',
     this.createdBy='',
     this.docType='',
-    // this.workFlows,
+    // this.listWorkFlows,
+    // this.department,
 
   }) : assert(id != null, name != null);
 
   //=============================================================
   // 2) MAP MODEL -> SNAPSHOT
   //=============================================================
-  Map<String, dynamic> toFileStone() => {
+  Map<String, dynamic> toFileStone() => 
+  {
         'id': id,
         'name': name??'',
         'description': description??'',
         'imageUrl': imageUrl??'',
         'createdBy': createdBy??'',
         'docType': docType??'',        
-        // 'workFlows': workFlows.toFileStone(),
+        // 'listWorkFlows': listWorkFlows ,
+        // 'department': department.toFileStone(),
       };
 
   //=============================================================
@@ -54,7 +58,8 @@ class ADocModel {
       imageUrl: data['imageUrl'] ?? '',   
       createdBy: data['createdBy'] ?? '',   
       docType: data['docType'] ?? '',         
-      //workFlows: WorkFlows.fromFilestore(data['workFlows']),
+      // listWorkFlows: data['WorkFlows'],
+      // department: Department.fromFilestore(data['department']),
   
     );
   }
@@ -105,21 +110,21 @@ class WorkFlows {
 //===============================================================
 // CLASS USER DETAIL
 //===============================================================
-class Department1 {
+class Department {
   final String deptId;
   final String deptName;
 
   //=============================================================
   // CONSTUCTURE
   //=============================================================
-  Department1({this.deptId, this.deptName});
+  Department({this.deptId, this.deptName});
 
   //=============================================================
   // FIRESTONE -> CLASS
   //=============================================================
-  factory Department1.fromFilestore(Map<dynamic, dynamic> data) {
+  factory Department.fromFilestore(Map<dynamic, dynamic> data) {
     // Map data = doc.data;
-    return Department1(
+    return Department(
       deptId: data['deptid'] ?? '',
       deptName: data['deptname'] ?? '',
     );
