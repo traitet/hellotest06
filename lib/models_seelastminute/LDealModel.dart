@@ -15,7 +15,7 @@ class LDealModel {
   String createdBy;
   String docType;  
   List<String> streets;
-  List<WorkFlows> workflows;
+  List<WorkFlow> workflows;
   // final WorkFlows workFlows;
 
   //=============================================================
@@ -30,26 +30,7 @@ class LDealModel {
     this.docType='',
     this.streets,
     this.workflows,
-    // this.workFlows,
-
   }) : assert(id != null, name != null);
-
-  //=============================================================
-  // 2) MAP MODEL -> SNAPSHOT
-  //=============================================================
-  Map<String, dynamic> toFileStone()  {
-    return {
-        'id': id,
-        'name': name??'',
-        'description': description??'',
-        'imageUrl': imageUrl??'',
-        'createdBy': createdBy??'',
-        'docType': docType??'',  
-        'workflows': workflows.map((e) => e.userName).toList() , 
-        'streets': streets,
-        // 'workFlows': workflows,
-    };
-  }
 
   //=============================================================
   // 3) MAP SNAPSHOT -> MODEL
@@ -63,89 +44,120 @@ class LDealModel {
       imageUrl: data['imageUrl'] ?? '',   
       createdBy: data['createdBy'] ?? '',   
       docType: data['docType'] ?? '',     
-      streets: data['streets'],
-      workflows: data['workflows']    
-      //workFlows: WorkFlows.fromFilestore(data['workFlows']),
-  
+      streets: List<String>.from(['streets']), // CONVERT FROM LIST<dynamic> to LIST<String> 
+      workflows: List<WorkFlow>.from(data['workflows'].map((e) => WorkFlow.fromFilestore(e))),  // CONVERT FROM LIST<dynamic>(i) to LIST<workflows>(i) and map index in list
     );
   }
+
+  //=============================================================
+  // 4) MAP MODEL -> SNAPSHOT
+  //=============================================================
+  Map<String, dynamic> toFileStore()  {
+    return {
+        'id': id,
+        'name': name??'',
+        'description': description??'',
+        'imageUrl': imageUrl??'',
+        'createdBy': createdBy??'',
+        'docType': docType??'',  
+        'streets': streets,        
+        'workflows': List<dynamic>.from(workflows.map((e) => e.toFileStore())),
+    };
+  }
+
+  //=============================================================
+  // 5) MAP JSON -> MODEL
+  //=============================================================
+  factory LDealModel.fromJson(Map<String, dynamic> json) {
+    return LDealModel(
+      id: json['id'] ?? '',
+      name: json['name'] ?? '',
+      description: json['description'] ?? '',
+      imageUrl: json['imageUrl'] ?? '',   
+      createdBy: json['createdBy'] ?? '',   
+      docType: json['docType'] ?? '',     
+      streets: json['streets'],
+      workflows: List<WorkFlow>.from(json['workflows'].map((e) => WorkFlow.fromJson(e))),
+    );
+  }
+
+  //=============================================================
+  // 6) MAP MODEL -> JSON
+  //=============================================================
+  Map<String, dynamic> toJson()  {
+    return {
+        'id': id,
+        'name': name??'',
+        'description': description??'',
+        'imageUrl': imageUrl??'',
+        'createdBy': createdBy??'',
+        'docType': docType??'',  
+        'streets': streets,        
+        'workflows': List<dynamic>.from(workflows).map((e) => e.toJson()),
+    };
+  }
 }
-
-
-
-
-
-// class WorkFlowsList {
-//   final List<WorkFlows> workflows;
-//   WorkFlowsList({
-//     this.workflows
-//   });
-
-
-//   Map<String, dynamic> toFileStone() => {
-//         'workflows': workflows,
-//       };
-
-
-
-//   factory WorkFlowsList.fromFirestone(List<WorkFlows> doc) {
-
-//     List<WorkFlows> workflows = new List<WorkFlows>();
-
-//     return new WorkFlowsList(
-//        workflows: workflows,
-//     );
-//   }
-// }
-
-
-
-
-
-
-
 
 //=============================================================
 // CLASS WORKFLOW
 //=============================================================
-class WorkFlows {
+class WorkFlow {
   //=============================================================
   // 1) VARIABLE
   //============================================================= 
   String userName;
   String action;  
   String comment;  
+
   //=============================================================
   // 2) CONSTRUCTURE
   //=============================================================  
-  WorkFlows({
+  WorkFlow({
     this.userName,
     this.action, 
     this.comment
     });
+
   //=============================================================
-  // FIRESTONE -> CLASS
+  // 3) FIRESTORE -> OBJECT
   //=============================================================
-  factory WorkFlows.fromFilestore(Map<String, dynamic> data) {
+  factory WorkFlow.fromFilestore(Map<String, dynamic> data) {
     // Map data = doc.data;
-    return WorkFlows(
+    return WorkFlow(
       userName: data['userName'] ?? '',
       action: data['action'] ?? '',
-       comment: data['comment'] ?? '',     
+      comment: data['comment'] ?? '',     
     );
   }
+
+
   //=============================================================
-  // 2) CLASS -> SNAPSHOT
+  // 4) OBJECT -> SNAPSHOT (FIRESTORE)
   //=============================================================
-  Map<String, dynamic> toFileStone() => {
+  Map<String, dynamic> toFileStore() => {
         'userName': userName,
         'action': action,
         'comment': comment,
       };
 
-
+  //=============================================================
+  // 5) JSON -> OBJECT 
+  //=============================================================
+  factory WorkFlow.fromJson(Map<String, dynamic> json) => WorkFlow(
+      userName: json['userName'] ?? '',
+      action: json['action'] ?? '',
+      comment: json['comment'] ?? '',     
+    );
+  
+  //=============================================================
+  // 6) OBJECT -> JSON
+  //=============================================================
+  Map<String, dynamic> toJson() => {
+        'userName': userName,
+        'action': action,
+        'comment': comment,
+      };
 }
-
 
 //===============================================================
 // CLASS USER DETAIL
@@ -162,8 +174,9 @@ class Department1 {
   //=============================================================
   // FIRESTONE -> CLASS
   //=============================================================
-  factory Department1.fromFilestore(Map<dynamic, dynamic> data) {
-    // Map data = doc.data;
+
+  factory Department1.fromFilestore(DocumentSnapshot doc) {
+    Map data = doc.data;
     return Department1(
       deptId: data['deptid'] ?? '',
       deptName: data['deptname'] ?? '',
@@ -173,7 +186,7 @@ class Department1 {
   //=============================================================
   // 2) CLASS -> SNAPSHOT
   //=============================================================
-  Map<String, dynamic> toFileStone() => {
+  Map<String, dynamic> toFileStore() => {
         'deptid': deptId,
         'deptname': deptName,
       };

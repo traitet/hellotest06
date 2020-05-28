@@ -4,7 +4,7 @@
 //=============================================================================================  
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:hellotest06/models_seeapprove/ADocModel.dart';
+import 'package:hellotest06/models_seelastminute/LDealModel.dart';
 import 'package:hellotest06/screens_seelastminute/LViewDealPage.dart';
 import 'package:hellotest06/widgets/BadgeIcon.dart';
 // import 'package:golfep1/services/LoggerService.dart';
@@ -90,7 +90,7 @@ class _LSearchDealPageState extends State<LSearchDealPage> {
 //=============================================================================================
 // SNAPSHOT (DB) -> MODEL (ข้อมูลเมนูอาหารที่ดึงมาจาก DB)
 //============================================================================================= 
-              var _model = ADocModel.fromFilestore(snapshot.data.documents[_index]);
+              var _model = LDealModel.fromFilestore(snapshot.data.documents[_index]);
               String _docId = snapshot.data.documents[_index].documentID;
               String _name = _model.name;
               String _description = _model.description;
