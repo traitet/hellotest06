@@ -44,7 +44,7 @@ class LDealModel {
       imageUrl: data['imageUrl'] ?? '',   
       createdBy: data['createdBy'] ?? '',   
       docType: data['docType'] ?? '',     
-      streets: List<String>.from(['streets']), // CONVERT FROM LIST<dynamic> to LIST<String> 
+      streets: List<String>.from(data['streets']), // CONVERT FROM LIST<dynamic> to LIST<String> 
       workflows: List<WorkFlow>.from(data['workflows'].map((e) => WorkFlow.fromFilestore(e))),  // CONVERT FROM LIST<dynamic>(i) to LIST<workflows>(i) and map index in list
     );
   }

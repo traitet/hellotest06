@@ -46,7 +46,8 @@ class _SearchPageState extends State<SearchPage> {
       //==================================================================================
       // GET DATA FROM API
       //==================================================================================          
-          stream: Firestore.instance.collection("catalog").snapshots(),builder: (context, snapshot) {
+          stream: Firestore.instance.collection("catalog").snapshots(),
+          builder: (context, snapshot) {
             //============================================================================
             // IF NO DATA
             //============================================================================            

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hellotest06/screens_seedoc/DDocApprovePage.dart';
 import 'package:image_picker/image_picker.dart';
 import './screens_seeapprove/ALoginPage.dart';
 import './screens_seelastminute/LMenuPage.dart';
@@ -55,7 +56,7 @@ class MyApp extends StatelessWidget {
       title: 'Hello Test 06 in 2020',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.deepOrange,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: RSplashScreen(), 
@@ -110,10 +111,12 @@ class _MyHomePageState extends State<MyHomePage> {
             //=====================================================================
             // TEXT
             //=====================================================================           
-            Text('CHECK HOT RELOAD'),            
+              Text('CHECK HOT RELOAD'),            
             //====================================================================
             // BUTTON
             //====================================================================  
+            // RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => TInheritWidgetPage()),);}, child: Text('T: Inherit widget page'),),     
+            RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => DDocApprovePage()),);}, child: Text('D: Approve'),),                                 
             RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => LMenuPage(email: 'traitet@gmail.com',)),);}, child: Text('L: Last Minute App'),),             
             RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => ALoginPage()),);}, child: Text('A E-document: Login'),),               
             RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => RMenuViewPage(menuId: "M0001",)),);}, child: Text('Rest: View Food Menu'),),    
@@ -146,8 +149,6 @@ class _MyHomePageState extends State<MyHomePage> {
             RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => STLWidgetPage()),);}, child: Text('Stateless Page'),),   
             RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => STFWidgetPage()),);}, child: Text('Statefull Widget Page'),), 
             RaisedButton(child: Text('Choose File'),onPressed: chooseFile,   color: Colors.cyan,),
-                      
-            
             //RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => DLogininSmsPage()),);}, child: Text('See Doc Login (SMS)'),),    
             // RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => DUserNewPage()),);}, child: Text('See Sign Up'),),  
             // RaisedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => DMenuPage(username: 'traitet@',)),);}, child: Text('See Menu Page'),),  
