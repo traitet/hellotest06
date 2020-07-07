@@ -2,6 +2,7 @@
 //==========================================================================
 // IMPORT
 //==========================================================================
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 //==========================================================================
@@ -20,6 +21,7 @@ class _DDocApprovePageState extends State<DDocApprovePage> {
 // CONSTUCTURE
 //==========================================================================  
   int _tabIndex = 0;
+  int _bottmTabIndex = 0;
 //==========================================================================
 // DECLARE VARIABLE
 //==========================================================================  
@@ -47,7 +49,7 @@ class _DDocApprovePageState extends State<DDocApprovePage> {
 // APP BAR
 //==========================================================================            
           appBar: AppBar(
-            leading: IconButton(icon: Icon(Icons.arrow_back_ios,color: Colors.white,),onPressed: (){}),       
+            leading: IconButton(icon: Icon(Icons.arrow_back_ios,color: Colors.white,),onPressed: (){Navigator.pop(context);}),       
             actions: <Widget>[IconButton(onPressed: (){},icon: Icon(Icons.control_point),)],   
             title: Text('Approve Doc'), 
 //==========================================================================
@@ -55,8 +57,7 @@ class _DDocApprovePageState extends State<DDocApprovePage> {
 //==========================================================================
             bottom: TabBar(
               isScrollable: false,
-
-              onTap: (int index){},
+              onTap: (int index){setState(() {_tabIndex = index;});},
               tabs: choices.map((e) {return Tab(text: e.title, icon: Icon(e.icon),);}).toList(),
             )           
           ),
@@ -64,9 +65,9 @@ class _DDocApprovePageState extends State<DDocApprovePage> {
 // BOTTOM NAVIGATION BAR
 //==========================================================================         
           bottomNavigationBar: BottomNavigationBar(
-            onTap: (int index){},
+            onTap: (int index){setState(() {_bottmTabIndex = index;});},
             type: BottomNavigationBarType.fixed,
-            currentIndex: _tabIndex,
+            currentIndex: _bottmTabIndex,
             items: [
               BottomNavigationBarItem(icon: Icon(Icons.home),title:Text('Home')),
               BottomNavigationBarItem(icon: Icon(Icons.track_changes),title:Text('Tasks')),         
