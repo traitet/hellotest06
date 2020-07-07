@@ -20,7 +20,6 @@ class _DDocApprovePageState extends State<DDocApprovePage> {
 //==========================================================================
 // CONSTUCTURE
 //==========================================================================  
-  int _tabIndex = 0;
   int _bottmTabIndex = 0;
 //==========================================================================
 // DECLARE VARIABLE
@@ -57,7 +56,9 @@ class _DDocApprovePageState extends State<DDocApprovePage> {
 //==========================================================================
             bottom: TabBar(
               isScrollable: false,
-              onTap: (int index){setState(() {_tabIndex = index;});},
+              onTap: (int index){setState(() {
+
+              });},
               tabs: choices.map((e) {return Tab(text: e.title, icon: Icon(e.icon),);}).toList(),
             )           
           ),
